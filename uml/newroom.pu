@@ -1,0 +1,17 @@
+@startuml
+actor User
+title 新しいRoom作成
+
+' The only difference between actor
+'and participant is the drawing
+participant "front (React) " as Front #ffb6c1
+participant "server (Go) " as Server #afeeee
+participant "db (Postgresql) " as DB #99FF99
+
+Front->Server: GET /new/room\n新しい部屋を作成する
+Server->DB: 新しい部屋を作成し, DBに保存する
+Server<--DB:
+
+Front<--Server:新しい部屋のroomIDを返す
+
+@enduml

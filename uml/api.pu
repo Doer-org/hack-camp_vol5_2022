@@ -1,0 +1,61 @@
+@startuml
+actor User
+title Roomにアクセスしてからの全体の流れ
+
+' The only difference between actor
+'and participant is the drawing
+participant "front (React) " as Front #ffb6c1
+participant "server (Go) " as Server #afeeee
+participant "db (Postgresql) " as DB #99FF99
+
+Front->Server: GET /ws?room=<room id>\nwebsocketでroomにアクセス\nStatusを待機中に設定する\n[画面]OO人が待機中...
+Server->DB: 人数がそろったらStatusを変更, DBの内容更新
+Server<--DB:
+Front<--Server: 接続しているメンバー全員にStatusの変更を伝える
+
+Front->Server: GET /new/member?room=<room id>\n新しいmemberを作成する\n[画面]あなたについて入力する\nこのタイミングで質問と回答もuserが作成
+Server->DB: 新しいmemberをDBに保存する
+Server<--DB:
+Front<--Server: user idを返す\nlocalstorageとかで管理?
+
+' '質問用'
+' Front->Server: GET /new/question?room=<room id>&user=<user id>\n新しいmemberを作成する\n[画面]質問と回答を入力する
+' Server->DB: 新しいmemberをDBに保存する
+' Server<--DB:
+' Front<--Server:
+
+
+Front->Server: GET /ws?room=<room id>\nStatusを待機中2に設定する\n[画面]OO人があなたについて入力完了...
+Server->DB: 人数がそろったらStatusを変更, DBの内容更新
+Server<--DB:
+Front<--Server: 接続しているメンバー全員にStatusの変更を伝える
+
+
+''
+Front->Server: GET /answer?room=<room id>&user=<user id>\n新しいmemberを作成する\n[画面]質問に答える
+Server->DB: 新しいmemberをDBに保存する
+Server<--DB:
+Front<--Server:
+
+Front->Server: GET /answer/:questionID?room=<room id>&user=<user id>\n質問に回答したとき\n[画面]質問に答える
+Server->DB:質問の回答結果をDBに保存する
+Server<--DB:
+Front<--Server:
+
+
+Front->Server: GET /ws?room=<room id>\nStatusを待機中３に設定する\n[画面]OO人が質問の回答完了...
+Server->DB: 人数がそろったらStatusを変更, DBの内容更新
+Server<--DB:
+Front<--Server: 接続しているメンバー全員にStatusの変更を伝える
+
+
+Front->Server: GET /member/all?room=<room id>\nroomのメンバー情報をすべて取得\n[画面]一人ずつ詳細画面が表示されて, 全員分見終わったらlistで表示される
+Server->DB: roomのメンバー情報をすべて取得
+Server<--DB:
+Front<--Server:
+
+@enduml
+
+
+' memo
+' roomごとにHubの用意が必要?
