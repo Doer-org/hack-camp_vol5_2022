@@ -48,6 +48,7 @@ func InitRouter() *gin.Engine {
 	// room
 	r.GET("/room/all",getAllRoom)
 	r.POST("/room/new",newRoom)
+	r.GET("/room/:id", getRoomByID)
 
 
 

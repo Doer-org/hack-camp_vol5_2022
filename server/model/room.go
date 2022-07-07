@@ -44,3 +44,11 @@ func NewRoom(name string, max_count int) (room Room) {
 	db.Conn.Save(&newRoom)
 	return newRoom
 }
+
+
+func GetRoomByID(id string) Room {
+	db := db.NewDB() 
+	room := Room{Id: id}
+	db.Conn.First(&room) //roomに他の情報を入れている
+	return room
+}
