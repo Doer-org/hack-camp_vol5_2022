@@ -50,6 +50,9 @@ func InitRouter() *gin.Engine {
 	r.POST("/room/new",newRoom)
 	r.GET("/room/:id", getRoomByID)
 
+	//member
+	r.POST("/member/new", getRoomByMember)
+
 
 
 	// websocket 以下は mahiro72にお任せ
