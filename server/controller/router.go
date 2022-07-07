@@ -22,7 +22,7 @@ func InitRouter() *gin.Engine {
 	// room
 	r.GET("/room/all",getAllRoom)
 	
-	r.GET("/room/:id/:a", getRoomByID)
+	r.GET("/room/:id", getRoomByID)
 
 	// websocket 以下は mahiro72にお任せ
 	// hub := websocket.NewHub()
