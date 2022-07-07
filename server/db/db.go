@@ -4,7 +4,6 @@ package db
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"time"
 
@@ -54,8 +53,6 @@ func newDB(d *DB) *DB {
 	if os.Getenv("DEPLOY_FLAG") == "True"{
 		connInfo = os.Getenv("DATABASE_URL")
 	}
-
-	log.Println("## log",connInfo)
 
 	db, err := gorm.Open("postgres", connInfo)
 
