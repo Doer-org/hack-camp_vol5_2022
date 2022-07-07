@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         'thin-purple': '#F9E8FB',
         'purple': '#E38AEB',
+        'thick-purple': '#A463A9',
       }
     },
   },
