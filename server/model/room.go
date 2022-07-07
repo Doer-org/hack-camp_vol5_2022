@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
 )
+
 type Room struct {
 	Id       string 
 	Name     string

@@ -11,7 +11,7 @@ type RoomJSON struct {
 	// memberの追加
 }
 
-func roomToJSON(room model.Room) RoomJSON {
+func RoomToJSON(room model.Room) RoomJSON {
 	return RoomJSON{
 		Id:room.Id,
 		Name:room.Name,
@@ -22,7 +22,7 @@ func roomToJSON(room model.Room) RoomJSON {
 func RoomsToJSON(rooms []model.Room) []RoomJSON {
 	roomsJSON := []RoomJSON{}
 	for _,room := range rooms {
-		roomsJSON = append(roomsJSON, roomToJSON(room))
+		roomsJSON = append(roomsJSON, RoomToJSON(room))
 	}
 	return roomsJSON
 }

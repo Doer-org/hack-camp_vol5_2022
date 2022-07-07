@@ -12,7 +12,10 @@ import (
 func getAllRoom(c *gin.Context){
 	rooms := model.GetAllRoom()
 	roomsJSON := view.RoomsToJSON(rooms)
-	c.JSON(http.StatusOK, gin.H{
-		"data":roomsJSON,
-	})
+	c.JSON(
+		http.StatusOK, 
+		gin.H{
+			"data":roomsJSON,
+		},
+	)
 }

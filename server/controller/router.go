@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,15 +11,19 @@ import (
 func InitRouter() *gin.Engine {
 	r := gin.Default()
 
-	log.Println("#### ok!!")
 	// health check
-	r.GET("/",func(c *gin.Context) {c.JSON(http.StatusOK,gin.H{"message":"hello"})})
+	r.GET("/",func(c *gin.Context) {c.JSON(
+		http.StatusOK,
+		gin.H{
+			"message":"hello, hikari",
+		},
+	)})
 
 	// room
 	r.GET("/room/all",getAllRoom)
 
 
-	// // websocket
+	// websocket 以下は mahiro72にお任せ
 	// hub := websocket.NewHub()
 	// go hub.Run()
 
