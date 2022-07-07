@@ -1,4 +1,4 @@
-package model
+package db
 
 // db config周り
 
