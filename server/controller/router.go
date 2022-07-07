@@ -59,12 +59,11 @@ func InitRouter() *gin.Engine {
 	// roomIDとHubの紐づけ
 	var hubs map[string]*websocket.Hub
 
+	// ws?room=<roomID>
 	r.GET("/ws", func(c *gin.Context) {
-
 		roomId := c.Query("room")
 
 		var hub *websocket.Hub
-	
 		// hubsに登録されているか確認
 		if h, ok := hubs[roomId]; ok {
 			// 登録されていたら既存のものを利用
@@ -80,9 +79,6 @@ func InitRouter() *gin.Engine {
 	// http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 	// 	websocket.ServeWs(hub, w, r)
 	// })
-
-	// log.Printf("local : http://localhost:8000 \n")
-	// log.Fatal(http.ListenAndServe(":8000", nil))
 
 	return r
 }
