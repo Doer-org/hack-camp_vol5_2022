@@ -19,3 +19,15 @@ func getAllRoom(c *gin.Context){
 		},
 	)
 }
+
+func getRoomByID(c *gin.Context) {
+	id := c.Param("id")
+	room := model.GetRoomByID(id)  //Goの型式でdbからデータを返す
+	roomJSON := view.RoomToJSON(room)
+	c.JSON(
+		http.StatusOK, 
+		gin.H{
+			"data":roomJSON,
+		},
+	)
+}

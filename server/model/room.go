@@ -18,3 +18,11 @@ func GetAllRoom() (rooms []Room) {
 	return
 }
 
+
+
+func GetRoomByID(id string) Room {
+	db := db.NewDB() 
+	room := Room{Id: id}
+	db.Conn.First(&room) //roomに他の情報を入れている
+	return room
+}
