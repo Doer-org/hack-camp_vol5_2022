@@ -10,17 +10,15 @@ import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/view"
 )
 
-
-
-func newMember(c *gin.Context){
-	name := 	c.PostForm("name")
+func newMember(c *gin.Context) {
+	name := c.PostForm("name")
 	age, err := strconv.Atoi(c.PostForm("age"))
-	gender := 	c.PostForm("gender")
-	github := 	c.PostForm("github")
-	twitter := 	c.PostForm("twitter")
-	room := 	c.Query("room")
+	gender := c.PostForm("gender")
+	github := c.PostForm("github")
+	twitter := c.PostForm("twitter")
+	room := c.Query("room")
 
-	if name == "" || age == 0 || room == ""{
+	if name == "" || age == 0 || room == "" {
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -30,7 +28,7 @@ func newMember(c *gin.Context){
 		return
 	}
 
-	if err != nil{
+	if err != nil {
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -40,13 +38,13 @@ func newMember(c *gin.Context){
 		return
 	}
 
-	member:= model.NewMember(name, age, gender, github, twitter, room) 
-	memberJSON:= view.MemberToJson(member)
+	member := model.NewMember(name, age, gender, github, twitter, room)
+	memberJSON := view.MemberToJson(member)
 
 	c.JSON(
 		http.StatusOK,
 		gin.H{
-			"data":memberJSON,
+			"data": memberJSON,
 		},
 	)
 

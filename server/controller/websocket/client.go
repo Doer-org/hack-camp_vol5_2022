@@ -28,7 +28,6 @@ var (
 	space   = []byte{' '}
 )
 
-
 // wsコネクションの基本設定
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -41,14 +40,12 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-
 // クライアントは、ウェブソケット接続とハブの中間的な存在
 type Client struct {
 	hub  *Hub
 	conn *websocket.Conn
 	send chan []byte
 }
-
 
 // チャネルの読み込み用ゴルーチン
 func (c *Client) readPump() {
@@ -79,7 +76,6 @@ func (c *Client) readPump() {
 		c.hub.broadcast <- message
 	}
 }
-
 
 // チャネルの書き出し用ゴルーチン
 func (c *Client) writePump() {
@@ -126,7 +122,6 @@ func (c *Client) writePump() {
 		}
 	}
 }
-
 
 // websocketサーバー
 func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {

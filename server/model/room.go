@@ -2,19 +2,18 @@ package model
 
 import (
 	"crypto/sha256"
-	"time"
 	"encoding/hex"
+	"time"
 
 	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
 )
 
 type Room struct {
-	Id       string 
+	Id       string
 	Name     string
-	MaxCount int     // roomの最大人数
-	Status   string  // roomのstatus
+	MaxCount int    // roomの最大人数
+	Status   string // roomのstatus
 }
-
 
 func GetAllRoom() (rooms []Room) {
 	db := db.NewDB()
@@ -23,8 +22,8 @@ func GetAllRoom() (rooms []Room) {
 }
 
 func getSHA256Binary(s string) []byte {
-    r := sha256.Sum256([]byte(s))
-    return r[:]
+	r := sha256.Sum256([]byte(s))
+	return r[:]
 }
 
 func NewRoom(name string, max_count int) (room Room) {
@@ -36,19 +35,18 @@ func NewRoom(name string, max_count int) (room Room) {
 	id := hex.EncodeToString(b)
 
 	newRoom := Room{
-		Id: id,
-		Name: name,
+		Id:       id,
+		Name:     name,
 		MaxCount: max_count,
-		Status: "created",
+		Status:   "created",
 	}
 
 	db.Conn.Save(&newRoom)
 	return newRoom
 }
 
-
 func GetRoomByID(id string) Room {
-	db := db.NewDB() 
+	db := db.NewDB()
 	room := Room{Id: id}
 	db.Conn.First(&room) //roomに他の情報を入れている
 	return room

@@ -23,11 +23,11 @@ type DB struct {
 func NewDB() *DB {
 
 	// DBの環境変数
-	host      := os.Getenv("POSTGRES_HOST")
-	port      := os.Getenv("POSTGRES_PORT")
-	username  := os.Getenv("POSTGRES_USER")
-	password  := os.Getenv("POSTGRES_PASSWORD")
-	dbName    := os.Getenv("POSTGRES_DB")
+	host := os.Getenv("POSTGRES_HOST")
+	port := os.Getenv("POSTGRES_PORT")
+	username := os.Getenv("POSTGRES_USER")
+	password := os.Getenv("POSTGRES_PASSWORD")
+	dbName := os.Getenv("POSTGRES_DB")
 
 	return newDB(&DB{
 		Host:     host,
@@ -50,7 +50,7 @@ func newDB(d *DB) *DB {
 	)
 
 	// deploy
-	if os.Getenv("DEPLOY_FLAG") == "True"{
+	if os.Getenv("DEPLOY_FLAG") == "True" {
 		connInfo = os.Getenv("DATABASE_URL")
 	}
 
