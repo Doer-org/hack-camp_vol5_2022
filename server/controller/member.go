@@ -12,7 +12,7 @@ import (
 
 
 
-func getRoomByMember(c *gin.Context){
+func newMember(c *gin.Context){
 	name := 	c.PostForm("name")
 	age, err := strconv.Atoi(c.PostForm("age"))
 	gender := 	c.PostForm("gender")
@@ -40,7 +40,7 @@ func getRoomByMember(c *gin.Context){
 		return
 	}
 
-	member:= model.GetRoomByMember(name, age, gender, github, twitter, room) 
+	member:= model.NewMember(name, age, gender, github, twitter, room) 
 	memberJSON:= view.MemberToJson(member)
 
 	c.JSON(

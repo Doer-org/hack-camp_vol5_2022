@@ -12,7 +12,7 @@ type Member struct {
 	Room   	string  // roomのquery
 }
 
-func GetRoomByMember(name string, age int, gender string, github string, twitter string, room string) Member {
+func NewMember(name string, age int, gender string, github string, twitter string, room string) Member {
 	db:= db.NewDB()
 
 	newMember := Member{
