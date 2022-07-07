@@ -7,8 +7,8 @@ import (
 type RoomJSON struct {
 	Id       string `json:"id"`
 	Name     string `json:"name"`
-	MaxCount int    `json:"max_count"` //roomの最大人数
-	// memberの追加
+	MaxCount int    `json:"max_count"`  //roomの最大人数
+	Status   string `json:"status"` // roomのstatus
 }
 
 func RoomToJSON(room model.Room) RoomJSON {
@@ -16,6 +16,7 @@ func RoomToJSON(room model.Room) RoomJSON {
 		Id:room.Id,
 		Name:room.Name,
 		MaxCount: room.MaxCount,
+		Status: room.Status,
 	}
 }
 

@@ -11,8 +11,8 @@ import (
 type Room struct {
 	Id       string 
 	Name     string
-	MaxCount int //roomの最大人数
-	// memberの追加
+	MaxCount int     // roomの最大人数
+	Status   string  // roomのstatus
 }
 
 
@@ -39,6 +39,7 @@ func NewRoom(name string, max_count int) (room Room) {
 		Id: id,
 		Name: name,
 		MaxCount: max_count,
+		Status: "created",
 	}
 
 	db.Conn.Save(&newRoom)
