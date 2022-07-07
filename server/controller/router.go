@@ -41,12 +41,14 @@ func InitRouter() *gin.Engine {
 	r.GET("/",func(c *gin.Context) {c.JSON(
 		http.StatusOK,
 		gin.H{
-			"message":"hello, hikari",
+			"message":"hello, gin 🍸",
 		},
 	)})
 
 	// room
 	r.GET("/room/all",getAllRoom)
+	r.POST("/room/new",newRoom)
+
 
 
 	// websocket 以下は mahiro72にお任せ
