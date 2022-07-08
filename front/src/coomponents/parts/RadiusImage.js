@@ -1,14 +1,20 @@
 import React from "react";
 
-const SecTitle = ({ img, name }) => {
+const SecTitle = ({style, github, name }) => {
   return (
-    <div className="radius-full w-[150px] h-[150px] overflow-hidden">
-      {img ? (
-        <div>
-          <img src={img} alt={name} />
+    <div>
+      {github ? (
+        <div className={style}>
+          <img
+            src={`https://github.com/${github}.png`}
+            alt={name}
+            width="50"
+            height="50"
+            className="rounded-full"
+          />
         </div>
       ) : (
-        <span></span>
+        <div className="ounded-full w-[50px] h-[50px] bg-purple"></div>
       )}
     </div>
   );
