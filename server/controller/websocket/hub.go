@@ -1,8 +1,5 @@
 package websocket
 
-// Hub maintains the set of active clients and broadcasts messages to the
-// clients.
-
 // hubはclientの全体情報とメッセージを管理している
 type Hub struct {
 	// 登録済みclient
