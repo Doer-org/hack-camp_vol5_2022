@@ -37,18 +37,15 @@ export default class Socket {
     };
 
     // websocketで送信をする
-    send(name,body) {
-        this.ws.send(JSON.stringify({
-            name:name,
-            body:body
-        }))
+    send(data) {
+        this.ws.send(data)
     }
 
     // serverからmessageを受け取ったら実行
     message(e){
         try{
             // message eventの実行
-            this.ee.emit("message",JSON.parse(e.data))
+            this.ee.emit("message",e.data)
         }
         catch(err){
             // error eventの実行
