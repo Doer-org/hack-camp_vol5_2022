@@ -41,32 +41,32 @@ ws?room=<id>
  response
  ```
  {
-"data": [
-{
-"id": "aaaaa",
-"name": "doer",
-"max_count": 12,
-"status": "created"
-},
-{
-"id": "aadfsfd",
-"name": "doshisha",
-"max_count": 10,
-"status": "created"
-},
-{
-"id": "dfsdf",
-"name": "飲み会",
-"max_count": 4,
-"status": "created"
-},
-{
-"id": "97a59a6cd6c33e9dd761a076ca296416e869d1ea3fdf5b4a70051fec9d729e01",
-"name": "Doer飲み会",
-"max_count": 20,
-"status": "created"
-}
-]
+    "data": [
+        {
+            "id": "aaaaa",
+            "name": "doer",
+            "max_count": 12,
+            "status": "created"
+        },
+        {
+            "id": "aadfsfd",
+            "name": "doshisha",
+            "max_count": 10,
+            "status": "created"
+        },
+        {
+            "id": "dfsdf",
+            "name": "飲み会",
+            "max_count": 4,
+            "status": "created"
+        },
+        {
+            "id": "97a59a6cd6c33e9dd761a076ca296416e869d1ea3fdf5b4a70051fec9d729e01",
+            "name": "Doer飲み会",
+            "max_count": 20,
+            "status": "created"
+        }
+    ]
 }
  ```
  <br>
@@ -93,12 +93,12 @@ ws?room=<id>
   response
  ```
  {
-"data": {
-"id": "aaaaa",
-"name": "doer",
-"max_count": 12,
-"status": "created"
-}
+    "data": {
+        "id": "aaaaa",
+        "name": "doer",
+        "max_count": 12,
+        "status": "created"
+    }
 }
  ```
  
