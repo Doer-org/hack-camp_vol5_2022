@@ -68,7 +68,25 @@ func getRoomByID(c *gin.Context) {
 	)
 }
 
-func changeStatus(c *gin.Context) {
+func changeRoomStatus(c *gin.Context) {
 	id := c.Param("id")
-	
+
+	if id == "" {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": "id is required", 
+			},
+		)
+		return
+	}
+
+	status := model.ChangeRoomStatus(id)
+	statusJSON := view.RoomToJSON(status)
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"data": statusJSON,
+		},
+	)
 }

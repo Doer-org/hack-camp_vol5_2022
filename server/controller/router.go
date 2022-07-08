@@ -21,7 +21,7 @@ func InitRouter() *gin.Engine {
 	r.GET("/room/all", getAllRoom)
 	r.POST("/room/new", newRoom)
 	r.GET("/room/:id", getRoomByID)
-	r.GET("/room/finish/:id", changeStatus)
+	r.GET("/room/finish/:id", changeRoomStatus)
 
 	//member
 	r.POST("/member/new", newMember)

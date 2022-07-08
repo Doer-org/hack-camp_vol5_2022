@@ -51,3 +51,11 @@ func GetRoomByID(id string) Room {
 	db.Conn.First(&room) //roomに他の情報を入れている
 	return room
 }
+
+func ChangeRoomStatus(id string) Room {
+	db := db.NewDB()
+	room := Room{Id: id}
+	room.Status = "finished"
+	db.Conn.Save(&room)
+	return room
+}
