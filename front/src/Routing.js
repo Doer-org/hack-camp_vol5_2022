@@ -15,10 +15,10 @@ export class Routing extends React.Component {
           <Routes>
             <Route index element={<HomePage />} />
             <Route path="CreateRoom" element={<CreateRoomPage />} />
-            <Route path="RegisterUser" element={<RegisterUserPage />} />
+            <Route path="event" element={<RegisterUserPage />} />
             <Route path="Questions" element={<QuestionsPage />} />
             <Route path="UserInfo" element={<UserInfoPage />} />
-            <Route path="UserList" element={<UserListPage />} />
+            <Route path="event/prepare" element={<UserListPage />} />
           </Routes>
         </BrowserRouter>
       </>
