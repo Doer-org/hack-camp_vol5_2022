@@ -1,4 +1,4 @@
-export const  youserInfo = [
+export const  userInfo = [
   {
     name: "太朗",
     image: "https://www.techscore.com/blog/wp/wp-content/uploads/2016/12/gopher_ueda.png",

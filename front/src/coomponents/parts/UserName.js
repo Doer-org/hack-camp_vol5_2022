@@ -1,6 +1,6 @@
 import React from "react";
 
-const YouserName = ({name}) => {
+const UserName = ({name}) => {
   return <p className="text-[1.3rem]">{name}</p>;
 };
-export default YouserName;
+export default UserName;
