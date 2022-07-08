@@ -67,3 +67,8 @@ func getRoomByID(c *gin.Context) {
 		},
 	)
 }
+
+func changeStatus(c *gin.Context) {
+	id := c.Param("id")
+	
+}
