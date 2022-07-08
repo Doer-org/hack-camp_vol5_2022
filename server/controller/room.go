@@ -81,12 +81,12 @@ func changeRoomStatus(c *gin.Context) {
 		return
 	}
 
-	status := model.ChangeRoomStatus(id)
-	statusJSON := view.RoomToJSON(status)
+	room := model.ChangeRoomStatus(id)
+	roomJSON := view.RoomToJSON(room)
 	c.JSON(
 		http.StatusOK,
 		gin.H{
-			"data": statusJSON,
+			"data": roomJSON,
 		},
 	)
 }
