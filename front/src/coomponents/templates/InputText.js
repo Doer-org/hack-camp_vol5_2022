@@ -1,6 +1,6 @@
 import SecTitle from "../parts/SecTitle";
 
-const InputText = ({ title, id, name }) => {
+const InputText = ({ title, id, name,value, setValue }) => {
   return (
     <div className="my-4">
       <SecTitle title={title} />
@@ -9,6 +9,8 @@ const InputText = ({ title, id, name }) => {
         type="text"
         id={id}
         name={name}
+        value={value}
+        onChange={(e)=>{setValue(e.target.value)}}
       />
     </div>
   );

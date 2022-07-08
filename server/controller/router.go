@@ -2,6 +2,7 @@ package controller
 
 import (
 	"net/http"
+	"log"
 
 	"github.com/gin-gonic/gin"
 
@@ -31,7 +32,7 @@ func InitRouter() *gin.Engine {
 	// go hub.Run()
 
 	// roomIDとHubの紐づけ
-	var hubs map[string]*websocket.Hub
+	hubs := make(map[string]*websocket.Hub)
 
 	// ws?room=<roomID>
 	r.GET("/ws", func(c *gin.Context) {
@@ -39,20 +40,20 @@ func InitRouter() *gin.Engine {
 
 		var hub *websocket.Hub
 		// hubsに登録されているか確認
+		log.Println(hubs)
 		if h, ok := hubs[roomId]; ok {
 			// 登録されていたら既存のものを利用
 			hub = h
+			log.Println("OK true")
 		} else {
 			// 登録されていなかったら, 新しく用意する
+			log.Println("No true")
 			hub = websocket.NewHub()
+			hubs[roomId] = hub
 			go hub.Run()
 		}
 		websocket.ServeWs(hub, c.Writer, c.Request)
 	})
-
-	// http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-	// 	websocket.ServeWs(hub, w, r)
-	// })
 
 	return r
 }
