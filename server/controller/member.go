@@ -39,7 +39,7 @@ func newMember(c *gin.Context) {
 	}
 
 	member := model.NewMember(name, age, gender, github, twitter, room)
-	memberJSON := view.MemberToJson(member)
+	memberJSON := view.MemberToJSON(member)
 
 	c.JSON(
 		http.StatusOK,
@@ -49,3 +49,29 @@ func newMember(c *gin.Context) {
 	)
 
 }
+
+
+func getAllMember(c *gin.Context){
+	room := c.Query("room")
+	
+	if room == ""{
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": "room valid error",
+			},
+		)
+		return
+	}
+
+	members := model.GetAllMember(room)
+	membersJSON := view.MembersToJSON(members)
+
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"data": membersJSON,
+		},
+	)
+}
+
