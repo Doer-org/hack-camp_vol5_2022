@@ -26,3 +26,12 @@ func NewMember(name string, age int, gender string, github string, twitter strin
 	db.Conn.Save(&newMember)
 	return newMember
 }
+
+
+func GetAllMember(room string) (members []Member) {
+	db := db.NewDB()
+
+	db.Conn.Where("room = ?",room).Find(&members)
+	return
+}
+

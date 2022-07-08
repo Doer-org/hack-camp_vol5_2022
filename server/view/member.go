@@ -12,7 +12,7 @@ type MemberJSON struct {
 	Room    string `json:"room"`
 }
 
-func MemberToJson(member model.Member) MemberJSON {
+func MemberToJSON(member model.Member) MemberJSON {
 	return MemberJSON{
 		Id:      member.Id,
 		Name:    member.Name,
@@ -22,4 +22,13 @@ func MemberToJson(member model.Member) MemberJSON {
 		Twitter: member.Twitter,
 		Room:    member.Room,
 	}
+}
+
+
+func MembersToJSON(members []model.Member) []MemberJSON {
+	membersJSON := []MemberJSON{}
+	for _, member := range members {
+		membersJSON = append(membersJSON, MemberToJSON(member))
+	}
+	return membersJSON
 }
