@@ -1,10 +1,10 @@
 import React from "react";
 
-const YouserList = () => {
+const UserList = () => {
   return (
     <div>
       <div>ユーザー一覧</div>
     </div>
   );
 };
-export default YouserList;
+export default UserList;

@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HomePage } from "./coomponents/pages/HomePage";
 import { CreateRoomPage } from "./coomponents/pages/CreateRoomPage";
-import { RegisterYouserPage } from "./coomponents/pages/RegisterYouserPage";
+import { RegisterUserPage } from "./coomponents/pages/RegisterUserPage";
 import { QuestionsPage } from "./coomponents/pages/QuestionsPage";
-import { YouserInfoPage } from "./coomponents/pages/YouserInfoPage";
-import { YouserListPage } from "./coomponents/pages/YouserListPage";
+import { UserInfoPage } from "./coomponents/pages/UserInfoPage";
+import { UserListPage } from "./coomponents/pages/UserListPage";
 
 export class Routing extends React.Component {
   render() {
@@ -15,10 +15,10 @@ export class Routing extends React.Component {
           <Routes>
             <Route index element={<HomePage />} />
             <Route path="CreateRoom" element={<CreateRoomPage />} />
-            <Route path="RegisterYouser" element={<RegisterYouserPage />} />
+            <Route path="RegisterUser" element={<RegisterUserPage />} />
             <Route path="Questions" element={<QuestionsPage />} />
-            <Route path="YouserInfo" element={<YouserInfoPage />} />
-            <Route path="YouserList" element={<YouserListPage />} />
+            <Route path="UserInfo" element={<UserInfoPage />} />
+            <Route path="UserList" element={<UserListPage />} />
           </Routes>
         </BrowserRouter>
       </>
