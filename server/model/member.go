@@ -3,16 +3,17 @@ package model
 import "github.com/Doer-org/hack-camp_vol5_2022/server/db"
 
 type Member struct {
-	Id      int
-	Name    string
-	Age     int
-	Gender  string
-	Github  string
-	Twitter string
-	Room    string // roomのquery
+	Id       int
+	Name     string
+	Age      int
+	Gender   string
+	Github   string
+	Twitter  string
+	Question string
+	Room     string 
 }
 
-func NewMember(name string, age int, gender string, github string, twitter string, room string) Member {
+func NewMember(name string, age int, gender string, github string, twitter string, question string, room string) Member {
 	db := db.NewDB()
 
 	newMember := Member{
@@ -21,6 +22,7 @@ func NewMember(name string, age int, gender string, github string, twitter strin
 		Gender:  gender,
 		Github:  github,
 		Twitter: twitter,
+		Question: question,
 		Room:    room,
 	}
 	db.Conn.Save(&newMember)

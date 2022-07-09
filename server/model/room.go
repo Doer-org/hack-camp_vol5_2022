@@ -9,10 +9,11 @@ import (
 )
 
 type Room struct {
-	Id       string
-	Name     string
-	MaxCount int    // roomの最大人数
-	Status   string // roomのstatus
+	Id        string
+	Name      string
+	MaxCount  int    // roomの最大人数
+	Status    string // roomのstatus
+	CreatedAt time.Time
 }
 
 func GetAllRoom() (rooms []Room) {
@@ -49,5 +50,13 @@ func GetRoomByID(id string) Room {
 	db := db.NewDB()
 	room := Room{Id: id}
 	db.Conn.First(&room) //roomに他の情報を入れている
+	return room
+}
+
+func ChangeRoomStatus(id string) Room {
+	db := db.NewDB()
+	room := Room{Id: id}
+	room.Status = "finished"
+	db.Conn.Save(&room)
 	return room
 }
