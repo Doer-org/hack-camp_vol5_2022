@@ -16,13 +16,14 @@ func newMember(c *gin.Context) {
 	gender := c.PostForm("gender")
 	github := c.PostForm("github")
 	twitter := c.PostForm("twitter")
+	question := c.PostForm("question")
 	room := c.Query("room")
 
-	if name == "" || age == 0 || room == "" {
+	if name == "" || age == 0 || room == "" || question=="" {
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
-				"error": "name or age or room valid error",
+				"error": "name, age, room or question valid error",
 			},
 		)
 		return
@@ -38,7 +39,7 @@ func newMember(c *gin.Context) {
 		return
 	}
 
-	member := model.NewMember(name, age, gender, github, twitter, room)
+	member := model.NewMember(name, age, gender, github, twitter, question, room)
 	memberJSON := view.MemberToJSON(member)
 
 	c.JSON(
