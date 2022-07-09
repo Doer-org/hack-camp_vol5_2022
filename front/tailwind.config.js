@@ -9,6 +9,7 @@ module.exports = {
         'thick-purple': '#A463A9',
         'grey': '#B4B4B4',
         'thick-grey': '#929292',
+        'Doer-purple': '#7A1E94',
       }
     },
   },
