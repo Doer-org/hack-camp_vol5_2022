@@ -11,6 +11,6 @@ func main() {
 
 	router := controller.InitRouter()
 
-	port := fmt.Sprintf(":%s",os.Getenv("PORT"))
+	port := fmt.Sprintf(":%s", os.Getenv("PORT"))
 	router.Run(port)
 }
