@@ -83,7 +83,7 @@ $ POST http://localhost:8080/member/new?room=649e9506c8b069296e6f68a24941fbc42c6
 
 ```
 $ GET http://localhost:8080/room/:roomID
-```　
+```
 
 **必須** : roomID
 
