@@ -6,6 +6,7 @@ import { RegisterUserPage } from "./coomponents/pages/RegisterUserPage";
 import { QuestionsPage } from "./coomponents/pages/QuestionsPage";
 import { UserInfoPage } from "./coomponents/pages/UserInfoPage";
 import { UserListPage } from "./coomponents/pages/UserListPage";
+import {AboutPage}
 
 export class Routing extends React.Component {
   render() {
