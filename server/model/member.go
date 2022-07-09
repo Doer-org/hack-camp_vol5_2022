@@ -37,3 +37,9 @@ func GetAllMember(room string) (members []Member) {
 	return
 }
 
+func GetMemberByID(id int) (member Member) {
+	db := db.NewDB()
+
+	db.Conn.Where("id = ?",id).Find(&member)
+	return
+}
