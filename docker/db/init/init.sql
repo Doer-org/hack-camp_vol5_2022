@@ -14,8 +14,8 @@ CREATE TABLE "rooms" (
 CREATE TABLE "members"(
   "id"       SERIAL NOT NULL PRIMARY KEY,
   "name"     VARCHAR(255) NOT NULL,
-  "age"      INTEGER NOT NULL,
-  "gender"   VARCHAR(255),
+  "comment"  VARCHAR(255) NOT NULL,
+  "lang"     VARCHAR(255),
   "github"   VARCHAR(255),
   "twitter"  VARCHAR(255),
   "room"     VARCHAR(255),
@@ -35,19 +35,19 @@ INSERT INTO "rooms" ("id","name", "max_count", "status")
 VALUES ('dfsdf','飲み会', 4, 'created');
 
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+INSERT INTO "members" ("name", "comment", "lang", "github", "twitter","room","question") 
 VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa','元気?');
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+INSERT INTO "members" ("name", "comment", "lang", "github", "twitter","room","question") 
 VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa','元気?');
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+INSERT INTO "members" ("name", "comment", "lang", "github", "twitter","room","question") 
 VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa','元気?');
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+INSERT INTO "members" ("name", "comment", "lang", "github", "twitter","room","question") 
 VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'dfsdf','元気?');
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+INSERT INTO "members" ("name", "comment", "lang", "github", "twitter","room","question") 
 VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'dfsdf','元気?');
 
 -- select * from rooms left join members on rooms.id = members.room;
