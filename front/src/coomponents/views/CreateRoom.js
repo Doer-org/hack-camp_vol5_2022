@@ -2,7 +2,7 @@ import {React, useState} from "react";
 import axios from "axios";
 import { data } from "autoprefixer";
 import { Link } from "react-router-dom";
-import { Popup } from 'semantic-ui-react'
+import { Popup } from 'semantic-ui-react';
 
 const CreateRoom = () =>  {
   const [count, setCount] = useState(0);

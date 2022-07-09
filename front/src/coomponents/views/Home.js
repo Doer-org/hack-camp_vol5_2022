@@ -10,6 +10,7 @@ export default class Home extends React.Component {
           <h2 className="text-3xl mt-8 mb-44" >説明文</h2>
           <NextButton path="CreateRoom" name="はじめる"/>
         </div>
+        <div><NextButton path="About" name="About"/></div>
       </div>
     );
   }
