@@ -3,46 +3,89 @@ import NextButton from "../parts/Nextbutton";
 import { member } from "../../data/member";
 import twitter from "../../assets/img/twitter-logo.png";
 import github from "../../assets/img/github-logo.png";
+import { Footer } from "../layers/Footer";
+
 
 const Home = () => {
     return (
       <div> 
         <div align="center">
-          <h1 className="text-6xl mt-24">タイトル</h1>
-          <h2 className="text-3xl mt-8 mb-28" >エンジニア</h2>
+          <h1 className="text-4xl sm:text-6xl mt-24">MEET HACK</h1>
+          <h2 className="text-sm sm:text-xl 
+                        mt-8 mb-20">
+                        新しい仲間とのつながり、HACKします
+          </h2>
           <NextButton path="CreateRoom" name="はじめる"/>
         </div>
 
         <div align="center" className="mt-12">
           
-          <div className="shadow-xl my-12 bg-thin-purple py-5">
-          <div className="text-lg text-doer-purple font-bold mb-5">CREATORS & CONTRIBUTORS</div>
-            {member.map((memberData) =>{
-              return(
-                <div className="border-l-8 border-thick-purple mt-2 p-2 bg-white rounded  shadow-lg w-60 flex justify-center items-center justify-items-stretch mt-2">
-                  <a className="w-32 text-xs flex justify-self-start">{memberData.name}</a>
-                  <a 
-                    className="px-2 inline-block flex justify-self-start mr-2 hover:opacity-70"
-                    href={`https://twitter.com/${memberData.twitter}`}
-                    target="_blank"
-                    rel="noopener noreferrer">
+          <div className="shadow-xl my-12 bg-thin-purple 
+                          py-10 md:py-10">
+            <div className="text-xl sm:text-2xl
+                          text-doer-purple font-bold 
+                            mb-8 md:mb-10
+                            md:mt-4">
+                            CREATORS & CONTRIBUTORS
+            </div>
+              {member.map((memberData) =>{
+                return(
+                  <div 
+                          className="border-l-8 border-thick-purple 
+                                  mt-2 py-3 px-6 sm:p-4 w-64 sm:w-96  
+                                  sm:h-16
+                                bg-white rounded shadow-lg  
+                                  flex justify-center items-center 
+                                  justify-items-stretch">
                       
-                      <img className="w-[20px]" src={twitter} alt="Twitter" />
-                      {/* <span className="ml-1 text-[0.8rem]">@{memberData.twitter}</span> */}
-                  </a>
-                  <a
-                    className="flex justify-self-start hover:opacity-70"
-                    href={`https://github.com/${memberData.github}`}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                      <img className="w-[20px]" src={github} alt="Twitter" />
-                      {/* <span className="ml-1 text-[0.8rem]">@{memberData.github}</span> */}
-                  </a>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 w-4/5 sm:w-5/6">    
+                        <a 
+                            className="text-lg sm:text-xl 
+                                      text-gray-600 align-middle
+                                      flex justify-self-start
+                                      sm:p-5">
+                                      {memberData.name}
+                                    
+                                      
+                        </a>
+                        <p className="text-sm font-extralight text-justify
+                                      sm:px-5 sm:py-4
+                                      text-gray-500 align-middle
+                                      justify-content-center">
+                                      {memberData.role}
+                        </p>
+                      </div>
+                      <a 
+                          className="px-2 
+                                    flex justify-self-start 
+                                    mr-2 hover:opacity-70"
+                          href={`https://twitter.com/${memberData.twitter}`}
+                          target="_blank"
+                          rel="noopener noreferrer">
+                          
+                          <img 
+                          className="w-[20px]" 
+                          src={twitter} 
+                          alt="Twitter" />
+                            {/* <span className="ml-1 text-[0.8rem]">@{memberData.twitter}</span> */}
+                      </a>
+                      <a
+                      className="flex justify-self-start hover:opacity-70"
+                      href={`https://github.com/${memberData.github}`}
+                      target="_blank"
+                      rel="noopener noreferrer">
+                        <img 
+                          className="w-[20px]" 
+                          src={github} 
+                          alt="Twitter" />
+                        {/* <span className="ml-1 text-[0.8rem]">@{memberData.github}</span> */}
+                      </a>
                 </div>
               );
             })}
           </div>
         </div>
+        <Footer />
       </div>
     );
 };
