@@ -35,19 +35,19 @@ INSERT INTO "rooms" ("id","name", "max_count", "status")
 VALUES ('dfsdf','飲み会', 4, 'created');
 
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room") 
-VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa');
+INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa','元気?');
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room") 
-VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa');
+INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa','元気?');
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room") 
-VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa');
+INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'aaaaa','元気?');
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room") 
-VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'dfsdf');
+INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'dfsdf','元気?');
 
-INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room") 
-VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'dfsdf');
+INSERT INTO "members" ("name", "age", "gender", "github", "twitter","room","question") 
+VALUES ('mahiro', 21,'男', 'mahiro72', 'sino0042900', 'dfsdf','元気?');
 
 -- select * from rooms left join members on rooms.id = members.room;
