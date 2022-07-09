@@ -7,17 +7,19 @@ CREATE TABLE "rooms" (
   "id"         VARCHAR(255) NOT NULL PRIMARY KEY,
   "name"       VARCHAR(255) NOT NULL,
   "max_count"  INTEGER NOT NULL,
-  "status"     VARCHAR(255) NOT NULL
+  "status"     VARCHAR(255) NOT NULL,
+  "created_at" TIMESTAMP NOT NULL DEFAULT current_timestamp
 );
 
 CREATE TABLE "members"(
   "id"       SERIAL NOT NULL PRIMARY KEY,
   "name"     VARCHAR(255) NOT NULL,
   "age"      INTEGER NOT NULL,
-  "gender"   VARCHAR(255) NOT NULL,
-  "github"   VARCHAR(255) NOT NULL,
-  "twitter"  VARCHAR(255) NOT NULL,
-  "room"      VARCHAR(255) NOT NULL,
+  "gender"   VARCHAR(255),
+  "github"   VARCHAR(255),
+  "twitter"  VARCHAR(255),
+  "room"     VARCHAR(255),
+  "question" VARCHAR(255) NOT NULL,
   foreign key ("room") references "rooms"("id")
     ON DELETE CASCADE
 );

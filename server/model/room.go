@@ -9,10 +9,11 @@ import (
 )
 
 type Room struct {
-	Id       string
-	Name     string
-	MaxCount int    // roomの最大人数
-	Status   string // roomのstatus
+	Id        string
+	Name      string
+	MaxCount  int    // roomの最大人数
+	Status    string // roomのstatus
+	CreatedAt time.Time
 }
 
 func GetAllRoom() (rooms []Room) {
