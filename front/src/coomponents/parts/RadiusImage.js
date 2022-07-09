@@ -14,7 +14,15 @@ const SecTitle = ({style, github, name }) => {
           />
         </div>
       ) : (
-        <div className="ounded-full w-[50px] h-[50px] bg-purple"></div>
+        <div className={style}>
+          <img 
+            alt="profile" 
+            src={`https://avatars.githubusercontent.com/u/90210216?s=200&v=4`}  
+            className="rounded-full"
+            width="50"
+            height="50"
+          />
+        </div>
       )}
     </div>
   );

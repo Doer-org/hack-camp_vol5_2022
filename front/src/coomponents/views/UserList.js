@@ -2,7 +2,8 @@ import React,{useEffect, useState} from "react";
 import Socket from "../../ws/socket";
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import User from "../parts/User";
+import UserInfoCard from "../templates/UserInfoCard";
+import UserPrepareCard from "../templates/UserPrepareCard";
 
 const UserList = () => {  
   
@@ -76,10 +77,10 @@ const UserList = () => {
 
   return (
     <>
-      <div className="py-10 h-screen bg-gray-300 px-2">
-          <div className="max-w-md mx-auto bg-gray-100 shadow-lg rounded-lg overflow-hidden md:max-w-lg">
+      <div className="py-10  bg-thin-purple px-2 h-screen">
+          <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden md:max-w-lg">
               <div className="md:flex">
-                  <div className="w-full p-4">
+                  <div className="w-full p-4 bg-white">
                     {
                       maxCount!==nowCount ? 
                       <div className="">
@@ -99,24 +100,23 @@ const UserList = () => {
                       </>
                     }
                       <ul>
-                          {
-                            userList.map((user, idx)=>{
-                                return <User user={user} key={idx} />
-                              })
-                          }
+                            {userList.map((user) => {
+                              return (
+                                <li>
+                                  <UserPrepareCard user={user} />
+                                </li>
+                              );
+                            })}
                       </ul>
-                      {
-                        maxCount!==nowCount ? 
-                        <>
-                        </>
-                  
-                        :
-                        <>
-                          <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Button
-                          </button>
-                        </>
-                      }
+                    {
+                      maxCount<=nowCount ? 
+                      <>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                          Button
+                        </button>
+                      </>
+                      :null
+                    }
                   </div>
 
               </div>
@@ -128,3 +128,24 @@ const UserList = () => {
   );
 };
 export default UserList;
+
+
+// <div className="w-10/12 mx-auto">
+// <h1 className="text-3xl text-center mt-10 mb-5">{roomName}</h1>
+// <div className="flex justify-between">
+//   <div>
+//     <span>参加人数：</span>
+//     <span>{count}</span>
+//   </div>
+//   <div className="text-[0.8rem]">{date}</div>
+// </div>
+// <ul>
+//   {userInfo.map((user) => {
+//     return (
+//       <li>
+//         <UserInfoCard user={user} />
+//       </li>
+//     );
+//   })}
+// </ul>
+// </div>
