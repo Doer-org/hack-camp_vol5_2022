@@ -36,6 +36,7 @@ const UserList = () => {
         .catch((err)=>{
           console.log(err)
         })
+        console.log("useEffect called")
       return ()=>{socket.ws.close()}
   }, []);
 
@@ -60,7 +61,6 @@ const UserList = () => {
         .then((res)=>{
           setUserList(res.data.data)
           setNowCount(res.data.data.length)
-          console.log(res.data.data)
         })
         .catch((err)=>{
           console.log(err)
@@ -85,7 +85,7 @@ const UserList = () => {
               <div className="md:flex">
                   <div className="w-full p-4 bg-white">
                     {
-                      maxCount>=nowCount ? 
+                      maxCount>nowCount ? 
                       <div className="">
                         <p className="flex justify-center p-2 text-gray-800">Room <span className="text-2xl mx-4">{roomName}</span></p>
 
