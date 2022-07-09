@@ -5,25 +5,25 @@ import github from "../../assets/img/github-logo.png";
 
 const UserCard = ({ user }) => {
   return (
-  <div class="grid items-center bg-white mt-2 p-2 shadow-lg hover:shadow-2xl rounded cursor-pointer transitionshadow-lg rounded-2xl">
-    <div class="card flex flex-col items-center justify-center p-4 ">
+  <div className="grid items-center bg-white mt-2 p-2 shadow-lg hover:shadow-2xl rounded cursor-pointer transitionshadow-lg rounded-2xl">
+    <div className="card flex flex-col items-center justify-center p-4 ">
         {user.github ? (
-          <div class="profile mx-auto rounded-full py-2 w-32">
-            <img alt="profile" src={`https://github.com/${user.github}.png`} class="rounded-full"/>
+          <div className="profile mx-auto rounded-full py-2 w-32">
+            <img alt="profile" src={`https://github.com/${user.github}.png`} className="rounded-full"/>
           </div>
         ):
-          <div class="profile mx-auto rounded-full py-2 w-32">
-              <img alt="profile" src={`https://avatars.githubusercontent.com/u/90210216?s=200&v=4`}  class="rounded-full"/>
+          <div className="profile mx-auto rounded-full py-2 w-32">
+              <img alt="profile" src={`https://avatars.githubusercontent.com/u/90210216?s=200&v=4`}  className="rounded-full"/>
           </div>
         }
 
-        <div class="name text-gray-800 text-2xl font-medium mt-4 ">
+        <div className="name text-gray-800 text-2xl font-medium mt-4 ">
             <p>{user.name}</p>
         </div>
-        <div class="work text-gray-700 mt-4">
+        <div className="work text-gray-700 mt-4">
             <p>Front-end developer 🧑‍💻</p>
         </div>
-        <div class="work text-gray-700 mb-4">
+        <div className="work text-gray-700 mb-4">
             <p>好きな言語 : Golang, Python, C</p>
         </div>
         <div className="mt-2 text-sm flex">
