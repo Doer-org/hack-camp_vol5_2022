@@ -2,6 +2,7 @@ import {React, useState} from "react";
 import axios from "axios";
 import { data } from "autoprefixer";
 import { Link } from "react-router-dom";
+import { Popup } from 'semantic-ui-react'
 
 const CreateRoom = () =>  {
   const [count, setCount] = useState(0);
@@ -21,30 +22,40 @@ const CreateRoom = () =>  {
 
   const [roomId, setRoomId] = useState("");
 
+  console.log(roomId)
+
   const CreateRoomId = () => {
     const data = new FormData();
     data.append("max_count", count);
     data.append("name", roomName);
-
-    axios.post('http://localhost:8080/new/room/', data)
-    .then(function (response) {
-    // 送信成功時の処理
-    // console.log(response);
     const roomId = "12345"
     setRoomId(roomId)
-    })
-    .catch(function (error) {
-    // 送信失敗時の処理
-    console.log(error);
-    });
+
+    //Todo APIのエンドポイント変更
+    // axios.post('http://localhost:8080/new/room/', data)
+    // .then(function (response) {
+    // // 送信成功時の処理
+    // // console.log(response);
+    // const roomId = "12345"
+    // setRoomId(roomId)
+    // })
+    // .catch(function (error) {
+    // // 送信失敗時の処理
+    // console.log(error);
+    // });
   }
 
-  const handleCopy = (e) => {
-    e.preventDefault()
-    const url = "http://localhost:3000//member/new?room="+{roomId}
-    e.clipboardData.setData("Text", "あああああああああああああああ")
+  function copyUrlToClipboard() {
+    const url = `http://localhost:3000/member/new?room=${roomId}`
     console.log(url)
-  } 
+    navigator.clipboard.writeText(url)
+    .then(function() {
+      console.log('Async: Copying to clipboard was successful!');
+    }, function(err) {
+      console.error('Async: Could not copy text: ', err);
+    });
+  }
+  
 
   return (
     <div>
@@ -68,20 +79,26 @@ const CreateRoom = () =>  {
 
       <div align="center" className="text-xs mt-10">
         <button onClick={CreateRoomId} className="font-semibold rounded shadow-lg text-2xl bg-purple hover:bg-thick-purple text-white font-bold py-4 px-20 rounded-full inline-block hover:shadow-sm hover:translate-y-0.5 transform transition">ルームURL発行</button>
-        {/* {data.id ?( */}
+        {roomId ?(
           <div className="mt-4 flex justify-center">
-          <Link to={`http://localhost:3000//member/new?room=${data.id}`}>http://localhost:3000//member/new?room={data.id}</Link>
-          <button onClick={(e) => handleCopy(e)}>
-            Click
-            {/* <svg class="h-8 w-8 text-black"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="8" y="4" width="12" height="12" rx="2" />  <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2" /></svg> */}
-          </button>
-        </div>
-        {/* // ):(null)} */}
-        
+            <Link to={`/member/new?room=${roomId}`} className="underline text-blue-600">http://localhost:3000/member/new?room={roomId}</Link>
+            <Popup
+              trigger={
+                <button onClick={(e) => copyUrlToClipboard(e)} type="button" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Right popover">
+                  <svg className="h-8 w-8 text-black"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <rect x="8" y="4" width="12" height="12" rx="2" />  <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2" /></svg>
+                </button>
+              }
+              content='Copied!'
+              on='click'
+              position='right center'
+            />
+          </div>    
+        ):(null)}
       </div>
     </div>
     );
 }
+
 
 
 export default CreateRoom;
