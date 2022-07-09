@@ -67,3 +67,51 @@ func getRoomByID(c *gin.Context) {
 		},
 	)
 }
+
+func changeRoomStatus(c *gin.Context) {
+	id := c.Param("id")
+
+	if id == "" {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": "id is required",
+			},
+		)
+		return
+	}
+
+	room := model.ChangeRoomStatus(id)
+	roomJSON := view.RoomToJSON(room)
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"data": roomJSON,
+		},
+	)
+}
+
+func getRandomMember(c *gin.Context) {
+	room := c.Query("room")
+
+	if room == "" {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": "room valid error",
+			},
+		)
+		return
+	}
+
+	member := model.GetRandomMember(room)
+	memberJSON := view.MemberToJSON(member)
+
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"data": memberJSON,
+		},
+	)
+
+}

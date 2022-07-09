@@ -1,8 +1,8 @@
 package controller
 
 import (
-	"net/http"
 	"log"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 
@@ -22,10 +22,13 @@ func InitRouter() *gin.Engine {
 	r.GET("/room/all", getAllRoom)
 	r.POST("/room/new", newRoom)
 	r.GET("/room/:id", getRoomByID)
+	r.GET("/room/finish/:id", changeRoomStatus)
 
 	//member
 	r.POST("/member/new", newMember)
 	r.GET("/member/all", getAllMember)
+	r.GET("/member/:id", getMemberByID)
+	r.GET("/member/random", getRandomMember)
 
 	// websocket 以下は mahiro72にお任せ
 	// hub := websocket.NewHub()

@@ -12,33 +12,24 @@ import (
 
 func newMember(c *gin.Context) {
 	name := c.PostForm("name")
-	age, err := strconv.Atoi(c.PostForm("age"))
-	gender := c.PostForm("gender")
+	comment := c.PostForm("comment")
+	lang := c.PostForm("lang")
 	github := c.PostForm("github")
 	twitter := c.PostForm("twitter")
+	question := c.PostForm("question")
 	room := c.Query("room")
 
-	if name == "" || age == 0 || room == "" {
+	if name == "" || room == "" || question == "" {
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
-				"error": "name or age or room valid error",
+				"error": "name, room or question valid error",
 			},
 		)
 		return
 	}
 
-	if err != nil {
-		c.JSON(
-			http.StatusBadRequest,
-			gin.H{
-				"error": "age must be integer",
-			},
-		)
-		return
-	}
-
-	member := model.NewMember(name, age, gender, github, twitter, room)
+	member := model.NewMember(name, comment, lang, github, twitter, question, room)
 	memberJSON := view.MemberToJSON(member)
 
 	c.JSON(
@@ -50,11 +41,10 @@ func newMember(c *gin.Context) {
 
 }
 
-
-func getAllMember(c *gin.Context){
+func getAllMember(c *gin.Context) {
 	room := c.Query("room")
-	
-	if room == ""{
+
+	if room == "" {
 		c.JSON(
 			http.StatusBadRequest,
 			gin.H{
@@ -75,3 +65,34 @@ func getAllMember(c *gin.Context){
 	)
 }
 
+func getMemberByID(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+
+	if id == 0 {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": "id is required",
+			},
+		)
+		return
+	}
+	if err != nil {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": "id must be integer",
+			},
+		)
+		return
+	}
+
+	member := model.GetMemberByID(id) //Goの型式でdbからデータを返す
+	memberJSON := view.MemberToJSON(member)
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"data": memberJSON,
+		},
+	)
+}
