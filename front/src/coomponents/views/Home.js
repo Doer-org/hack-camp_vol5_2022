@@ -1,5 +1,5 @@
 import React from "react";
-import NextButton from "../parts/button";
+import NextButton from "../parts/Nextbutton";
 
 export default class Home extends React.Component {
   render() {
@@ -14,4 +14,3 @@ export default class Home extends React.Component {
     );
   }
 }
- 
