@@ -76,3 +76,35 @@ func getAllMember(c *gin.Context){
 	)
 }
 
+
+func getMemberByID(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("id"))
+
+	if id == 0 {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": "id is required", 
+			},
+		)
+		return
+	}
+	if err != nil {
+		c.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": "id must be integer",
+			},
+		)
+		return
+	}
+
+	member := model.GetMemberByID(id) //Goの型式でdbからデータを返す
+	memberJSON := view.MemberToJSON(member)
+	c.JSON(
+		http.StatusOK,
+		gin.H{
+			"data": memberJSON,
+		},
+	)
+}
