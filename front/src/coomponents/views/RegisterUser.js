@@ -39,7 +39,7 @@ const RegisterUser = () => {
     data.append("room", room);
 
     axios
-      .post(`http://localhost:8080/member/new?room=${room}`,data)
+      .post(`https://go-server-doer-vol5.herokuapp.com/member/new?room=${room}`,data)
       .then(()=>{
           navigate(`/event/prepare?room=${room}`);
          })
@@ -64,10 +64,10 @@ const RegisterUser = () => {
 
                       <div className="px-12 py-4 ">
 
-                        <div className="my-6  px-2 py-1 w-full mt-2 w-48">
+                        <div className="my-6 px-2 py-1 w-full mt-2 w-60">
                           memo , logoとかほしい
                           <p>ユーザーの登録フォームです</p><br></br>
-                          <div className="bg-green-100 p-2">
+                          <div className="bg-green-100 p-2 rounded-xl shadow-lg">
                             <small className="block text-sm text-gray-800 font-bold m-2">
                               Tips 💡
                             </small>
@@ -104,8 +104,8 @@ const RegisterUser = () => {
                       <div className="bg-white h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
                           <div className="h-3 w-3 bg-fuchsia-500 rounded-full"></div>
                           <div className="absolute right-0 -mr-2">
-                            <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-12">
-                                <p tabIndex="0" className="focus:outline-none text-fuchsia-700 text-sm font-bold">Step 0: ようこそ！</p>
+                            <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-24 w-36">
+                                <p tabIndex="0" className="focus:outline-none text-fuchsia-700 text-base font-bold">Step 0 : ようこそ！</p>
                             </div>
                         </div>
                       </div>
@@ -141,7 +141,7 @@ const RegisterUser = () => {
 
                   <div className="px-12 py-4">
 
-                    <div className="form-group mb-6">
+                    <div className="form-group mb-6 w-60">
                         <InputText 
                           title="呼ばれた名前 || あだな " 
                           id="name" 
@@ -176,7 +176,7 @@ const RegisterUser = () => {
                         name="comment" 
                         value={comment} 
                         setValue={setComment}
-                        pValue={"よろしくお願いしますー！"}
+                        pValue={"よろしくお願いします！"}
                       />
                     </div>
 
@@ -207,8 +207,8 @@ const RegisterUser = () => {
 
                       <div className="w-1/3 flex justify-between bg-fuchsia-500 h-1 items-center relative">
                           <div className="absolute right-0 -mr-2">
-                              <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-12">
-                                  <p tabIndex="0" className="focus:outline-none text-fuchsia-700 text-sm font-bold">Step 1:基本情報の入力</p>
+                              <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-24 w-48">
+                                  <p tabIndex="0" className="focus:outline-none text-fuchsia-700 text-base font-bold">Step 1 : 基本情報の入力</p>
                               </div>
                           </div>
 
@@ -247,7 +247,7 @@ const RegisterUser = () => {
 
                   <div className="px-12 py-4">
 
-                    <div className="form-group mb-6">
+                    <div className="form-group mb-6 w-60">
                       <InputText 
                         title="GitHub ( ユーザー名 )" 
                         id="github" 
@@ -301,8 +301,8 @@ const RegisterUser = () => {
 
                       <div className="w-1/3 flex justify-between bg-fuchsia-500 h-1 items-center relative">
                           <div className="absolute right-0 -mr-2">
-                              <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-12">
-                                  <p tabIndex="0" className="focus:outline-none text-fuchsia-700 text-sm font-bold">Step 2:SNS情報入力</p>
+                              <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-24 w-44">
+                                  <p tabIndex="0" className="focus:outline-none text-fuchsia-700 text-base font-bold">Step 2 : SNS情報入力</p>
                               </div>
                           </div>
 
@@ -338,7 +338,7 @@ const RegisterUser = () => {
 
                   <div className="px-12 py-4">
 
-                    <div className="form-group mb-6">
+                    <div className="form-group mb-6 w-60">
                       <InputText 
                         title="他の人に聞いてみたい質問" 
                         id="question" 
@@ -388,8 +388,8 @@ const RegisterUser = () => {
 
                       <div className="w-1/3 flex justify-between bg-fuchsia-500 h-1 items-center relative">
                           <div className="absolute right-0 -mr-2">
-                              <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 ">
-                                  <p tabIndex="0" className="focus:outline-none text-fuchsia-700 text-sm font-bold">Step 3: 質問の入力</p>
+                              <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 w-40">
+                                  <p tabIndex="0" className="focus:outline-none text-fuchsia-700 text-base font-bold">Step 3 : 質問の入力</p>
                               </div>
                           </div>
 

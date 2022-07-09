@@ -29,13 +29,14 @@ const UserList = () => {
 
       // 初回のmemberアクセス
       axios
-        .get(`http://localhost:8080/member/all?room=${room}`)
+        .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${room}`)
         .then((res)=>{
           setUserList(res.data.data)
         })
         .catch((err)=>{
           console.log(err)
         })
+        console.log("useEffect called")
       return ()=>{socket.ws.close()}
   }, []);
 
@@ -52,23 +53,21 @@ const UserList = () => {
 
   const receiveMessage = (data)=>{
     // websocketで通信を受け取るたびにmember更新
-    // websocketもどき
     if (data){
       //get member
       console.log("receive data",data)
       axios
-        .get(`http://localhost:8080/member/all?room=${room}`)
+        .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${room}`)
         .then((res)=>{
           setUserList(res.data.data)
           setNowCount(res.data.data.length)
-          console.log(res.data.data)
         })
         .catch((err)=>{
           console.log(err)
         })
 
       axios
-        .get(`http://localhost:8080/room/${room}`)
+        .get(`https://go-server-doer-vol5.herokuapp.com/room/${room}`)
         .then((res)=>{
           setRoomName(res.data.data.name)
           setMaxCount(res.data.data.max_count)
@@ -86,7 +85,7 @@ const UserList = () => {
               <div className="md:flex">
                   <div className="w-full p-4 bg-white">
                     {
-                      maxCount>=nowCount ? 
+                      maxCount>nowCount ? 
                       <div className="">
                         <p className="flex justify-center p-2 text-gray-800">Room <span className="text-2xl mx-4">{roomName}</span></p>
 
