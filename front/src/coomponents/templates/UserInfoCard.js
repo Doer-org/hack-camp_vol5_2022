@@ -1,21 +1,43 @@
 import UserName from "../parts/UserName";
 import RadiusImage from "../parts/RadiusImage";
+import twitter from "../../assets/img/twitter-logo.png";
+import github from "../../assets/img/github-logo.png";
 
 const UserCard = ({ user }) => {
   return (
     <div className="my-4 bg-thin-purple rounded-md px-4 py-2">
       <div className="flex">
-        <RadiusImage style="mr-7" name={user.name} github={user.github} />
+        <RadiusImage
+          style="mr-7 w-[50px]"
+          name={user.name}
+          github={user.github}
+        />
         <UserName style="text-[1.3rem] flex items-center" name={user.name} />
       </div>
-      {user.sns ? (
-        <div className="mt-2 text-sm">
-          <span>SNS：</span>
-          <a href={user.sns} target="_blank" rel="noopener noreferrer">
-            {user.sns}
+      <div className="mt-2 text-sm flex">
+        {user.twitter ? (
+          <a
+            className="flex items-center mr-2 hover:opacity-70"
+            href={`https://twitter.com/${user.twitter}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img className="w-[20px]" src={twitter} alt="Twitter" />
+            <span className="ml-1 text-[0.8rem]">{user.twitter}</span>
           </a>
-        </div>
-      ) : null}
+        ) : null}
+        {user.twitter ? (
+          <a
+            className="flex items-center hover:opacity-70"
+            href={`https://github.com/${user.github}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img className="w-[20px]" src={github} alt="Twitter" />
+            <span className="ml-1 text-[0.8rem]">{user.github}</span>
+          </a>
+        ) : null}
+      </div>
     </div>
   );
 };
