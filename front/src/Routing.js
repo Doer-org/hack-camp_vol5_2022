@@ -6,7 +6,7 @@ import { RegisterUserPage } from "./coomponents/pages/RegisterUserPage";
 import { QuestionsPage } from "./coomponents/pages/QuestionsPage";
 import { UserInfoPage } from "./coomponents/pages/UserInfoPage";
 import { UserListPage } from "./coomponents/pages/UserListPage";
-import {AboutPage}
+import { AboutPage } from "./coomponents/pages/AboutPage";
 
 export class Routing extends React.Component {
   render() {
@@ -20,6 +20,7 @@ export class Routing extends React.Component {
             <Route path="Questions" element={<QuestionsPage />} />
             <Route path="UserInfo" element={<UserInfoPage />} />
             <Route path="event/prepare" element={<UserListPage />} />
+            <Route path="About" element={<AboutPage />} />
           </Routes>
         </BrowserRouter>
       </>
