@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import SecTitle from "../parts/SecTitle";
 import QuestionCard from "../parts/QuestionCard";
 import BaseButton from "../parts/BaseButton";
+import NextButton from "../parts/Nextbutton"
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 
@@ -11,13 +12,13 @@ const Questions = () => {
   // const query = new URLSearchParams(search);
   // const room = query.get("room");
 
-  const room =
+  const roomId =
     "46e96c86ab6db490de247c05b95a905e19eee8985f341856cb162b1e84d73241";
   const [users, setUsers] = useState([]);
   const [questions, setQuestions] = useState([]);
 
   axios
-    .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${room}`)
+    .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${roomId}`)
     .then((response) => {
       const data = response.data;
       //参加者名
@@ -66,7 +67,7 @@ const Questions = () => {
         {users.length === current + 1 ? (
           <>
             <div className="mb-0 mt-3">
-              <BaseButton name="参加者一覧" />
+              <NextButton path={`/event/?room=${roomId}`} name="参加者一覧"/>
             </div>
 
             <div className="mb-0 mt-3">
