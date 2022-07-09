@@ -36,6 +36,7 @@ const UserList = () => {
         .catch((err)=>{
           console.log(err)
         })
+      return ()=>{socket.ws.close()}
   }, []);
 
   const onConnect = ()=>{
@@ -46,6 +47,8 @@ const UserList = () => {
   const onDisConnect = ()=>{
     console.log("ws disconnect")
   };
+
+  console.log("list",userList)
 
   const receiveMessage = (data)=>{
     // websocketで通信を受け取るたびにmember更新
@@ -58,6 +61,7 @@ const UserList = () => {
         .then((res)=>{
           setUserList(res.data.data)
           setNowCount(res.data.data.length)
+          console.log(res.data.data)
         })
         .catch((err)=>{
           console.log(err)
@@ -82,7 +86,7 @@ const UserList = () => {
               <div className="md:flex">
                   <div className="w-full p-4 bg-white">
                     {
-                      maxCount!==nowCount ? 
+                      maxCount>=nowCount ? 
                       <div className="">
                         <p className="flex justify-center p-2 text-gray-800">Room <span className="text-2xl mx-4">{roomName}</span></p>
 
@@ -101,6 +105,7 @@ const UserList = () => {
                     }
                       <ul>
                             {userList.map((user) => {
+                              console.log("AAA",user)
                               return (
                                 <li>
                                   <UserPrepareCard user={user} />
@@ -111,7 +116,7 @@ const UserList = () => {
                     {
                       maxCount<=nowCount ? 
                       <>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                           Button
                         </button>
                       </>
@@ -128,24 +133,3 @@ const UserList = () => {
   );
 };
 export default UserList;
-
-
-// <div className="w-10/12 mx-auto">
-// <h1 className="text-3xl text-center mt-10 mb-5">{roomName}</h1>
-// <div className="flex justify-between">
-//   <div>
-//     <span>参加人数：</span>
-//     <span>{count}</span>
-//   </div>
-//   <div className="text-[0.8rem]">{date}</div>
-// </div>
-// <ul>
-//   {userInfo.map((user) => {
-//     return (
-//       <li>
-//         <UserInfoCard user={user} />
-//       </li>
-//     );
-//   })}
-// </ul>
-// </div>

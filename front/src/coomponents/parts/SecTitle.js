@@ -1,6 +1,6 @@
 import React from "react";
 
 const SecTitle = ({ title }) => {
-  return <div>{title}</div>;
+  return <div className="font-bold">{title}</div>;
 };
 export default SecTitle;
