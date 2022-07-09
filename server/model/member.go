@@ -19,6 +19,7 @@ type Member struct {
 
 func NewMember(name string, comment string, lang string, github string, twitter string, question string, room string) Member {
 	db := db.NewDB()
+	defer db.Conn.Close()
 
 	newMember := Member{
 		Name:     name,
@@ -35,6 +36,7 @@ func NewMember(name string, comment string, lang string, github string, twitter 
 
 func GetAllMember(room string) (members []Member) {
 	db := db.NewDB()
+	defer db.Conn.Close()
 
 	db.Conn.Where("room = ?", room).Find(&members)
 	return
@@ -42,6 +44,7 @@ func GetAllMember(room string) (members []Member) {
 
 func GetMemberByID(id int) (member Member) {
 	db := db.NewDB()
+	defer db.Conn.Close()
 
 	db.Conn.Where("id = ?", id).Find(&member)
 	return
@@ -49,6 +52,7 @@ func GetMemberByID(id int) (member Member) {
 
 func GetRandomMember(room string) Member {
 	db := db.NewDB()
+	defer db.Conn.Close()
 
 	members := []Member{}
 	db.Conn.Where("room = ?", room).Find(&members)
