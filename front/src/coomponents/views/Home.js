@@ -15,7 +15,7 @@ const Home = () => {
 
         <div align="center" className="mt-12">
           <div className="font-bold">CREATORS & CONTRIBUTORS</div>
-          <div className="mt-4">
+          <div className="shadow-lg mt-4 bg-thin-purple py-1 h-32 rounded w-64">
             {member.map((memberData) =>{
               return(
                 <div className="flex justify-center items-center justify-items-stretch mt-2">
