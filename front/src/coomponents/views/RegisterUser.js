@@ -39,7 +39,7 @@ const RegisterUser = () => {
     data.append("room", room);
 
     axios
-      .post(`http://localhost:8080/member/new?room=${room}`,data)
+      .post(`https://go-server-doer-vol5.herokuapp.com/member/new?room=${room}`,data)
       .then(()=>{
           navigate(`/event/prepare?room=${room}`);
          })
@@ -64,10 +64,10 @@ const RegisterUser = () => {
 
                       <div className="px-12 py-4 ">
 
-                        <div className="my-6  px-2 py-1 w-full mt-2 w-48">
+                        <div className="my-6 px-2 py-1 w-full mt-2 w-60">
                           memo , logoとかほしい
                           <p>ユーザーの登録フォームです</p><br></br>
-                          <div className="bg-green-100 p-2">
+                          <div className="bg-green-100 p-2 rounded-xl shadow-lg">
                             <small className="block text-sm text-gray-800 font-bold m-2">
                               Tips 💡
                             </small>
@@ -141,7 +141,7 @@ const RegisterUser = () => {
 
                   <div className="px-12 py-4">
 
-                    <div className="form-group mb-6">
+                    <div className="form-group mb-6 w-60">
                         <InputText 
                           title="呼ばれた名前 || あだな " 
                           id="name" 
@@ -247,7 +247,7 @@ const RegisterUser = () => {
 
                   <div className="px-12 py-4">
 
-                    <div className="form-group mb-6">
+                    <div className="form-group mb-6 w-60">
                       <InputText 
                         title="GitHub ( ユーザー名 )" 
                         id="github" 
@@ -338,7 +338,7 @@ const RegisterUser = () => {
 
                   <div className="px-12 py-4">
 
-                    <div className="form-group mb-6">
+                    <div className="form-group mb-6 w-60">
                       <InputText 
                         title="他の人に聞いてみたい質問" 
                         id="question" 

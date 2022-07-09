@@ -29,7 +29,7 @@ const UserList = () => {
 
       // 初回のmemberアクセス
       axios
-        .get(`http://localhost:8080/member/all?room=${room}`)
+        .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${room}`)
         .then((res)=>{
           setUserList(res.data.data)
         })
@@ -52,12 +52,11 @@ const UserList = () => {
 
   const receiveMessage = (data)=>{
     // websocketで通信を受け取るたびにmember更新
-    // websocketもどき
     if (data){
       //get member
       console.log("receive data",data)
       axios
-        .get(`http://localhost:8080/member/all?room=${room}`)
+        .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${room}`)
         .then((res)=>{
           setUserList(res.data.data)
           setNowCount(res.data.data.length)
@@ -68,7 +67,7 @@ const UserList = () => {
         })
 
       axios
-        .get(`http://localhost:8080/room/${room}`)
+        .get(`https://go-server-doer-vol5.herokuapp.com/room/${room}`)
         .then((res)=>{
           setRoomName(res.data.data.name)
           setMaxCount(res.data.data.max_count)
