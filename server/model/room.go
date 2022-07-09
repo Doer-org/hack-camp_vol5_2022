@@ -18,6 +18,8 @@ type Room struct {
 
 func GetAllRoom() (rooms []Room) {
 	db := db.NewDB()
+	defer db.Conn.Close()
+
 	db.Conn.Find(&rooms)
 	return
 }
@@ -29,6 +31,7 @@ func getSHA256Binary(s string) []byte {
 
 func NewRoom(name string, max_count int) (room Room) {
 	db := db.NewDB()
+	defer db.Conn.Close()
 
 	// 現在時刻からhash値の生成
 	now := time.Now().Format("2006-01-02T15:04:05Z07:00")
@@ -48,6 +51,8 @@ func NewRoom(name string, max_count int) (room Room) {
 
 func GetRoomByID(id string) Room {
 	db := db.NewDB()
+	defer db.Conn.Close()
+
 	room := Room{Id: id}
 	db.Conn.First(&room) //roomに他の情報を入れている
 	return room
@@ -55,6 +60,8 @@ func GetRoomByID(id string) Room {
 
 func ChangeRoomStatus(id string) Room {
 	db := db.NewDB()
+	defer db.Conn.Close()
+
 	room := Room{Id: id}
 	room.Status = "finished"
 	db.Conn.Save(&room)
