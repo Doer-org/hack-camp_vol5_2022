@@ -9,16 +9,17 @@ const Home = () => {
       <div> 
         <div align="center">
           <h1 className="text-6xl mt-24">タイトル</h1>
-          <h2 className="text-3xl mt-8 mb-28" >説明文</h2>
+          <h2 className="text-3xl mt-8 mb-28" >エンジニア</h2>
           <NextButton path="CreateRoom" name="はじめる"/>
         </div>
 
         <div align="center" className="mt-12">
-          <div className="font-bold">CREATORS & CONTRIBUTORS</div>
-          <div className="shadow-lg mt-4 bg-thin-purple py-1 h-32 rounded w-64">
+          
+          <div className="shadow-xl my-12 bg-thin-purple py-5">
+          <div className="text-lg text-doer-purple font-bold mb-5">CREATORS & CONTRIBUTORS</div>
             {member.map((memberData) =>{
               return(
-                <div className="flex justify-center items-center justify-items-stretch mt-2">
+                <div className="border-l-8 border-thick-purple mt-2 p-2 bg-white rounded  shadow-lg w-60 flex justify-center items-center justify-items-stretch mt-2">
                   <a className="w-32 text-xs flex justify-self-start">{memberData.name}</a>
                   <a 
                     className="px-2 inline-block flex justify-self-start mr-2 hover:opacity-70"
