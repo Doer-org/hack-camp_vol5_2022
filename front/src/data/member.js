@@ -15,7 +15,7 @@ export const member = [
         twitter: "KOUTA_FD",
     },
     {
-        name: "Yaaagi",
+        name: "Yaaagi（Frontend）",
         github: "Yaaagi",
         twitter: "yagiyagioyagi",
     },
