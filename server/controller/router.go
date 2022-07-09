@@ -27,6 +27,7 @@ func InitRouter() *gin.Engine {
 	//member
 	r.POST("/member/new", newMember)
 	r.GET("/member/all", getAllMember)
+	r.GET("/member/:id", getMemberByID)
 
 	// websocket 以下は mahiro72にお任せ
 	// hub := websocket.NewHub()
