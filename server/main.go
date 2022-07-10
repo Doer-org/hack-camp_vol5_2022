@@ -1,13 +1,16 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"os"
+
+	"github.com/Doer-org/hack-camp_vol5_2022/server/controller"
+)
 
 func main() {
-    r := gin.Default()
-    r.GET("/ping", func(c *gin.Context) {
-        c.JSON(200, gin.H{
-            "message": "pong",
-        })
-    })
-    r.Run(":8000")
+
+	router := controller.InitRouter()
+
+	port := fmt.Sprintf(":%s", os.Getenv("PORT"))
+	router.Run(port)
 }

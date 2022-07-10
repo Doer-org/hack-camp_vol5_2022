@@ -21,7 +21,7 @@ services:
     env_file:
       - docker-compose.env
     ports:
-      - 8000:8000
+      - 8080:8080
     tty: true
     volumes:
       - ./server:/go/src/github.com/Doer-org/hack-camp_vol5_2022

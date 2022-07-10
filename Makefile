@@ -53,7 +53,7 @@ delete-db:
 	@echo "------------------------"
 	@echo "delete db ..."
 	@echo ""
-	$(RM) $(DATA_DIR)
+	$(RM) $(DB_DIR)
 	@echo ""
 	@echo "delete db success"
 	@echo "------------------------"
