@@ -56,109 +56,153 @@ const CreateRoom = () =>  {
 
   return (
     <div>
-      <div className="py-10 bg-thin-purple px-2 h-screen ">
-        <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden md:max-w-lg"></div>
-            <div className="card flex flex-col items-center justify-center p-4 mx-2">
-              <div className="block  mb-12 rounded-lg shadow-lg bg-white max-w-sm text-center">
-                  
-                <div className="text-3xl rounded-t-lg py-4 mb-4 bg-purple text-white font-bold tracking-wider">
-                  <p >ルーム作成</p>
-                </div>
+      {/* 一番外枠マージン2 */}
+      <div className="bg-thin-purple 
+                      py-10 
+                      h-screen
+                      flex justify-center items-center">
 
-                <div className="px-12 py-4 ">
+          {/* sm以上で背景白のカード */}
+          <div className="w-5/6 sm:w-3/5
+                      bg-white shadow-lg rounded-xl 
+                      glid grid-cols-1
+                      mb-10
+                      text-center
+                      ">
 
-                  <div type="text" align="center" className="mt-12 ">
-                    <p>
-                      ルームを作成してイベントに参加するメンバーにURLを共有しましょう
-                    </p>
-                    <div className="block text-gray-700 text-sm font-bold rounded px-8 pt-4 mb-4">
-
-                      <InputText 
-                        title="ルーム名" 
-                        id="name" 
-                        name="name"
-                        value={roomName} 
-                        setValue={setRoomName} 
-                        pValue={"Do'er 交流会"}
-                      />
-
+                    {/* ルーム作成テーマピンク */}
+                    <div className="text-2xl sm:text-3xl 
+                                    rounded-t-lg 
+                                    py-4 mb-4 
+                                    bg-purple 
+                                    text-white font-bold tracking-wider">
+                        <p >ルーム作成</p>
                     </div>
+        
 
-                  </div>
+                    
+                      
+                          {/* お知らせ文章 */}
+                          <p className="mt-10">
+                            ルームを作成して、
+                            <br/>
+                            イベントに参加するメンバーにURLを共有しましょう
+                          </p>
 
-                  <SecTitle title={"人数"} />
-
-                  <div className="text-5xl mt-4 flex justify-center">
-                    <button 
-                      onClick={CountDown} 
-                      className="
-                        flex-grow-0 bg-grey text-white w-10 h-12 text-lg 
-                        shadow-lg rounded-full mr-4 hover:bg-thick-grey 
-                        hover:shadow-sm hover:translate-y-0.5 transform transition"
-                      >ー</button>
-                    <div className="flex-grow-0 px-20 py-1 bg-purple text-3xl font-bold text-white rounded-full">
-                        {count}
+                          {/* インプット部分 */}
+                          <div className="mx-4 sm:mx-20 lg:mx-40 
+                                          ">
+                          {/* インプット：ルーム名 */}
+                              <InputText 
+                                title="ルーム名" 
+                                id="name" 
+                                name="name"
+                                value={roomName} 
+                                setValue={setRoomName} 
+                                pValue={"Do'er 交流会"}
+                                className="text-gray-700 text-sm 
+                                font-bold rounded
+                                w-4/5"
+                              />
                       </div>
-                    <button 
-                      onClick={CountUp} 
-                      className="
-                        flex-grow-0 bg-grey text-white w-10 h-12 text-lg 
-                        shadow-lg rounded-full ml-4 hover:bg-thick-grey hover:shadow-sm 
-                        hover:translate-y-0.5 transform transition"
-                      >＋</button>
-                  </div>
 
-                  <div align="center" className="text-xs mt-10">
-                    <button 
-                      onClick={CreateRoomId} 
-                      className="
-                        font-semibold rounded shadow-lg text-2xl bg-purple mt-8 mb-4
-                        hover:bg-thick-purple text-white font-bold py-4 px-10 
-                        rounded-full inline-block hover:shadow-sm hover:translate-y-0.5 
-                        transform transition"
-                      >ルームURL発行</button>
-                    {roomId ?(
-                      <div className="mt-4 flex justify-center mb-4">
-                        <Link to={`/event?room=${roomId}`} className="underline text-blue-600 truncate">{`http://localhost:3000/event?room=${roomId}`}</Link>
-                        <Popup
-                          trigger={
-                            <button 
-                              onClick={(e) => copyUrlToClipboard(e)} 
-                              type="button" 
-                              data-bs-toggle="popover" 
-                              data-bs-placement="top" 
-                              data-bs-content="Right popover"
-                            >
-                              <svg 
-                                className="h-8 w-8 text-black"  
-                                width="24" 
-                                height="24" 
-                                viewBox="0 0 24 24" 
-                                strokeWidth="2" 
-                                stroke="currentColor" 
-                                fill="none" 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round">  
-                                <path stroke="none" d="M0 0h24v24H0z"/>  
-                                <rect x="8" y="4" width="12" height="12" rx="2" />  
-                                <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2" />
-                              </svg>
-                            </button>
-                          }
-                          content='Copied!'
-                          on='click'
-                          position='right center'
-                        />
-                      </div>    
-                    ):(null)}
-                  </div>
+                            {/* 人数セクション */}
 
-              </div>
+                            <div className="">
+                              <SecTitle title={"人数"} />
+                              <div className="mt-4 flex justify-center">
+                                        {/* -ボタン */}
+                                        <button 
+                                          onClick={CountDown} 
+                                          className="
+                                            flex-grow-0 bg-grey text-white w-10 h-12 text-lg 
+                                            shadow-lg rounded-full mr-4 hover:bg-thick-grey 
+                                            hover:shadow-sm hover:translate-y-0.5 transform transition">
+                                            ー
+                                        </button>
 
+                                        {/* 人数表示部分 */}
+                                        <div className="flex-grow-0 px-10 sm:px-20 py-1 
+                                                      bg-purple 
+                                                      text-2xl font-bold 
+                                                      text-white 
+                                                      rounded-full">
+                                            {count}
+                                        </div>
 
-            </div>
+                                        {/* プラスボタン */}
+                                        <button 
+                                          onClick={CountUp} 
+                                          className="
+                                            flex-grow-0 bg-grey text-white w-10 h-12 text-lg 
+                                            shadow-lg rounded-full ml-4 hover:bg-thick-grey hover:shadow-sm 
+                                            hover:translate-y-0.5 transform transition">
+                                          ＋
+                                        </button>
+                              </div>
+                          </div>
+
+                            {/* チームURL発行 */}
+                            
+                            <div className="my-3 mx-3 md:mx-20
+                                            py-4 md:py-10">
+
+                                          {/* 発行ボタン */}
+                                            <button 
+                                              onClick={CreateRoomId} 
+                                              className="
+                                                font-semibold shadow-lg 
+                                                text-lg
+                                                sm:text-xl 
+                                                bg-purple mt-4 mb-4
+                                                hover:bg-thick-purple text-white py-4 px-10 
+                                                rounded-lg inline-block hover:shadow-sm hover:translate-y-0.5 
+                                                transform transition"
+                                              >ルームURL発行
+                                            </button>
+
+                                {/* ルームID */}
+                                {roomId ?(
+                                <div className="mt-4 flex justify-center mb-4">
+                                  <Link to={`/event?room=${roomId}`} className="underline text-blue-600 truncate">
+                                    {`http://localhost:3000/event?room=${roomId}`}</Link>
+                                  <Popup
+                                    trigger={
+                                      <button 
+                                        onClick={(e) => copyUrlToClipboard(e)} 
+                                        type="button" 
+                                        data-bs-toggle="popover" 
+                                        data-bs-placement="top" 
+                                        data-bs-content="Right popover"
+                                      >
+                                        <svg 
+                                          className="h-8 w-8 text-black"  
+                                          width="24" 
+                                          height="24" 
+                                          viewBox="0 0 24 24" 
+                                          strokeWidth="2" 
+                                          stroke="currentColor" 
+                                          fill="none" 
+                                          strokeLinecap="round" 
+                                          strokeLinejoin="round">  
+                                          <path stroke="none" d="M0 0h24v24H0z"/>  
+                                          <rect x="8" y="4" width="12" height="12" rx="2" />  
+                                          <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2" />
+                                        </svg>
+                                      </button>
+                                    }
+                                    content='Copied!'
+                                    on='click'
+                                    position='right center'
+                                  />
+                                  </div>    
+                              ):(null)}
+                            
+                            </div>
+                            {/* ルームIDセクション終了 */}
+
           </div>
-        </div>
+      </div>
     </div>
     );
 }
