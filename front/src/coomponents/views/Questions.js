@@ -5,6 +5,7 @@ import BaseButton from "../parts/BaseButton";
 import NextButton from "../parts/Nextbutton";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import robot from "../../assets/img/robot.png";
 
 const Questions = () => {
   // query paramの取得
@@ -61,6 +62,23 @@ const Questions = () => {
           </div>
           <SecTitle title="質問内容" />
           <QuestionCard content={questions[current] ? questions[current].question : null} />
+
+
+          <div class="mt-8 mb-2 mx-auto bg-grey-light rounded-lg shadow-lg py-8 px-4 bg-gray-100 mx-10">
+              <p class="italic text-blue-darkest leading-normal text-lg">
+                質問タイムです❔<br/>
+              </p>
+              <p class="text-center pt-8 text-grey-darker text-sm">
+                みんなの質問を私がランダムで選んでいます<br/>
+                {users[current] + "さん"}、お答えください！✨
+              </p>
+          </div>
+          
+          <div className="flex justify-center mb-8">
+            <img src={robot} width="100px"/>
+          </div>
+
+
           {users.length === current + 1 ? (
             <>
               <div className="mb-0 mt-3">
