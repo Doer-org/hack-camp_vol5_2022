@@ -44,34 +44,51 @@ const UserInfo = () => {
   // const date = toDate(str, "-");
   return (
 
-    <div className="py-10 bg-thin-purple px-2 h-full h-auto">
-        <div className="card flex flex-col items-center justify-center p-4">
+    <div>
+    {/* 一番外枠マージン2 */}
+    <div className="bg-thin-purple 
+                    py-10 
+                    
+                    flex justify-center items-center">
 
-          <div className="block  mb-12 rounded-lg shadow-lg bg-white max-w-sm text-center">
+        {/* sm以上で背景白のカード */}
+        <div className="w-5/6 sm:w-3/5
+                    bg-white shadow-lg rounded-xl 
+                    glid grid-cols-1
+                    mb-10
+                    text-center
+                    ">
+
+                  {/* ルーム作成テーマピンク */}
+                  <div className="text-2xl sm:text-3xl 
+                                  rounded-t-lg 
+                                  py-4 mb-4 
+                                  bg-purple 
+                                  text-white font-bold tracking-wider">
+                      <p >{roomInfo.name}</p>
+                  </div>
 
 
-            <div className="w-10/12 mx-auto">
-              <h1 className="text-3xl text-center mt-10 mb-5">{roomInfo.name}</h1>
-              <div className="flex justify-between">
-                <div>
-                  <span>参加人数：</span>
-                  <span>{users.length}</span>
-                </div>
-                <div className="text-[0.8rem]">{roomInfo.created_at}</div>
-              </div>
-              <ul className="">
-                {users.map((user) => {
-                  return (
-                    <li>
-                      <UserInfoCard user={user} />
-                    </li>
-                  );
-                })}
-              </ul>
+          <div className="flex justify-between">
+            <div>
+              <span>参加人数：</span>
+              <span>{users.length}</span>
             </div>
+            <div className="text-[0.8rem]">{roomInfo.created_at}</div>
           </div>
+          <ul className="">
+            {users.map((user) => {
+              return (
+                <li>
+                  <UserInfoCard user={user} />
+                </li>
+              );
+            })}
+          </ul>
         </div>
+
       </div>
+    </div>
   );
 };
 export default UserInfo;
