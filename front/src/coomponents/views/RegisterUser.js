@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import InputText from "../templates/InputText";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +22,9 @@ const RegisterUser = () => {
   const [first, setFirst] = useState(false);
   const [second, setSecond] = useState(false);
   const [third, setThird] = useState(false);
+
+  // room status
+  const [roomStatus, setRoomStatus] = useState("");
 
   const navigate = useNavigate();
 
@@ -49,6 +52,22 @@ const RegisterUser = () => {
         console.log(err)
       })
   }
+
+
+  useEffect(() => {
+    axios
+      .get(`https://go-server-doer-vol5.herokuapp.com/room/${room}`)
+      .then((res)=>{
+        console.log("Status",res.data.data.status)
+        if (res.data.data.status==="finished"){
+          navigate(`/event/user/list?room=${room}`);
+        }
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+  }, []);
+
 
   return (
     <div className="py-10 bg-thin-purple px-2 h-screen">

@@ -151,7 +151,6 @@ const UserList = () => {
             }
               <ul>
                     {userList.map((user) => {
-                      console.log("AAA",user)
                       return (
                         <li>
                           <UserPrepareCard user={user} />

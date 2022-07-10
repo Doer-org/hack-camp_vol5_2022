@@ -17,7 +17,7 @@ export class Routing extends React.Component {
             <Route path="CreateRoom" element={<CreateRoomPage />} />
             <Route path="event" element={<RegisterUserPage />} />
             <Route path="event/questions" element={<QuestionsPage />} />
-            <Route path="UserInfo" element={<UserInfoPage />} />
+            <Route path="event/user/list" element={<UserInfoPage />} />
             <Route path="event/prepare" element={<UserListPage />} />
           </Routes>
         </BrowserRouter>
