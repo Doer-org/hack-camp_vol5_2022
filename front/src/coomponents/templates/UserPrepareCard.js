@@ -6,7 +6,7 @@ import github from "../../assets/img/github-logo.png";
 const UserPrepareCard = ({ user }) => {
   return (
 
-    <div className="shadow-lg hover:shadow-xl my-4 border-double rounded-md px-8 py-2">
+    <div className="shadow-lg hover:shadow-xl my-4 border-double rounded-md w-72 px-4 py-2">
       <div className="flex justify-between">
         <div className="flex">
           <RadiusImage
@@ -17,7 +17,7 @@ const UserPrepareCard = ({ user }) => {
           <UserName style="text-[1.3rem] flex items-center" name={user.name} />
         </div>
         <div>
-          <span className=" h-10 leading-10 font-bold text-green-500">Ready ✔</span> 
+          <span className=" h-10 leading-10 font-bold text-green-500"> Ready ✔</span> 
         </div>
 
       </div>
