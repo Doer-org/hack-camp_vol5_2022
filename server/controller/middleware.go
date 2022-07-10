@@ -11,7 +11,7 @@ func configCors(r *gin.Engine) {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
 			"http://localhost:3000",
-			"https://meet-hack.vercel.app/",
+			"https://meet-hack.vercel.app",
 		},
 		AllowMethods: []string{
 			"POST",
