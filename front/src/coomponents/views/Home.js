@@ -9,12 +9,13 @@ import { Footer } from "../layers/Footer";
 
 const Home = () => {
     return (
-      <div> 
+      <div>
+        <div className="font-normal mt-3 ml-4 text-2xl sm:text-4xl text-doer-purple">MeetHack</div>
         <div align="center">
           {/* <h1 className="text-4xl sm:text-6xl mt-24">MEET HACK</h1> */}
           <img src={logo} className="mt-12 mb-8"/>
           <h2 className="text-sm sm:text-xl 
-                        mt-8 mb-20 leading-loose">
+                        mt-8 mb-20 leading-loose mx-2">
                         新しい仲間とのつながり、HACKします<br></br>
                         MeetHackでよりはやく、よりスマートに交流しませんか
           </h2>
@@ -23,7 +24,7 @@ const Home = () => {
 
         <div align="center" className="mt-12">
           
-          <div className="shadow-xl my-12 bg-thin-purple 
+          <div className="shadow-xl my-20 sm:my-40 bg-thin-purple 
                           py-10 md:py-10">
             <div className="text-xl sm:text-2xl
                           text-doer-purple font-bold 
@@ -86,6 +87,17 @@ const Home = () => {
                 </div>
               );
             })}
+          </div>
+        </div>
+        <div className="grid sm:grid-cols-2 md:mx-20 lg:mx-30">
+          <div className="w-5/12 sm:w-2/3 m-auto"><img src="https://images-ext-2.discordapp.net/external/qtfcHSSS-dP6AuQM5RKS5QFHCPsPyFtU5TqRAifP8AE/https/doer.vercel.app/og_img.png"></img></div>
+          <div className="mx-4 text-center mt-4">
+            <h2 className="text-xl font-normal">同志社大学・同志社女子大学
+            <br/>
+            エンジニアのためのコミュニティ</h2>
+            <br/>
+            <p className="text-base text-gray-600">Do'erドゥアーは同志社大学・同志社女子大学の学生が所属するエンジニアサークルです。<br/>
+技術のキャッチアップだけでなく、ハッカソン出場やチームメンバーの育成などキャリアに繋げられる活動を行っています。</p>
           </div>
         </div>
         <Footer />
