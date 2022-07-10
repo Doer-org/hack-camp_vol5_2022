@@ -20,12 +20,18 @@ const UserCard = ({ user }) => {
         <div className="name text-gray-800 text-2xl font-medium mt-4 ">
             <p>{user.name}</p>
         </div>
+
         <div className="work text-gray-700 mt-4">
-            <p>Front-end developer 🧑‍💻</p>
+            <p>{user.comment}</p>
         </div>
-        <div className="work text-gray-700 mb-4">
-            <p>好きな言語 : Golang, Python, C</p>
-        </div>
+
+        {user.lang ? 
+            <div className="work text-gray-700 mb-4">
+                <p>好きな言語 : {user.lang}</p>
+            </div>
+          :null
+        }
+
         <div className="mt-2 text-sm flex">
             {user.twitter ? (
               <a
