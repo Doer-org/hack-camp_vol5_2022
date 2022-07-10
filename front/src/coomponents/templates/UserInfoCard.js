@@ -5,7 +5,7 @@ import github from "../../assets/img/github-logo.png";
 
 const UserCard = ({ user }) => {
   return (
-  <div className="grid items-center bg-white mt-2 p-2 shadow-lg hover:shadow-2xl rounded cursor-pointer transitionshadow-lg rounded-2xl">
+  <div className="items-center bg-white mt-2 p-2 shadow-lg hover:shadow-2xl rounded cursor-pointer transitionshadow-lg rounded-2xl sm:w-full sm:h-full">
     <div className="card flex flex-col items-center justify-center p-4 ">
         {user.github ? (
           <div className="profile mx-auto rounded-full py-2 w-32">
