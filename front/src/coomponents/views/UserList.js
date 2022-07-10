@@ -1,6 +1,7 @@
 import React,{useEffect, useState} from "react";
 import Socket from "../../ws/socket";
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import UserInfoCard from "../templates/UserInfoCard";
 import UserPrepareCard from "../templates/UserPrepareCard";
@@ -78,6 +79,7 @@ const UserList = () => {
     }
   };
 
+  const navigate = useNavigate();
 
   const eventStart = ()=>{
 
@@ -85,6 +87,9 @@ const UserList = () => {
 
     axios
     .get(`https://go-server-doer-vol5.herokuapp.com/room/finish/${room}`)
+    .then(()=>{
+      navigate(`/event/questions?room=${room}`);
+    })
     .catch((err)=>{
       console.log(err)
     })

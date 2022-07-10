@@ -16,7 +16,7 @@ export class Routing extends React.Component {
             <Route index element={<HomePage />} />
             <Route path="CreateRoom" element={<CreateRoomPage />} />
             <Route path="event" element={<RegisterUserPage />} />
-            <Route path="Questions" element={<QuestionsPage />} />
+            <Route path="event/questions" element={<QuestionsPage />} />
             <Route path="UserInfo" element={<UserInfoPage />} />
             <Route path="event/prepare" element={<UserListPage />} />
           </Routes>
