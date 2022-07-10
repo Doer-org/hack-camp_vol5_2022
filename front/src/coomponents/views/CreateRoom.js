@@ -176,7 +176,7 @@ const CreateRoom = () =>  {
                                         data-bs-content="Right popover"
                                       >
                                         <svg 
-                                          className="h-8 w-8 text-black"  
+                                          className="h-8 w-8 text-black text-gray-400"  
                                           width="24" 
                                           height="24" 
                                           viewBox="0 0 24 24" 

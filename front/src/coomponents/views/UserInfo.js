@@ -83,7 +83,7 @@ const UserInfo = () => {
                   <img src={robot} width="100px"/>
                 </div>
 
-          <div className="text-lg flex justify-between mx-6">
+          <div className="text-lg flex justify-between mx-6 sm:block">
             <div>
               <span>参加人数：</span>
               <span>{users.length}</span>
@@ -91,10 +91,10 @@ const UserInfo = () => {
 
             <div className="text-[0.8rem]">Date : {roomInfo && roomInfo.created_at ? roomInfo.created_at.slice(0,10) : null}</div>
           </div>
-          <ul className="mx-6 my-8">
+          <ul className="mx-6 my-8 sm:flex sm:justify-around">
             {users.map((user) => {
               return (
-                <li>
+                <li className="sm:w-[45%] sm:mb-10">
                   <UserInfoCard user={user} />
                 </li>
               );

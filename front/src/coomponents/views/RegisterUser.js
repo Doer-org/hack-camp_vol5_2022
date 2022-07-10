@@ -165,7 +165,7 @@ const RegisterUser = () => {
 
                     <div className="form-group mb-6 w-60">
                         <InputText 
-                          title="呼ばれた名前 || あだな " 
+                          title="呼ばれたい名前 || あだな " 
                           id="name" 
                           name="name"
                           value={name} 

@@ -97,7 +97,7 @@ const UserList = () => {
 
   return (
     <>
-    <div className="py-10 bg-thin-purple px-2 h-full h-auto">
+    <div className="py-10 bg-thin-purple px-2 h-screen">
       <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden md:max-w-lg"></div>
         <div className="card flex flex-col items-center justify-center p-4 ">
 
