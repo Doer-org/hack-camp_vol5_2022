@@ -15,7 +15,7 @@ const UserList = () => {
   const room = query.get('room');
 
   // websocket接続準備
-  const ws = new WebSocket(`ws://go-server-doer-vol5.herokuapp.com/ws?room=${room}`);
+  const ws = new WebSocket(`wss://go-server-doer-vol5.herokuapp.com/ws?room=${room}`);
   const socket = new Socket(ws);
 
   const [userList, setUserList] = useState([]);
