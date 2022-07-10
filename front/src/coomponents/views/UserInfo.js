@@ -1,71 +1,77 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserInfoCard from "../templates/UserInfoCard";
 // import { userInfo } from "../../data/userInfo";
 import axios from "axios";
-// import { useLocation } from "react-router-dom";
-
-//userInfo
-// name
-// github
-// twitter
+import { useLocation } from "react-router-dom";
 
 const UserInfo = () => {
   // query paramの取得
-  // const search = useLocation().search;
-  // const query = new URLSearchParams(search);
-  // const roomId = query.get("room");
+  const search = useLocation().search;
+  const query = new URLSearchParams(search);
+  const room = query.get("room");
 
-  const roomId =
-    "46e96c86ab6db490de247c05b95a905e19eee8985f341856cb162b1e84d73241";
-  const [roomInfo, setRoomInfo] = useState("");
-  axios
-    .get(`https://go-server-doer-vol5.herokuapp.com/room/${roomId}`)
-    .then((response) => {
-      console.log(response.data);
-      setRoomInfo(response.data.status);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
+  const [roomInfo, setRoomInfo] = useState([]);
   const [users, setUsers] = useState([]);
-  axios
-    .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${roomId}`)
-    .then((response) => {
-      console.log(response.data);
-      setUsers(response.data);
+
+  useEffect(() => {
+    axios
+    .get(`https://go-server-doer-vol5.herokuapp.com/room/${room}`)
+    .then((res) => {
+      setRoomInfo(res.data.data);
     })
     .catch((err) => {
       console.log(err);
     });
-  const count = users.length;
-  const roomName = roomInfo.name;
-  const str = roomInfo.created_at;
-  function toDate(str, delim) {
-    const arr = str.split(delim);
-    return new Date(arr[0], arr[1] - 1, arr[2]);
-  }
-  const date = toDate(str, "-");
+
+  axios
+    .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${room}`)
+    .then((res) => {
+      setUsers(res.data.data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+}, []);
+
+
+  // const count = users.length;
+  // const roomName = roomInfo.name;
+  // const str = roomInfo.created_at;
+  // function toDate(str, delim) {
+  //   const arr = str.split(delim);
+  //   return new Date(arr[0], arr[1] - 1, arr[2]);
+  // }
+  // const date = toDate(str, "-");
   return (
-    <div className="w-10/12 mx-auto">
-      <h1 className="text-3xl text-center mt-10 mb-5">{roomName}</h1>
-      <div className="flex justify-between">
-        <div>
-          <span>参加人数：</span>
-          <span>{count}</span>
+
+    <div className="py-10 bg-thin-purple px-2 h-full h-auto">
+        <div className="card flex flex-col items-center justify-center p-4">
+
+          <div className="block  mb-12 rounded-lg shadow-lg bg-white max-w-sm text-center">
+
+
+            <div className="w-10/12 mx-auto">
+              <h1 className="text-3xl text-center mt-10 mb-5">{roomInfo.name}</h1>
+              <div className="flex justify-between">
+                <div>
+                  <span>参加人数：</span>
+                  <span>{users.length}</span>
+                </div>
+                <div className="text-[0.8rem]">{roomInfo.created_at}</div>
+              </div>
+              <ul className="">
+                {users.map((user) => {
+                  return (
+                    <li>
+                      <UserInfoCard user={user} />
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
         </div>
-        <div className="text-[0.8rem]">{date}</div>
       </div>
-      <ul>
-        {users.map((user) => {
-          return (
-            <li>
-              <UserInfoCard user={user} />
-            </li>
-          );
-        })}
-      </ul>
-    </div>
   );
 };
 export default UserInfo;
