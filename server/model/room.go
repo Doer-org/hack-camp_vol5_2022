@@ -58,11 +58,11 @@ func GetRoomByID(id string) Room {
 	return room
 }
 
-func ChangeRoomStatus(id string) Room {
+func ChangeRoomStatus(id string) (room Room) {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
-	room := Room{Id: id}
+	db.Conn.Where("id = ?",id).First(&room)
 	room.Status = "finished"
 	db.Conn.Save(&room)
 	return room
