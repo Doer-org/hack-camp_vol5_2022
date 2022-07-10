@@ -3,6 +3,7 @@ import NextButton from "../parts/Nextbutton";
 import { member } from "../../data/member";
 import twitter from "../../assets/img/twitter-logo.png";
 import github from "../../assets/img/github-logo.png";
+import logo from "../../assets/img/logo.png";
 import { Footer } from "../layers/Footer";
 
 
@@ -10,10 +11,12 @@ const Home = () => {
     return (
       <div> 
         <div align="center">
-          <h1 className="text-4xl sm:text-6xl mt-24">MEET HACK</h1>
+          {/* <h1 className="text-4xl sm:text-6xl mt-24">MEET HACK</h1> */}
+          <img src={logo} className="mt-12 mb-8"/>
           <h2 className="text-sm sm:text-xl 
-                        mt-8 mb-20">
-                        新しい仲間とのつながり、HACKします
+                        mt-8 mb-20 leading-loose">
+                        新しい仲間とのつながり、HACKします<br></br>
+                        MeetHackでよりはやく、よりスマートに交流しませんか
           </h2>
           <NextButton path="CreateRoom" name="はじめる"/>
         </div>
