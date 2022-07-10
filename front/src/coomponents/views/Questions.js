@@ -52,40 +52,43 @@ const Questions = () => {
     console.log(current);
   };
   return (
-    <div className="w-10/12 mx-auto">
-      <div className="text-center">
-        <div className="mt-10 mb-7">
-          <p className="text-3xl">回答者は</p>
-          <h2 className="text-3xl">{users[current] + "さん"}</h2>
-        </div>
-        <SecTitle title="質問内容" />
-        <QuestionCard content={questions[current].question} />
-        {users.length === current + 1 ? (
-          <>
-            <div className="mb-0 mt-3">
-              <NextButton path={`/event/?room=${room}`} name="参加者一覧" />
-            </div>
+    <div className="bg-thin-purple h-screen">
+      <div className="w-10/12 mx-auto">
+        <div className="text-center">
+          <div className="pt-10 mb-7">
+            <p className="text-3xl">回答者は</p>
+            <h2 className="text-3xl">{users[current] + "さん"}</h2>
+          </div>
+          <SecTitle title="質問内容" />
+          <QuestionCard content={questions[current] ? questions[current].question : null} />
+          {users.length === current + 1 ? (
+            <>
+              <div className="mb-0 mt-3">
+                <NextButton path={`/event/?room=${room}`} name="参加者一覧" />
+              </div>
 
-            <div className="mb-0 mt-3">
-              <BaseButton onClick={(e) => backQuestion(e)} name="前の人" />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="mb-0 mt-3">
-              <BaseButton onClick={(e) => nextQuestion(e)} name="次の人" />
-            </div>
-            {!current - 1 < 0 ? (
-              <>
-                <div className="mb-0 mt-3">
-                  <BaseButton onClick={(e) => backQuestion(e)} name="前の人" />
-                </div>
-              </>
-            ) : null}
-          </>
-        )}
+              <div className="mb-0 mt-3">
+                <BaseButton onClick={(e) => backQuestion(e)} name="前の人" />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mb-0 mt-3">
+                <BaseButton onClick={(e) => nextQuestion(e)} name="次の人" />
+              </div>
+              {!current - 1 < 0 ? (
+                <>
+                  <div className="mb-0 mt-3">
+                    <BaseButton onClick={(e) => backQuestion(e)} name="前の人" />
+                  </div>
+                </>
+              ) : null}
+            </>
+          )}
+        </div>
       </div>
     </div>
+
   );
 };
 export default Questions;

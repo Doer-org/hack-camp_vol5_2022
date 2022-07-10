@@ -89,7 +89,7 @@ const UserInfo = () => {
               <span>{users.length}</span>
             </div>
 
-            <div className="text-[0.8rem]">Date : {roomInfo.created_at.slice(0,10)}</div>
+            <div className="text-[0.8rem]">Date : {roomInfo && roomInfo.created_at ? roomInfo.created_at.slice(0,10) : null}</div>
           </div>
           <ul className="mx-6 my-8">
             {users.map((user) => {
