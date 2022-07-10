@@ -3,6 +3,7 @@ import UserInfoCard from "../templates/UserInfoCard";
 // import { userInfo } from "../../data/userInfo";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import robot from "../../assets/img/robot.png";
 
 const UserInfo = () => {
   // query paramの取得
@@ -23,15 +24,15 @@ const UserInfo = () => {
       console.log(err);
     });
 
-  axios
-    .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${room}`)
-    .then((res) => {
-      setUsers(res.data.data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}, []);
+    axios
+      .get(`https://go-server-doer-vol5.herokuapp.com/member/all?room=${room}`)
+      .then((res) => {
+        setUsers(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
 
   // const count = users.length;
@@ -68,15 +69,29 @@ const UserInfo = () => {
                       <p >{roomInfo.name}</p>
                   </div>
 
+                  <div class="mt-8 mb-2 mx-auto bg-grey-light rounded-lg shadow-lg p-4 bg-gray-100 mx-10">
+                    <p class="italic text-blue-darkest leading-normal text-lg">
+                      イベントお疲れ様でした<br/>
+                    </p>
+                    <p class="text-center pt-8 text-grey-darker text-sm">
+                      イベント後も皆さんの情報を管理します🤖<br/>
+                      気になる方のプロフィールを確認してみましょう！
+                    </p>
+                  </div>
+                
+                <div className="flex justify-center mb-8">
+                  <img src={robot} width="100px"/>
+                </div>
 
-          <div className="flex justify-between">
+          <div className="text-lg flex justify-between mx-6">
             <div>
               <span>参加人数：</span>
               <span>{users.length}</span>
             </div>
-            <div className="text-[0.8rem]">{roomInfo.created_at}</div>
+
+            <div className="text-[0.8rem]">Date : {roomInfo.created_at.slice(0,10)}</div>
           </div>
-          <ul className="">
+          <ul className="mx-6 my-8">
             {users.map((user) => {
               return (
                 <li>
