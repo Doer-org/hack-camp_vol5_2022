@@ -45,7 +45,7 @@ const CreateRoom = () =>  {
   }
 
   function copyUrlToClipboard() {
-    const url = `http://localhost:3000/event?room=${roomId}`
+    const url = `https://meet-hack.vercel.app/event?room=${roomId}`
     navigator.clipboard.writeText(url)
     .then(function() {
       console.log('Async: Copying to clipboard was successful!');
@@ -165,7 +165,7 @@ const CreateRoom = () =>  {
                                 {roomId ?(
                                 <div className="mt-4 flex justify-center mb-4">
                                   <Link to={`/event?room=${roomId}`} className="underline text-blue-600 truncate">
-                                    {`http://localhost:3000/event?room=${roomId}`}</Link>
+                                    {`https://meet-hack.vercel.app/event?room=${roomId}`}</Link>
                                   <Popup
                                     trigger={
                                       <button 

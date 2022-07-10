@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import InputText from "../templates/InputText";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import logo from "../../assets/img/logo.png";
 import axios from 'axios';
 
 const RegisterUser = () => {
@@ -85,8 +86,8 @@ const RegisterUser = () => {
 
                       <div className="px-12 py-4 ">
 
-                        <div className="my-6 px-2 py-1 w-full mt-2 w-60">
-                          memo , logoとかほしい
+                        <div className="my-2 px-2 py-1 w-full mt-2 w-60">
+                          <img src={logo} className="mb-4"/>
                           <p>ユーザーの登録フォームです</p><br></br>
                           <div className="bg-green-100 p-2 rounded-xl shadow-lg">
                             <small className="block text-sm text-gray-800 font-bold m-2">
