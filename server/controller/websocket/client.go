@@ -28,7 +28,6 @@ var (
 	space   = []byte{' '}
 )
 
-
 // wsコネクションの基本設定
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -63,19 +62,7 @@ func (c *Client) readPump() {
 	c.conn.SetPongHandler(func(string) error { c.conn.SetReadDeadline(time.Now().Add(pongWait)); return nil })
 
 	for {
-		// visitCount := 0
 		_, message, err := c.conn.ReadMessage()
-		// stats := model.WsStatusResponse{}
-		// err := c.conn.ReadJSON(&stats)
-
-
-
-		// switch status:=room.Status;status{
-		// case "aaa":
-		// 	log.Println("aaa")
-		// default:
-		// 	log.Println("err")
-		// }
 
 		// 例外処理
 		if err != nil {
@@ -127,6 +114,7 @@ func (c *Client) writePump() {
 				return
 			}
 		case <-ticker.C:
+			// pingPeriod分経過したとき
 			c.conn.SetWriteDeadline(time.Now().Add(writeWait))
 			if err := c.conn.WriteMessage(websocket.PingMessage, nil); err != nil {
 				return
@@ -135,7 +123,7 @@ func (c *Client) writePump() {
 	}
 }
 
-// serveWs handles websocket requests from the peer.
+// websocketサーバー
 func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -143,12 +131,9 @@ func ServeWs(hub *Hub, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// ここでroom idの管理する...?
 	client := &Client{hub: hub, conn: conn, send: make(chan []byte, 256)}
 	client.hub.register <- client
 
-	// Allow collection of memory referenced by the caller by doing all work in
-	// new goroutines.
 	go client.writePump()
 	go client.readPump()
 }
