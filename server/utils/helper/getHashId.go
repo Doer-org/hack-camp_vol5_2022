@@ -1,11 +1,10 @@
 package helper
 
 import (
-	"time"
 	"crypto/sha256"
 	"encoding/hex"
+	"time"
 )
-
 
 func getSHA256Binary(s string) []byte {
 	r := sha256.Sum256([]byte(s))

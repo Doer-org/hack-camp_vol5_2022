@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/service"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
@@ -29,7 +29,7 @@ func NewMember(c *gin.Context) {
 		return
 	}
 
-	member := service.NewMember(name, comment, lang, github, twitter, question, room)
+	member := usecase.NewMember(name, comment, lang, github, twitter, question, room)
 	memberJSON := response.MemberJSON(member)
 
 	c.JSON(
@@ -53,7 +53,7 @@ func GetAllMember(c *gin.Context) {
 		return
 	}
 
-	members := service.GetAllMember(room)
+	members := usecase.GetAllMember(room)
 	membersJSON := response.MembersToJSON(members)
 
 	c.JSON(
@@ -86,7 +86,7 @@ func GetMemberByID(c *gin.Context) {
 		return
 	}
 
-	member := service.GetMemberByID(id) //Goの型式でdbからデータを返す
+	member := usecase.GetMemberByID(id) //Goの型式でdbからデータを返す
 	memberJSON := response.MemberToJSON(member)
 
 	c.JSON(

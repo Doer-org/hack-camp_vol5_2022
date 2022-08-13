@@ -4,10 +4,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/controller"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/websocket"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/config"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/websocket"
+	"github.com/gin-gonic/gin"
 )
 
 func InitRouter() *gin.Engine {

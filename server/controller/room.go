@@ -6,12 +6,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/service"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
 func GetAllRoom(c *gin.Context) {
-	rooms := service.GetAllRoom()
+	rooms := usecase.GetAllRoom()
 	roomsJSON := response.RoomsToJSON(rooms)
 	c.JSON(
 		http.StatusOK,
@@ -45,7 +45,7 @@ func NewRoom(c *gin.Context) {
 		return
 	}
 
-	room := service.NewRoom(name, max_count)
+	room := usecase.NewRoom(name, max_count)
 	roomJSON := response.RoomJSON(room)
 
 	c.JSON(
@@ -58,7 +58,7 @@ func NewRoom(c *gin.Context) {
 
 func GetRoomByID(c *gin.Context) {
 	id := c.Param("id")
-	room := service.GetRoomByID(id)
+	room := usecase.GetRoomByID(id)
 	roomJSON := response.RoomToJSON(room)
 	c.JSON(
 		http.StatusOK,
@@ -81,7 +81,7 @@ func ChangeRoomStatus(c *gin.Context) {
 		return
 	}
 
-	room := service.ChangeRoomStatus(id)
+	room := usecase.ChangeRoomStatus(id)
 	roomJSON := response.RoomToJSON(room)
 	c.JSON(
 		http.StatusOK,
@@ -104,7 +104,7 @@ func GetRandomMember(c *gin.Context) {
 		return
 	}
 
-	member := service.GetRandomMember(room)
+	member := usecase.GetRandomMember(room)
 	memberJSON := response.MemberToJSON(member)
 
 	c.JSON(

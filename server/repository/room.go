@@ -13,10 +13,16 @@ func GetAllRoom() (rooms []domain.Room) {
 	return
 }
 
-func NewRoom(room domain.Room) domain.Room {
+func NewRoom(id string, name string, max_count int) domain.Room {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
+	room := domain.Room{
+		Id:       id,
+		Name:     name,
+		MaxCount: max_count,
+		Status:   "created",
+	}
 	db.Conn.Save(&room)
 	return room
 }

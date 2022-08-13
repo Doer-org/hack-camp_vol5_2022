@@ -2,7 +2,6 @@ package response
 
 import "github.com/Doer-org/hack-camp_vol5_2022/server/domain"
 
-
 type MemberJSON struct {
 	Id       int    `json:"id"`
 	Name     string `json:"name"`

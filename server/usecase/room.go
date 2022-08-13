@@ -1,8 +1,8 @@
-package service
+package usecase
 
 import (
-	"github.com/Doer-org/hack-camp_vol5_2022/server/repository"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/domain"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/repository"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/helper"
 )
 
@@ -13,13 +13,7 @@ func GetAllRoom() []domain.Room {
 
 func NewRoom(name string, max_count int) domain.Room {
 	id := helper.GetHashId()
-	room := domain.Room{
-		Id:       id,
-		Name:     name,
-		MaxCount: max_count,
-		Status:   "created",
-	}
-	repository.NewRoom(room)
+	room := repository.NewRoom(id, name, max_count)
 	return room
 }
 

@@ -10,4 +10,3 @@ type Member struct {
 	Question string
 	Room     string
 }
-

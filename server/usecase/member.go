@@ -1,4 +1,4 @@
-package service
+package usecase
 
 import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/domain"
@@ -6,16 +6,7 @@ import (
 )
 
 func NewMember(name string, comment string, lang string, github string, twitter string, question string, room string) domain.Member {
-	member := domain.Member{
-		Name:     name,
-		Comment:  comment,
-		Lang:     lang,
-		Github:   github,
-		Twitter:  twitter,
-		Question: question,
-		Room:     room,
-	}
-	repository.NewMember(member)
+	member := repository.NewMember(name, comment, lang, github, twitter, question, room)
 	return member
 }
 

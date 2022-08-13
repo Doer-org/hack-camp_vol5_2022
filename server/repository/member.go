@@ -7,12 +7,19 @@ import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/domain"
 )
 
-
-
-func NewMember(member domain.Member) domain.Member {
+func NewMember(name string, comment string, lang string, github string, twitter string, question string, room string) domain.Member {
 	db := db.NewDB()
 	defer db.Conn.Close()
-	
+
+	member := domain.Member{
+		Name:     name,
+		Comment:  comment,
+		Lang:     lang,
+		Github:   github,
+		Twitter:  twitter,
+		Question: question,
+		Room:     room,
+	}
 	db.Conn.Save(&member)
 	return member
 }
@@ -25,7 +32,7 @@ func GetAllMember(room string) (members []domain.Member) {
 	return
 }
 
-func GetMemberByID(id int)  (member domain.Member) {
+func GetMemberByID(id int) (member domain.Member) {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
