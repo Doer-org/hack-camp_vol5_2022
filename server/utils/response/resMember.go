@@ -1,6 +1,6 @@
-package view
+package response
 
-import "github.com/Doer-org/hack-camp_vol5_2022/server/model"
+import "github.com/Doer-org/hack-camp_vol5_2022/server/domain"
 
 type MemberJSON struct {
 	Id       int    `json:"id"`
@@ -13,7 +13,7 @@ type MemberJSON struct {
 	Room     string `json:"room"`
 }
 
-func MemberToJSON(member model.Member) MemberJSON {
+func MemberToJSON(member domain.Member) MemberJSON {
 	return MemberJSON{
 		Id:       member.Id,
 		Name:     member.Name,
@@ -26,7 +26,7 @@ func MemberToJSON(member model.Member) MemberJSON {
 	}
 }
 
-func MembersToJSON(members []model.Member) []MemberJSON {
+func MembersToJSON(members []domain.Member) []MemberJSON {
 	membersJSON := []MemberJSON{}
 	for _, member := range members {
 		membersJSON = append(membersJSON, MemberToJSON(member))

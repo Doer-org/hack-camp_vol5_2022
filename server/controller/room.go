@@ -6,13 +6,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/model"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/view"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
-func getAllRoom(c *gin.Context) {
-	rooms := model.GetAllRoom()
-	roomsJSON := view.RoomsToJSON(rooms)
+func GetAllRoom(c *gin.Context) {
+	rooms := usecase.GetAllRoom()
+	roomsJSON := response.RoomsToJSON(rooms)
 	c.JSON(
 		http.StatusOK,
 		gin.H{
@@ -21,7 +21,7 @@ func getAllRoom(c *gin.Context) {
 	)
 }
 
-func newRoom(c *gin.Context) {
+func NewRoom(c *gin.Context) {
 	name := c.PostForm("name")
 	max_count, err := strconv.Atoi(c.PostForm("max_count"))
 
@@ -45,8 +45,8 @@ func newRoom(c *gin.Context) {
 		return
 	}
 
-	room := model.NewRoom(name, max_count)
-	roomJSON := view.RoomJSON(room)
+	room := usecase.NewRoom(name, max_count)
+	roomJSON := response.RoomJSON(room)
 
 	c.JSON(
 		http.StatusOK,
@@ -56,10 +56,10 @@ func newRoom(c *gin.Context) {
 	)
 }
 
-func getRoomByID(c *gin.Context) {
+func GetRoomByID(c *gin.Context) {
 	id := c.Param("id")
-	room := model.GetRoomByID(id) //Goの型式でdbからデータを返す
-	roomJSON := view.RoomToJSON(room)
+	room := usecase.GetRoomByID(id)
+	roomJSON := response.RoomToJSON(room)
 	c.JSON(
 		http.StatusOK,
 		gin.H{
@@ -68,7 +68,7 @@ func getRoomByID(c *gin.Context) {
 	)
 }
 
-func changeRoomStatus(c *gin.Context) {
+func ChangeRoomStatus(c *gin.Context) {
 	id := c.Param("id")
 
 	if id == "" {
@@ -81,8 +81,8 @@ func changeRoomStatus(c *gin.Context) {
 		return
 	}
 
-	room := model.ChangeRoomStatus(id)
-	roomJSON := view.RoomToJSON(room)
+	room := usecase.ChangeRoomStatus(id)
+	roomJSON := response.RoomToJSON(room)
 	c.JSON(
 		http.StatusOK,
 		gin.H{
@@ -91,7 +91,7 @@ func changeRoomStatus(c *gin.Context) {
 	)
 }
 
-func getRandomMember(c *gin.Context) {
+func GetRandomMember(c *gin.Context) {
 	room := c.Query("room")
 
 	if room == "" {
@@ -104,8 +104,8 @@ func getRandomMember(c *gin.Context) {
 		return
 	}
 
-	member := model.GetRandomMember(room)
-	memberJSON := view.MemberToJSON(member)
+	member := usecase.GetRandomMember(room)
+	memberJSON := response.MemberToJSON(member)
 
 	c.JSON(
 		http.StatusOK,

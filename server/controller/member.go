@@ -6,11 +6,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/model"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/view"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
-func newMember(c *gin.Context) {
+func NewMember(c *gin.Context) {
 	name := c.PostForm("name")
 	comment := c.PostForm("comment")
 	lang := c.PostForm("lang")
@@ -29,8 +29,8 @@ func newMember(c *gin.Context) {
 		return
 	}
 
-	member := model.NewMember(name, comment, lang, github, twitter, question, room)
-	memberJSON := view.MemberToJSON(member)
+	member := usecase.NewMember(name, comment, lang, github, twitter, question, room)
+	memberJSON := response.MemberJSON(member)
 
 	c.JSON(
 		http.StatusOK,
@@ -38,10 +38,9 @@ func newMember(c *gin.Context) {
 			"data": memberJSON,
 		},
 	)
-
 }
 
-func getAllMember(c *gin.Context) {
+func GetAllMember(c *gin.Context) {
 	room := c.Query("room")
 
 	if room == "" {
@@ -54,8 +53,8 @@ func getAllMember(c *gin.Context) {
 		return
 	}
 
-	members := model.GetAllMember(room)
-	membersJSON := view.MembersToJSON(members)
+	members := usecase.GetAllMember(room)
+	membersJSON := response.MembersToJSON(members)
 
 	c.JSON(
 		http.StatusOK,
@@ -65,7 +64,7 @@ func getAllMember(c *gin.Context) {
 	)
 }
 
-func getMemberByID(c *gin.Context) {
+func GetMemberByID(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("id"))
 
 	if id == 0 {
@@ -87,8 +86,9 @@ func getMemberByID(c *gin.Context) {
 		return
 	}
 
-	member := model.GetMemberByID(id) //Goの型式でdbからデータを返す
-	memberJSON := view.MemberToJSON(member)
+	member := usecase.GetMemberByID(id) //Goの型式でdbからデータを返す
+	memberJSON := response.MemberToJSON(member)
+
 	c.JSON(
 		http.StatusOK,
 		gin.H{

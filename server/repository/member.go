@@ -1,27 +1,17 @@
-package model
+package repository
 
 import (
 	"math/rand"
 
 	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/domain"
 )
 
-type Member struct {
-	Id       int
-	Name     string
-	Comment  string
-	Lang     string
-	Github   string
-	Twitter  string
-	Question string
-	Room     string
-}
-
-func NewMember(name string, comment string, lang string, github string, twitter string, question string, room string) Member {
+func NewMember(name string, comment string, lang string, github string, twitter string, question string, room string) domain.Member {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
-	newMember := Member{
+	member := domain.Member{
 		Name:     name,
 		Comment:  comment,
 		Lang:     lang,
@@ -30,11 +20,11 @@ func NewMember(name string, comment string, lang string, github string, twitter 
 		Question: question,
 		Room:     room,
 	}
-	db.Conn.Save(&newMember)
-	return newMember
+	db.Conn.Save(&member)
+	return member
 }
 
-func GetAllMember(room string) (members []Member) {
+func GetAllMember(room string) (members []domain.Member) {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
@@ -42,7 +32,7 @@ func GetAllMember(room string) (members []Member) {
 	return
 }
 
-func GetMemberByID(id int) (member Member) {
+func GetMemberByID(id int) (member domain.Member) {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
@@ -50,15 +40,14 @@ func GetMemberByID(id int) (member Member) {
 	return
 }
 
-func GetRandomMember(room string) Member {
+func GetRandomMember(room string) domain.Member {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
-	members := []Member{}
+	members := []domain.Member{}
 	db.Conn.Where("room = ?", room).Find(&members)
 
 	// マッチしたデータの長さ
-	len := (int)(db.Conn.Where("room = ?", room).Find(&[]Member{}).RowsAffected)
-
+	len := (int)(db.Conn.Where("room = ?", room).Find(&[]domain.Member{}).RowsAffected)
 	return members[rand.Intn(len)]
 }

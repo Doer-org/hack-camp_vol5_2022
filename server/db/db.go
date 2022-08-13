@@ -5,7 +5,6 @@ package db
 import (
 	"fmt"
 	"os"
-	// "time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
