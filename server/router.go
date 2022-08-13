@@ -1,39 +1,37 @@
-package controller
+package main
 
 import (
 	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
+	"github.com/Doer-org/hack-camp_vol5_2022/server/controller"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/websocket"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/config"
 )
 
 func InitRouter() *gin.Engine {
 	r := gin.Default()
 
 	//CORSの設定
-	configCors(r)
+	config.ConfigCors(r)
 
 	// health check
 	r.GET("/", func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"message": "hello, gin 🍸"}) })
 
 	// room
-	r.GET("/room/all", getAllRoom)
-	r.POST("/room/new", newRoom)
-	r.GET("/room/:id", getRoomByID)
-	r.GET("/room/finish/:id", changeRoomStatus)
+	r.GET("/room/all", controller.GetAllRoom)
+	r.POST("/room/new", controller.NewRoom)
+	r.GET("/room/:id", controller.GetRoomByID)
+	r.GET("/room/finish/:id", controller.ChangeRoomStatus)
 
 	//member
-	r.POST("/member/new", newMember)
-	r.GET("/member/all", getAllMember)
-	r.GET("/member/:id", getMemberByID)
-	r.GET("/member/random", getRandomMember)
+	r.POST("/member/new", controller.NewMember)
+	r.GET("/member/all", controller.GetAllMember)
+	r.GET("/member/:id", controller.GetMemberByID)
+	r.GET("/member/random", controller.GetRandomMember)
 
-	// websocket 以下は mahiro72にお任せ
-	// hub := websocket.NewHub()
-	// go hub.Run()
-
+	// websocket
 	// roomIDとHubの紐づけ
 	hubs := make(map[string]*websocket.Hub)
 

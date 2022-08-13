@@ -16,7 +16,7 @@ services:
   server:
     build:
       context: .
-      dockerfile: ./docker/server/Dockerfile
+      dockerfile: ./server/Dockerfile
     container_name: hack-camp_vol5_2022-server
     env_file:
       - docker-compose.env
@@ -27,7 +27,7 @@ services:
       - ./server:/go/src/github.com/Doer-org/hack-camp_vol5_2022
     depends_on:
       - db
-    command: go run main.go
+    command: go run .
 
   db:
     container_name: hack-camp_vol5_2022-db

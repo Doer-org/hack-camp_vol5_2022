@@ -1,4 +1,4 @@
-package controller
+package config
 
 import (
 	"time"
@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func configCors(r *gin.Engine) {
+func ConfigCors(r *gin.Engine) {
 	r.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
 			"http://localhost:3000",

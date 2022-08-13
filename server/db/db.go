@@ -4,8 +4,8 @@ package db
 
 import (
 	"fmt"
+	"log"
 	"os"
-	// "time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
@@ -49,10 +49,14 @@ func newDB(d *DB) *DB {
 		d.DBName,
 	)
 
+	log.Println("################",connInfo)
+
 	// deploy
 	if os.Getenv("DEPLOY_FLAG") == "True" {
 		connInfo = os.Getenv("DATABASE_URL")
 	}
+
+	log.Println("@@@@@@@@@@@@@@@@@",connInfo)
 
 	db, err := gorm.Open("postgres", connInfo)
 
