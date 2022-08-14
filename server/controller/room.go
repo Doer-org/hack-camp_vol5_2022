@@ -100,4 +100,3 @@ func (con roomController) ChangeRoomStatus(ctx *gin.Context) {
 		},
 	)
 }
-

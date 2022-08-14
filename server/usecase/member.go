@@ -17,7 +17,7 @@ type MemberUsecase interface {
 
 func NewMemberUsecase(repo MemberRepository) MemberUsecase {
 	return memberUsecase{
-		repo:repo,
+		repo: repo,
 	}
 }
 

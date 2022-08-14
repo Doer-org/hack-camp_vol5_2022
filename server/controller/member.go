@@ -40,7 +40,7 @@ func (con memberController) NewMember(ctx *gin.Context) {
 	}
 
 	member := con.uc.NewMember(name, comment, lang, github, twitter, question, room)
-	
+
 	memberJSON := response.MemberJSON(member)
 
 	ctx.JSON(

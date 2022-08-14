@@ -32,12 +32,11 @@ func InitRouter(db db.DB) *gin.Engine {
 	r.GET("/room/:id", conRoom.GetRoomByID)
 	r.GET("/room/finish/:id", conRoom.ChangeRoomStatus)
 
-
 	//member
 	repoMember := repository.NewMemberRepository(db)
 	ucMember := usecase.NewMemberUsecase(repoMember)
 	conMember := controller.NewMemberController(ucMember)
-	
+
 	r.POST("/member/new", conMember.NewMember)
 	r.GET("/member/all", conMember.GetAllMember)
 	r.GET("/member/:id", conMember.GetMemberByID)
