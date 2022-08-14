@@ -10,8 +10,18 @@ import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
-func GetAllRoom(c *gin.Context) {
-	rooms := usecase.GetAllRoom()
+type roomController struct {
+	uc usecase.RoomUsecase
+}
+
+func NewRoomController(uc usecase.RoomUsecase) roomController {
+	return roomController{
+		uc: uc,
+	}
+}
+
+func (con roomController) GetAllRoom(c *gin.Context) {
+	rooms := con.uc.GetAllRoom()
 	roomsJSON := response.RoomsToJSON(rooms)
 	c.JSON(
 		http.StatusOK,
@@ -21,7 +31,7 @@ func GetAllRoom(c *gin.Context) {
 	)
 }
 
-func NewRoom(c *gin.Context) {
+func (con roomController) NewRoom(c *gin.Context) {
 	name := c.PostForm("name")
 	max_count, err := strconv.Atoi(c.PostForm("max_count"))
 
@@ -45,7 +55,7 @@ func NewRoom(c *gin.Context) {
 		return
 	}
 
-	room := usecase.NewRoom(name, max_count)
+	room := con.uc.NewRoom(name, max_count)
 	roomJSON := response.RoomJSON(room)
 
 	c.JSON(
@@ -56,9 +66,9 @@ func NewRoom(c *gin.Context) {
 	)
 }
 
-func GetRoomByID(c *gin.Context) {
+func (con roomController) GetRoomByID(c *gin.Context) {
 	id := c.Param("id")
-	room := usecase.GetRoomByID(id)
+	room := con.uc.GetRoomByID(id)
 	roomJSON := response.RoomToJSON(room)
 	c.JSON(
 		http.StatusOK,
@@ -68,7 +78,7 @@ func GetRoomByID(c *gin.Context) {
 	)
 }
 
-func ChangeRoomStatus(c *gin.Context) {
+func (con roomController) ChangeRoomStatus(c *gin.Context) {
 	id := c.Param("id")
 
 	if id == "" {
@@ -81,7 +91,7 @@ func ChangeRoomStatus(c *gin.Context) {
 		return
 	}
 
-	room := usecase.ChangeRoomStatus(id)
+	room := con.uc.ChangeRoomStatus(id)
 	roomJSON := response.RoomToJSON(room)
 	c.JSON(
 		http.StatusOK,
@@ -91,27 +101,3 @@ func ChangeRoomStatus(c *gin.Context) {
 	)
 }
 
-func GetRandomMember(c *gin.Context) {
-	room := c.Query("room")
-
-	if room == "" {
-		c.JSON(
-			http.StatusBadRequest,
-			gin.H{
-				"error": "room valid error",
-			},
-		)
-		return
-	}
-
-	member := usecase.GetRandomMember(room)
-	memberJSON := response.MemberToJSON(member)
-
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"data": memberJSON,
-		},
-	)
-
-}
