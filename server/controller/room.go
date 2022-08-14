@@ -20,10 +20,10 @@ func NewRoomController(uc usecase.RoomUsecase) roomController {
 	}
 }
 
-func (con roomController) GetAllRoom(c *gin.Context) {
+func (con roomController) GetAllRoom(ctx *gin.Context) {
 	rooms := con.uc.GetAllRoom()
 	roomsJSON := response.RoomsToJSON(rooms)
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": roomsJSON,
@@ -31,12 +31,12 @@ func (con roomController) GetAllRoom(c *gin.Context) {
 	)
 }
 
-func (con roomController) NewRoom(c *gin.Context) {
-	name := c.PostForm("name")
-	max_count, err := strconv.Atoi(c.PostForm("max_count"))
+func (con roomController) NewRoom(ctx *gin.Context) {
+	name := ctx.PostForm("name")
+	max_count, err := strconv.Atoi(ctx.PostForm("max_count"))
 
 	if name == "" || max_count == 0 {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "name or max_count valid error",
@@ -46,7 +46,7 @@ func (con roomController) NewRoom(c *gin.Context) {
 	}
 
 	if err != nil {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "max_count must be integer",
@@ -58,7 +58,7 @@ func (con roomController) NewRoom(c *gin.Context) {
 	room := con.uc.NewRoom(name, max_count)
 	roomJSON := response.RoomJSON(room)
 
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": roomJSON,
@@ -66,11 +66,11 @@ func (con roomController) NewRoom(c *gin.Context) {
 	)
 }
 
-func (con roomController) GetRoomByID(c *gin.Context) {
-	id := c.Param("id")
+func (con roomController) GetRoomByID(ctx *gin.Context) {
+	id := ctx.Param("id")
 	room := con.uc.GetRoomByID(id)
 	roomJSON := response.RoomToJSON(room)
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": roomJSON,
@@ -78,11 +78,11 @@ func (con roomController) GetRoomByID(c *gin.Context) {
 	)
 }
 
-func (con roomController) ChangeRoomStatus(c *gin.Context) {
-	id := c.Param("id")
+func (con roomController) ChangeRoomStatus(ctx *gin.Context) {
+	id := ctx.Param("id")
 
 	if id == "" {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "id is required",
@@ -93,7 +93,7 @@ func (con roomController) ChangeRoomStatus(c *gin.Context) {
 
 	room := con.uc.ChangeRoomStatus(id)
 	roomJSON := response.RoomToJSON(room)
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": roomJSON,
