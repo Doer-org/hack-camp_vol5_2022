@@ -10,10 +10,20 @@ import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
-func GetAllRoom(c *gin.Context) {
-	rooms := usecase.GetAllRoom()
+type roomController struct {
+	uc usecase.RoomUsecase
+}
+
+func NewRoomController(uc usecase.RoomUsecase) roomController {
+	return roomController{
+		uc: uc,
+	}
+}
+
+func (con roomController) GetAllRoom(ctx *gin.Context) {
+	rooms := con.uc.GetAllRoom()
 	roomsJSON := response.RoomsToJSON(rooms)
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": roomsJSON,
@@ -21,12 +31,12 @@ func GetAllRoom(c *gin.Context) {
 	)
 }
 
-func NewRoom(c *gin.Context) {
-	name := c.PostForm("name")
-	max_count, err := strconv.Atoi(c.PostForm("max_count"))
+func (con roomController) NewRoom(ctx *gin.Context) {
+	name := ctx.PostForm("name")
+	max_count, err := strconv.Atoi(ctx.PostForm("max_count"))
 
 	if name == "" || max_count == 0 {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "name or max_count valid error",
@@ -36,7 +46,7 @@ func NewRoom(c *gin.Context) {
 	}
 
 	if err != nil {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "max_count must be integer",
@@ -45,10 +55,10 @@ func NewRoom(c *gin.Context) {
 		return
 	}
 
-	room := usecase.NewRoom(name, max_count)
+	room := con.uc.NewRoom(name, max_count)
 	roomJSON := response.RoomJSON(room)
 
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": roomJSON,
@@ -56,11 +66,11 @@ func NewRoom(c *gin.Context) {
 	)
 }
 
-func GetRoomByID(c *gin.Context) {
-	id := c.Param("id")
-	room := usecase.GetRoomByID(id)
+func (con roomController) GetRoomByID(ctx *gin.Context) {
+	id := ctx.Param("id")
+	room := con.uc.GetRoomByID(id)
 	roomJSON := response.RoomToJSON(room)
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": roomJSON,
@@ -68,11 +78,11 @@ func GetRoomByID(c *gin.Context) {
 	)
 }
 
-func ChangeRoomStatus(c *gin.Context) {
-	id := c.Param("id")
+func (con roomController) ChangeRoomStatus(ctx *gin.Context) {
+	id := ctx.Param("id")
 
 	if id == "" {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "id is required",
@@ -81,37 +91,12 @@ func ChangeRoomStatus(c *gin.Context) {
 		return
 	}
 
-	room := usecase.ChangeRoomStatus(id)
+	room := con.uc.ChangeRoomStatus(id)
 	roomJSON := response.RoomToJSON(room)
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": roomJSON,
 		},
 	)
-}
-
-func GetRandomMember(c *gin.Context) {
-	room := c.Query("room")
-
-	if room == "" {
-		c.JSON(
-			http.StatusBadRequest,
-			gin.H{
-				"error": "room valid error",
-			},
-		)
-		return
-	}
-
-	member := usecase.GetRandomMember(room)
-	memberJSON := response.MemberToJSON(member)
-
-	c.JSON(
-		http.StatusOK,
-		gin.H{
-			"data": memberJSON,
-		},
-	)
-
 }
