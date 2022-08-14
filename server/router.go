@@ -13,15 +13,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitRouter() *gin.Engine {
+func InitRouter(db db.DB) *gin.Engine {
 	r := gin.Default()
 
 	//CORSの設定
 	config.ConfigCors(r)
-
-	//db接続
-	db := db.NewDB()
-	defer db.Conn.Close()
 
 	// health check
 	r.GET("/", func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"message": "hello, gin 🍸"}) })
