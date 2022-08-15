@@ -2,7 +2,7 @@
     // コンパイルに関するオプションを設定
     "compilerOptions": {
         // ECMAScript target versionを指定
-        "target": "es5",
+        "target": "ESNext",
         // ビルドする際に含めるlibraryファイル
         "lib": [
             "dom",
