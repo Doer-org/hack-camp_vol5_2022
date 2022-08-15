@@ -3,6 +3,7 @@
     "compilerOptions": {
         // ECMAScript target versionを指定
         "target": "ESNext",
+        "types": ["vite/client"], 
         // ビルドする際に含めるlibraryファイル
         "lib": [
             "dom",
@@ -37,7 +38,8 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["src/*"]
-        }
+        },
+
     },
     "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx","src/**/*.jsx" ],
     "exclude": []
