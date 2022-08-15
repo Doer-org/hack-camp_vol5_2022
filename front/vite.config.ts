@@ -1,4 +1,4 @@
-// import { resolve } from 'path'
+import * as path from 'path'
 
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import { defineConfig } from 'vite'
@@ -9,7 +9,9 @@ export default defineConfig({
   },
   plugins: [reactRefresh()],
   resolve: {
-    // alias: [{ find: /^@\/(.*)/, replacement: resolve(__dirname, 'src/$1') }],
+    alias: {
+      "@": path.resolve(__dirname, "src"),
+    },
   },
   define: {
     global: 'window',
