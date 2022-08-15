@@ -1,9 +1,9 @@
-export type ApiCreateRoomInput = {
+export type TApiCreateRoomInput = {
     name : string
     max_count : number
 }
 
-export type ApiCreateRoomOutput = {
+export type TApiCreateRoomOutput = {
     id : string
     name : string
     max_count : number

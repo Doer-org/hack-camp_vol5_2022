@@ -1,4 +1,4 @@
-export type ApiAddNewMemberInput = {
+export type TApiAddNewMemberInput = {
     name : string
     roomID : string
     question : string
@@ -8,7 +8,7 @@ export type ApiAddNewMemberInput = {
     twitter : string | undefined
 } 
 
-export type ApiAddNewMemberOutput =  {
+export type TApiAddNewMemberOutput =  {
     id : number
     name : string
     comment : string
