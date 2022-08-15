@@ -39,7 +39,7 @@
             "@/*": ["src/*"]
         }
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx" ],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/coomponents/views/CreateRoom.jsx", "src/coomponents/views/Home.jsx" ],
     "exclude": []
 }
  

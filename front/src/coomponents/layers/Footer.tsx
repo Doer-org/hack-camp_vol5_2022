@@ -3,8 +3,8 @@ import React from "react";
 export const Footer = () => {
     return (
         <footer className="text-white bg-thick-purple
-                            mt-32
-                key="footer>
+                            mt-32"
+                key="footer">
             <div>
                 <div className="container px-5 py-6 mx-auto 
                                 flex items-center 
