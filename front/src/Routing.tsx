@@ -13,11 +13,11 @@ export const Routing : FC = ()  => {
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage />} />
-          {/* <Route path="CreateRoom" element={<CreateRoomPage />} />
+          <Route path="CreateRoom" element={<CreateRoomPage />} />
           <Route path="event" element={<RegisterUserPage />} />
           <Route path="event/questions" element={<QuestionsPage />} />
           <Route path="event/user/list" element={<UserInfoPage />} />
-          <Route path="event/prepare" element={<UserListPage />} /> */}
+          <Route path="event/prepare" element={<UserListPage />} />
         </Routes>
       </BrowserRouter>
     </>
