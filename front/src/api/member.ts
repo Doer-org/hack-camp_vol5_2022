@@ -1,14 +1,13 @@
-import axios from 'axios'
 import * as E from 'fp-ts/Either'
 import { TPostAddNewMemberInput, TPostAddNewMemberOutput, TGetRoomMembersInput, TGetRoomMembersOutput }  from '../types/api/member' 
 import { TApiError }  from '../types/api/ApiError' 
-
-const endpoint = "http://localhost:5000"  
+import { axiosClient } from './client'
+ 
 
 export const postAddNewMember = async (input : TPostAddNewMemberInput) : Promise<E.Either<TApiError,TPostAddNewMemberOutput>> => { 
     try{ 
-        const resp = await axios.post(endpoint + '/member/new?room=' + input.roomID, input);  
-        return E.right(resp.data.data);  
+        const {data} : {data : TPostAddNewMemberOutput} = await axiosClient().post('/member/new?room=' + input.roomID, input);  
+        return E.right(data);  
     } 
     catch (e : any) {  
         try { 
@@ -22,9 +21,8 @@ export const postAddNewMember = async (input : TPostAddNewMemberInput) : Promise
 
 export const getRoomMembers = async (input : TGetRoomMembersInput) : Promise<E.Either<TApiError, TGetRoomMembersOutput[]>> => { 
     try{ 
-        const resp = await axios.get(endpoint + '/member/all?room=' + input.roomID); 
-        // console.log(resp)
-        return E.right(resp.data.data);  
+        const {data} : {data : TGetRoomMembersOutput[]} = await axiosClient().get('/member/all?room=' + input.roomID); 
+        return E.right(data);  
     } 
     catch (e : any) {  
         try { 
