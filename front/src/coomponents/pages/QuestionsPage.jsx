@@ -1,5 +1,5 @@
 import React from "react";
-import Questions from "../views/Questions.js";
+import Questions from "../views/Questions.jsx";
 
 export class QuestionsPage extends React.Component {
   render() {
