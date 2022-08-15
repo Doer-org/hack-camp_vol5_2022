@@ -1,6 +1,6 @@
 import * as E from 'fp-ts/Either'
 import { TPostCreateNewRoomInput, TPostCreateNewRoomOutput, TGetRoomInfoInput, TGetRoomInfoOutput }  from '../types/api/room' 
-import { TApiError }  from '../types/api/ApiError'
+import { TApiError }  from '../types/api/apiError'
 import { axiosClient } from './client'
  
 

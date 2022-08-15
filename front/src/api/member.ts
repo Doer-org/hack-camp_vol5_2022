@@ -1,6 +1,6 @@
 import * as E from 'fp-ts/Either'
 import { TPostAddNewMemberInput, TPostAddNewMemberOutput, TGetRoomMembersInput, TGetRoomMembersOutput }  from '../types/api/member' 
-import { TApiError }  from '../types/api/ApiError' 
+import { TApiError }  from '../types/api/apiError' 
 import { axiosClient } from './client'
  
 
