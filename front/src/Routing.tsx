@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { HomePage } from "./coomponents/pages/HomePage";
-import { CreateRoomPage } from "./coomponents/pages/CreateRoomPage";
-import { RegisterUserPage } from "./coomponents/pages/RegisterUserPage";
-import { QuestionsPage } from "./coomponents/pages/QuestionsPage";
-import { UserInfoPage } from "./coomponents/pages/UserInfoPage";
-import { UserListPage } from "./coomponents/pages/UserListPage";
+import { HomePage } from "./pages/HomePage";
+import { CreateRoomPage } from "./pages/CreateRoomPage";
+import { RegisterUserPage } from "./pages/RegisterUserPage";
+import { QuestionsPage } from "./pages/QuestionsPage";
+import { UserInfoPage } from "./pages/UserInfoPage";
+import { UserListPage } from "./pages/UserListPage";
 
 export const Routing : FC = ()  => {
   return ( 

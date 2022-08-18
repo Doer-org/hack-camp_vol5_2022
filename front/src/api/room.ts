@@ -4,10 +4,17 @@ import { TApiError }  from '../types/api/apiError'
 import { axiosClient } from './client'
  
 
-export const postCreateNewRoom = async (input : TPostCreateNewRoomInput) : Promise<E.Either<TApiError,TPostCreateNewRoomOutput>> => { 
+export const postCreateNewRoom = async (input : TPostCreateNewRoomInput) : Promise<E.Either<TApiError,TPostCreateNewRoomOutput>> => {   
+    const params = new URLSearchParams(  
+        {   name : input.name,
+            max_count : input.max_count.toString(), 
+        }
+    )
     try{ 
-        const {data} : { data: TPostCreateNewRoomOutput } = await axiosClient().post('/new/room', input);  
-        return E.right(data);  
+        // 直接inputを引数にすると、jsonが送信される.
+        // const {data} : { data: TPostCreateNewRoomOutput } = await axiosClient().post('/new/room', input);  
+        const {data} = await axiosClient().post('/room/new/', params);   
+        return E.right(data.data);  
     } 
     catch (e : any) {  
         try {  
@@ -20,9 +27,10 @@ export const postCreateNewRoom = async (input : TPostCreateNewRoomInput) : Promi
 }
 
 export const getRoomInfo = async (input : TGetRoomInfoInput) : Promise<E.Either<TApiError, TGetRoomInfoOutput>> => {  
-    try{ 
-        const {data} : { data: TGetRoomInfoOutput }  = await axiosClient().get('/room/'+ input.roomID);  
-        return E.right(data);  
+    try{  
+        // const {data} : { data: TGetRoomInfoOutput }  = await axiosClient().get('/room/'+ input.roomID);  
+        const {data} = await axiosClient().get('/room/'+ input.roomID);  
+        return E.right(data.data);  
     } 
     catch (e : any) {  
         try { 

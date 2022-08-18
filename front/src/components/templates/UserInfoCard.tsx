@@ -1,3 +1,4 @@
+import React  from "react";
 import UserName from "../parts/UserName";
 import RadiusImage from "../parts/RadiusImage";
 import twitter from "../../assets/img/twitter-logo.png";

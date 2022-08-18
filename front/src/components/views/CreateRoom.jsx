@@ -7,7 +7,7 @@ import InputText from "../templates/InputText";
 import SecTitle from "../parts/SecTitle";
 
 
-const CreateRoom = () =>  {
+const CreateRoom = () =>  { 
   const [count, setCount] = useState(2);
   
   const CountUp = () => {
@@ -56,7 +56,7 @@ const CreateRoom = () =>  {
 
   return (
     <div>
-      {/* 一番外枠マージン2 */}
+      一番外枠マージン2
       <div className="bg-thin-purple 
                       py-10 
                       h-screen
