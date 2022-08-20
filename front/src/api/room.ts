@@ -1,7 +1,7 @@
-import * as E from 'fp-ts/Either'
+import * as E from 'fp-ts/Either' 
 import { TPostCreateNewRoomInput, TPostCreateNewRoomOutput, TGetRoomInfoInput, TGetRoomInfoOutput }  from '../types/api/room' 
 import { TApiError }  from '../types/api/apiError'
-import { axiosClient } from './client'
+import { axiosClient } from './client' 
  
 
 export const postCreateNewRoom = async (input : TPostCreateNewRoomInput) : Promise<E.Either<TApiError,TPostCreateNewRoomOutput>> => {   
@@ -9,7 +9,7 @@ export const postCreateNewRoom = async (input : TPostCreateNewRoomInput) : Promi
         {   name : input.name,
             max_count : input.max_count.toString(), 
         }
-    )
+    ) 
     try{ 
         // 直接inputを引数にすると、jsonが送信される.
         // const {data} : { data: TPostCreateNewRoomOutput } = await axiosClient().post('/new/room', input);  

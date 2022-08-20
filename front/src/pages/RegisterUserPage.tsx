@@ -6,10 +6,14 @@ import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import logo from "../assets/img/logo.png";
 import axios from 'axios';
+import * as E from 'fp-ts/Either'
+import { pipe } from 'fp-ts/function' 
 
 
 import { useMeetHackApi } from "../hooks/useMeetHackApi"
-import { TPostAddNewMemberInput } from "@/types/api/member.js";
+import { TPostAddNewMemberInput } from "@/types/api/member";
+import { TApiError } from "@/types/api/apiError.js";
+import { TGetRoomInfoOutput } from "@/types/api/room";
 
 export const RegisterUserPage: FC = () => {
 
@@ -55,11 +59,11 @@ export const RegisterUserPage: FC = () => {
       }
       addNewMember(input)
         .then((ret) => {
-          if (ret._tag == "Right") {
-            navigate(`/event/prepare?room=${roomID}`)
-          } else {
+          if (E.isLeft(ret)) {
             console.log("Error: createUserData " + ret.left.error);
-          }
+          } else { 
+            navigate(`/event/prepare?room=${roomID}`)
+          } 
         })
     }
   }
@@ -71,14 +75,17 @@ export const RegisterUserPage: FC = () => {
     } else {
       getRoomInfo({ roomID: roomID })
         .then((ret) => {
-          if (ret._tag == "Right") {
-            // console.log(ret.right.status)
-            if (ret.right.status === "finished") {
-              navigate(`/event/user/list?room=${roomID}`);
-            } 
-          } else {
-            console.log("Error : getRoomInfo " + ret.left.error)
-          }
+          pipe(
+            ret,
+            E.match( 
+              (error : TApiError) => console.log("Error : getRoomInfo " + error.error),
+              (ok : TGetRoomInfoOutput) => {
+                if (ok.status === "finished") {
+                  navigate(`/event/user/list?room=${roomID}`); 
+                }
+              }
+            ) 
+          ) 
         })
     }
   }, []);

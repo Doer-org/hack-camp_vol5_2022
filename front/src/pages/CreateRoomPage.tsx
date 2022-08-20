@@ -1,12 +1,15 @@
 import React, { FC } from "react";
 import { useState, useEffect } from 'react'
 import { useMeetHackApi } from "../hooks/useMeetHackApi"
-import { TPostCreateNewRoomInput, TGetRoomInfoInput } from "../types/api/room";
+import { TPostCreateNewRoomInput, TGetRoomInfoInput, TPostCreateNewRoomOutput } from "../types/api/room";
 
 import { Link } from "react-router-dom";
 import { Popup } from 'semantic-ui-react'
 import InputText from "../components/templates/InputText" //"../components /templates/InputText";
 import SecTitle from "../components/parts/SecTitle" // "../parts/SecTitle";
+import * as E from 'fp-ts/Either' 
+import { pipe } from 'fp-ts/function' 
+import { TApiError } from "@/types/api/apiError";
 
 export const CreateRoomPage: FC = () => {
   console.log("CreateRoom")
@@ -39,14 +42,17 @@ export const CreateRoomPage: FC = () => {
     //Todo APIのエンドポイント変更
     createRoom(input)
       .then((ret) => {
-        if (ret._tag == "Right") {
-          // 送信成功時の処理
-          console.log(ret.right)
-          setRoomId(ret.right.id)
-        } else {
-          // 送信失敗時の処理
-          console.log("create room id error  " + ret.left.error);
-        }
+        pipe(
+          ret,
+          E.match(
+            (error:TApiError) => console.log("create room id error  " + error.error), // 送信失敗時の処理
+            (ok:TPostCreateNewRoomOutput) => {
+              // 送信成功時の処理
+              console.log(ok)
+              setRoomId(ok.id) 
+            }
+          )
+        ) 
       })
   }
   function copyUrlToClipboard() {
@@ -57,11 +63,7 @@ export const CreateRoomPage: FC = () => {
       }, function (err) {
         console.error('Async: Could not copy text: ', err);
       });
-  }
-
-  // useEffect(() => { 
-  //   setRoomId("tmp")
-  // }, [])
+  } 
 
   return (
     <div>

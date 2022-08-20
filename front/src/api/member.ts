@@ -1,4 +1,6 @@
-import * as E from 'fp-ts/Either'
+import * as T from 'fp-ts/Task';
+import * as E from 'fp-ts/Either';
+import * as TE from 'fp-ts/TaskEither';
 import { TPostAddNewMemberInput, TPostAddNewMemberOutput, TGetRoomMembersInput, TGetRoomMembersOutput }  from '../types/api/member' 
 import { TApiError }  from '../types/api/apiError' 
 import { axiosClient } from './client'
@@ -6,8 +8,7 @@ import { axiosClient } from './client'
 function defaultArg (value:string | undefined, defaultValue : string) : string  {
     if (typeof value === 'string') {
         return value;
-    }
-    else { 
+    } else { 
         return defaultValue; 
     }
 }

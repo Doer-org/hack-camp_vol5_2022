@@ -8,6 +8,11 @@ import BaseButton from "../components/parts/BaseButton";
 import NextButton from "../components/parts/Nextbutton";
 import robot from "../assets/img/robot.png";
 import { useMeetHackApi } from "../hooks/useMeetHackApi"
+import * as E from 'fp-ts/Either' 
+import { pipe } from 'fp-ts/function' 
+import { TApiError } from "@/types/api/apiError";
+import { TGetRoomInfoOutput } from "../types/api/room";
+import { TGetRoomMembersOutput } from "../types/api/member";
 type Question = {
   id: number
   question: string
@@ -26,26 +31,30 @@ export const QuestionsPage: FC = () => {
       console.log("クエリパラメータからroomIDを取得できませんでした。")
     } else {
       getRoomMembers({ roomID: roomID })
-        .then((ret) => {
-          if (ret._tag == "Right") {
-            const userNames = ret.right.map((user) => user.name)
-            setUsers(userNames)
-            let d = new Date()
-            let month = d.getMonth() + 1;
-            const count = ret.right.length
-            const questions: Question[] = ret.right.map((item) => {
-              return {
-                id: (item.id + month - 1) % count,
-                question: item.question,
+        .then((ret) => {   
+          pipe(
+            ret,
+            E.match(
+              (error : TApiError) => {
+                console.log("Error: getRoomMembers " + error) 
+              },
+              (ok : TGetRoomMembersOutput[]) => {
+                const userNames = ok.map((user) => user.name)
+                setUsers(userNames)
+                const d = new Date()
+                const month = d.getMonth() + 1;
+                const count = ok.length
+                const questions: Question[] = ok.map((item) => {
+                  return {
+                    id: (item.id + month - 1) % count,
+                    question: item.question,
+                  }
+                })
+                questions.sort((a, b) => b.id - a.id);
+                setQuestions(questions);  
               }
-            })
-            questions.sort((a, b) => b.id - a.id);
-            setQuestions(questions);
-          }
-          else {
-            console.log("Error: getRoomMembers " + ret.left)
-          }
-
+            )
+          ) 
         })
     }
   }, []);

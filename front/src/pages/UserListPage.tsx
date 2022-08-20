@@ -11,6 +11,8 @@ import { useMeetHackApi } from "../hooks/useMeetHackApi"
 import { TGetRoomMembersOutput } from "@/types/api/member";
 
 import axios from 'axios';
+import * as E from 'fp-ts/Either'
+import { pipe } from "fp-ts/lib/function";
 
 export const UserListPage: FC = () => {
   const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
@@ -44,27 +46,33 @@ export const UserListPage: FC = () => {
       console.log("receive data", data)
       if (typeof (roomID) == "undefined") {
         console.log("クエリパラメータからroomIDを取得できませんでした。")
-      }
-      else {
+      } else {
         getRoomMembers({ roomID: roomID })
           .then((res) => {
-            if (res._tag == "Left") {
-              console.log("Error: getRoomMembers " + res.left.error)
-            } else {
-              setUserList(res.right)
-              setNowCount(res.right.length)
-            }
+            pipe(
+              res,
+              E.match(
+                (error) => console.log("Error: getRoomMembers " + error.error),
+                (ok) => {
+                  setUserList(ok)
+                  setNowCount(ok.length) 
+                }
+              )
+            ) 
           })
 
         getRoomInfo({ roomID: roomID })
           .then((res) => {
-            if (res._tag == "Left") {
-              console.log("Error: getRoomInfo " + res.left.error)
-            }
-            else {
-              setRoomName(res.right.name)
-              setMaxCount(res.right.max_count)
-            }
+            pipe(
+              res,
+              E.match(
+                (error) => console.log("Error: getRoomInfo " + error.error),
+                (ok) => {
+                  setRoomName(ok.name)
+                  setMaxCount(ok.max_count)
+                }
+              )
+            ) 
           })
       }
     }
@@ -79,14 +87,12 @@ export const UserListPage: FC = () => {
 
     if (typeof (roomID) == "undefined") {
       console.log("クエリパラメータからroomIDを取得できませんでした。")
-    }
-    else {
+    } else {
       getRoomMembers({ roomID: roomID })
         .then((ret) => {
-          if (ret._tag == "Left") {
+          if (E.isLeft(ret)) {
             console.log("Error : getRoomMembers")
-          }
-          else {
+          } else {
             setUserList(ret.right)
           }
         })

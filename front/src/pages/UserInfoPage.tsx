@@ -6,6 +6,8 @@ import robot from "../assets/img/robot.png";
 import UserInfoCard from "../components/templates/UserInfoCard";
 import { useMeetHackApi } from "../hooks/useMeetHackApi"
 import { TPostCreateNewRoomInput, TGetRoomInfoOutput } from "../types/api/room";
+import * as E from 'fp-ts/Either'
+import { pipe } from 'fp-ts/function' 
 
 export const UserInfoPage: FC = () => {
 
@@ -25,22 +27,24 @@ export const UserInfoPage: FC = () => {
     } else {
       getRoomInfo({ roomID: roomID })
         .then((ret) => {
-          if (ret._tag == "Left") {
-            console.log("Error: getRoomInfo" + ret.left)
-          }
-          else {
-            setRoomInfo(ret.right)
-          }
+          pipe(
+            ret,
+            E.match(
+              (error) => console.log("Error: getRoomInfo" + error),
+              (ok) => setRoomInfo(ok)
+            ) 
+          ) 
         })
 
       getRoomMembers({ roomID: roomID })
         .then((ret) => {
-          if (ret._tag == "Left") {
-            console.log("Error: getRoomMembers" + ret.left)
-          }
-          else {
-            setUsers(ret.right)
-          }
+          pipe(
+            ret,
+            E.match(
+              (error) => console.log("Error: getRoomMembers" + error),
+              (ok) => setUsers(ok)
+            ) 
+          ) 
         })
     }
   }, [])
