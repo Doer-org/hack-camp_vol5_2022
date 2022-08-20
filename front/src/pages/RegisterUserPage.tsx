@@ -59,11 +59,14 @@ export const RegisterUserPage: FC = () => {
       }
       addNewMember(input)
         .then((ret) => {
-          if (E.isLeft(ret)) {
-            console.log("Error: createUserData " + ret.left.error);
-          } else { 
-            navigate(`/event/prepare?room=${roomID}`)
-          } 
+          
+          pipe(
+            ret,
+            E.match( 
+              (error : TApiError) =>  console.log("Error: createUserData " + error.error),
+              (ok) => navigate(`/event/prepare?room=${roomID}`)
+            )
+          ) 
         })
     }
   }
