@@ -5,10 +5,9 @@ import InputText from "../components/templates/InputText"
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import logo from "../assets/img/logo.png";
-import axios from 'axios';
-import * as E from 'fp-ts/Either'
-import { pipe } from 'fp-ts/function' 
 
+import * as TE from 'fp-ts/TaskEither';
+import { pipe } from 'fp-ts/function'
 
 import { useMeetHackApi } from "../hooks/useMeetHackApi"
 import { TPostAddNewMemberInput } from "@/types/api/member";
@@ -57,17 +56,14 @@ export const RegisterUserPage: FC = () => {
         question: question,
         roomID: roomID
       }
-      addNewMember(input)
-        .then((ret) => {
-          
-          pipe(
-            ret,
-            E.match( 
-              (error : TApiError) =>  console.log("Error: createUserData " + error.error),
-              (ok) => navigate(`/event/prepare?room=${roomID}`)
-            )
-          ) 
-        })
+
+      pipe(
+        addNewMember(input),
+        TE.match(
+          (error: TApiError) => console.log("Error: createUserData " + error.error),
+          (ok) => navigate(`/event/prepare?room=${roomID}`)
+        )
+      )()
     }
   }
 
@@ -76,25 +72,19 @@ export const RegisterUserPage: FC = () => {
     if (typeof (roomID) == "undefined") {
       console.log("roomIDをクエリパラメータから取得できませんでした。")
     } else {
-      getRoomInfo({ roomID: roomID })
-        .then((ret) => {
-          pipe(
-            ret,
-            E.match( 
-              (error : TApiError) => console.log("Error : getRoomInfo " + error.error),
-              (ok : TGetRoomInfoOutput) => {
-                if (ok.status === "finished") {
-                  navigate(`/event/user/list?room=${roomID}`); 
-                }
-              }
-            ) 
-          ) 
-        })
+      pipe(
+        getRoomInfo({ roomID: roomID }),
+        TE.match(
+          (error: TApiError) => console.log("Error : getRoomInfo " + error.error),
+          (ok: TGetRoomInfoOutput) => {
+            if (ok.status === "finished") {
+              navigate(`/event/user/list?room=${roomID}`);
+            }
+          }
+        )
+      )()
     }
   }, []);
-
-
-
 
   return (
     <div className="py-10 bg-thin-purple px-2 h-screen">

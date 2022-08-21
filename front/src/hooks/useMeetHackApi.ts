@@ -5,17 +5,17 @@ import { TPostAddNewMemberInput,  TGetRoomMembersInput} from "../types/api/membe
  
 
 export const useMeetHackApi = () => { 
-    const createRoom = async (input : TPostCreateNewRoomInput) => {
-        return await RoomApi.postCreateNewRoom(input)
+    const createRoom =  (input : TPostCreateNewRoomInput) => {
+        return  RoomApi.postCreateNewRoom(input)
     } 
-    const addNewMember = async (input : TPostAddNewMemberInput) => {
-        return await MemberApi.postAddNewMember(input) 
+    const addNewMember =  (input : TPostAddNewMemberInput) => {
+        return  MemberApi.postAddNewMember(input) 
     }
-    const getRoomInfo = async (input : TGetRoomInfoInput) => {
-        return await RoomApi.getRoomInfo(input) 
+    const getRoomInfo =  (input : TGetRoomInfoInput) => {
+        return  RoomApi.getRoomInfo(input) 
     }
-    const getRoomMembers = async (input : TGetRoomMembersInput) => {
-        return await MemberApi.getRoomMembers(input) 
+    const getRoomMembers =  (input : TGetRoomMembersInput) => {
+        return  MemberApi.getRoomMembers(input) 
     }
     return {createRoom, addNewMember, getRoomInfo, getRoomMembers}
 }

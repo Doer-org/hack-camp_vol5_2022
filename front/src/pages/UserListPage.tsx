@@ -13,6 +13,7 @@ import { TGetRoomMembersOutput } from "@/types/api/member";
 import axios from 'axios';
 import * as E from 'fp-ts/Either'
 import { pipe } from "fp-ts/lib/function";
+import * as TE from 'fp-ts/TaskEither';
 
 export const UserListPage: FC = () => {
   const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
@@ -47,33 +48,26 @@ export const UserListPage: FC = () => {
       if (typeof (roomID) == "undefined") {
         console.log("クエリパラメータからroomIDを取得できませんでした。")
       } else {
-        getRoomMembers({ roomID: roomID })
-          .then((res) => {
-            pipe(
-              res,
-              E.match(
-                (error) => console.log("Error: getRoomMembers " + error.error),
-                (ok) => {
-                  setUserList(ok)
-                  setNowCount(ok.length) 
-                }
-              )
-            ) 
-          })
-
-        getRoomInfo({ roomID: roomID })
-          .then((res) => {
-            pipe(
-              res,
-              E.match(
-                (error) => console.log("Error: getRoomInfo " + error.error),
-                (ok) => {
-                  setRoomName(ok.name)
-                  setMaxCount(ok.max_count)
-                }
-              )
-            ) 
-          })
+        pipe(
+          getRoomMembers({ roomID: roomID }),
+          TE.match(
+            (error) => console.log("Error: getRoomMembers " + error.error),
+            (ok) => {
+              setUserList(ok)
+              setNowCount(ok.length)
+            }
+          )
+        )()
+        pipe(
+          getRoomInfo({ roomID: roomID }),
+          TE.match(
+            (error) => console.log("Error: getRoomInfo " + error.error),
+            (ok) => {
+              setRoomName(ok.name)
+              setMaxCount(ok.max_count)
+            }
+          )
+        )()
       }
     }
   };
@@ -88,14 +82,13 @@ export const UserListPage: FC = () => {
     if (typeof (roomID) == "undefined") {
       console.log("クエリパラメータからroomIDを取得できませんでした。")
     } else {
-      getRoomMembers({ roomID: roomID })
-        .then((ret) => {
-          if (E.isLeft(ret)) {
-            console.log("Error : getRoomMembers")
-          } else {
-            setUserList(ret.right)
-          }
-        })
+      pipe(
+        getRoomMembers({ roomID: roomID }),
+        TE.match(
+          (e) => console.log("Error : getRoomMembers"),
+          (ok) => setUserList(ok)
+        )
+      )()
     }
     console.log("useEffect called")
     return () => { socket.ws.close() }
@@ -126,8 +119,8 @@ export const UserListPage: FC = () => {
 
             <div className="text-2xl rounded-t-lg py-4 mb-4 px-4 bg-purple text-white font-bold tracking-wider">
               <p >{roomName}</p>
-            </div> 
-            <div className="px-12 py-4"> 
+            </div>
+            <div className="px-12 py-4">
               {
                 maxCount > nowCount ?
                   <>
