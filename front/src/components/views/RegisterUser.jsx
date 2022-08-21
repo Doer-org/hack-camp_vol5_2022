@@ -12,7 +12,7 @@ const RegisterUser = () => {
   const room = query.get('room');
 
   // createUser data
-  const [name, setName] = useState(""); //必須
+  const [name, setName] = useState(""); //必須 
   const [lang, setLang] = useState("");    //必須
   const [comment, setComment] = useState("");
   const [github, setGithub] = useState("");

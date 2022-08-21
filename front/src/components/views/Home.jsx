@@ -4,7 +4,7 @@ import { member } from "../../data/member";
 import twitter from "../../assets/img/twitter-logo.png";
 import github from "../../assets/img/github-logo.png";
 import logo from "../../assets/img/logo.png";
-import { Footer } from "../layers/Footer";
+import { Footer } from "../layout/Footer";
 
 
 const Home = () => {

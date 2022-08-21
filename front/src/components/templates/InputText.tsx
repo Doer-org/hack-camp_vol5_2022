@@ -1,7 +1,7 @@
 import SecTitle from "../parts/SecTitle";
-
+import React  from "react";
 const InputText = ({ title, id, name,value, setValue,pValue }) => {
-  return (
+  return ( 
     <div className="my-6 text-gray-500">
       <SecTitle title={title} />
       <input
@@ -16,4 +16,4 @@ const InputText = ({ title, id, name,value, setValue,pValue }) => {
     </div>
   );
 };
-export default InputText;
+export default InputText; 

@@ -18,7 +18,7 @@ export type TGetRoomInfoInput = {
 export type TGetRoomInfoOutput = { 
     id : string 
     name : string 
-    max_count : string 
+    max_count : number 
     status : string 
     create_at : Date 
 }
