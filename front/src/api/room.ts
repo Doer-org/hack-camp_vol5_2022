@@ -24,12 +24,7 @@ export const postCreateNewRoom = (input: TPostCreateNewRoomInput) => {
 				const resp: TApiError = { error: e.response.data.error };
 				return resp;
 			} catch (ee) {
-				try {
-					const resp: TApiError = { error: e.response.data.error };
-					return resp;
-				} catch (ee) {
-					return { error: 'unexpected error' };
-				}
+                return { error: 'unexpected error' }; 
 			}
 		}
 	);
