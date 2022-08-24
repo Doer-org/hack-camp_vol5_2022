@@ -10,20 +10,16 @@ export const Home: FC = () => {
   return (
     <div>
       <div className="mt-3 ml-4 text-2xl font-normal text-doer-purple sm:text-4xl">MeetHack</div>
-      {/* <div align="center"> */}
-      <div >
-
-        {/* <h1 className="text-4xl sm:text-6xl mt-24">MEET HACK</h1> */}
+      <div>
         <img src={logo} className="mt-12 mb-8" />
         <h2 className="mx-2 mt-8
                       mb-20 text-sm leading-loose sm:text-xl">
-          新しい仲間とのつながり、HACKします<br></br>
+          新しい仲間とのつながり、HACKします
+          <br/>
           MeetHackでよりはやく、よりスマートに交流しませんか
         </h2>
         <NextButton path="CreateRoom" name="はじめる" />
       </div>
-
-      {/* <div align="center" className="mt-12"> */}
       <div className="mt-12">
 
         <div className="my-20 bg-thin-purple py-10 shadow-xl
@@ -97,7 +93,9 @@ export const Home: FC = () => {
             <br />
             エンジニアのためのコミュニティ</h2>
           <br />
-          <p className="text-base text-gray-600">Do'erドゥアーは同志社大学・同志社女子大学の学生が所属するエンジニアサークルです。<br />
+          <p className="text-base text-gray-600">
+            Do'erドゥアーは同志社大学・同志社女子大学の学生が所属するエンジニアサークルです。
+            <br />
             技術のキャッチアップだけでなく、ハッカソン出場やチームメンバーの育成などキャリアに繋げられる活動を行っています。</p>
         </div>
       </div>

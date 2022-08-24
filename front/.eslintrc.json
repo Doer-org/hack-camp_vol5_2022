@@ -25,6 +25,8 @@
         "@typescript-eslint/no-unused-vars": "off",
         "unused-imports/no-unused-imports": "warn",
         "react/jsx-uses-react": "off",
-        "react/react-in-jsx-scope": "off"
+        "react/react-in-jsx-scope": "off",
+        "comma-dangle": "off",
+        "react/no-unescaped-entities": "off"
     }
 }

@@ -1,22 +1,33 @@
 import * as path from 'path'
 
 import reactRefresh from '@vitejs/plugin-react-refresh'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 
-export default defineConfig({
-  server: {
-    port: parseInt(process.env.PORT || '8000'),
-  },
-  plugins: [reactRefresh()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "src"),
+export default ({ mode }) => {
+  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+  return defineConfig({
+    server: {
+      port: parseInt(process.env.PORT ?? '3000'),
+      cors: false,
+      proxy: {
+        '/api': {
+          ws: true,
+          target: process.env.VITE_API_BASE_URL,
+          rewrite: (path) => path.replace('/api', ''),
+        },
+      },
     },
-  },
-  define: {
-    global: 'window',
-  },
-  esbuild: {
-    jsxInject: "import React from 'react';",
-  },
-})
+    plugins: [reactRefresh()],
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+      },
+    },
+    define: {
+      global: 'window',
+    },
+    esbuild: {
+      jsxInject: "import React from 'react';",
+    },
+  })
+}

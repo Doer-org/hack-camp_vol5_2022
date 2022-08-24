@@ -23,7 +23,7 @@
         //厳密な型チェックオプションを有効に
         "strict": true,
         //大文字小文字を区別して参照を解決するようにする
-        "forceConsistentCasingInFileNames": true,
+        "forceConsistentCasingInFileNames": false,
         //生成されるモジュールコードを指定
         "module": "esnext",
         //モジュール解決戦略を指定する: 'node'（Node.js）または 'classic'
@@ -41,7 +41,7 @@
         },
 
     },
-    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx","src/**/*.jsx" ],
+    "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx","src/**/*.jsx", "vite.config.ts" ],
     "exclude": []
 }
  
