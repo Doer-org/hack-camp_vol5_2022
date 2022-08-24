@@ -6,7 +6,8 @@
     "extends": [
         "plugin:react/recommended",
         "standard-with-typescript",
-        "plugin:tailwindcss/recommended"
+        "plugin:tailwindcss/recommended",
+        "prettier"
     ],
     "overrides": [
     ],
