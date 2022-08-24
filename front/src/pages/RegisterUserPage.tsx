@@ -11,7 +11,7 @@ import { pipe } from 'fp-ts/function'
 
 import { useMeetHackApi } from "../hooks/useMeetHackApi"
 import { TPostAddNewMemberInput } from "@/types/api/member";
-import { TApiError } from "@/types/api/apiError.js";
+import { TApiError } from "@/types/api/apiError";
 import { TGetRoomInfoOutput } from "@/types/api/room";
 
 export const RegisterUserPage: FC = () => {

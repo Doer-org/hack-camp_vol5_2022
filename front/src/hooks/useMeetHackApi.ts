@@ -17,5 +17,9 @@ export const useMeetHackApi = () => {
     const getRoomMembers =  (input : TGetRoomMembersInput) => {
         return  MemberApi.getRoomMembers(input) 
     }
-    return {createRoom, addNewMember, getRoomInfo, getRoomMembers}
+    
+    const getRoomFinish =  (input : string | undefined) => {
+        return  RoomApi.getRoomFinish(input) 
+    }
+    return {createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish}
 }
