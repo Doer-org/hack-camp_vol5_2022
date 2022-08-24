@@ -36,6 +36,7 @@ export const QuestionsPage: FC = () => {
           },
           (ok: TGetRoomMembersOutput[]) => {
             const userNames = ok.map((user) => user.name)
+            console.log(userNames)
             setUsers(userNames)
             const d = new Date()
             const month = d.getMonth() + 1

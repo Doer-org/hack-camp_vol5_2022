@@ -7,13 +7,13 @@ import robot from '../assets/img/robot.png'
 
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
 import { TGetRoomMembersOutput } from '@/types/api/member'
-
-import axios from 'axios'
+ 
 import { pipe } from 'fp-ts/lib/function'
 import * as TE from 'fp-ts/TaskEither'
+import axios from 'axios'
 
 export const UserListPage: FC = () => {
-  const { createRoom, addNewMember, getRoomInfo, getRoomMembers,getRoomFinish } = useMeetHackApi()
+  const { getRoomInfo, getRoomMembers,getRoomFinish } = useMeetHackApi()
 
   const search = useLocation().search
   const query = new URLSearchParams(search)
@@ -21,7 +21,7 @@ export const UserListPage: FC = () => {
 
   // websocket接続準備 
   // const ws = new WebSocket(`wss://go-server-doer-vol5.herokuapp.com/ws?room=${roomID}`)
-  const ws = new WebSocket(`wss://localhost/ws?room=${roomID}`)
+  const ws = new WebSocket(`ws://localhost:3000/ws?room=${roomID}`)
   const socket = new Socket(ws)
 
   const [userList, setUserList] = useState<TGetRoomMembersOutput[]>([])
@@ -50,7 +50,7 @@ export const UserListPage: FC = () => {
           getRoomMembers({ roomID }),
           TE.match(
             (error) => console.log('Error: getRoomMembers ' + error.error),
-            (ok) => {
+            (ok) => {  
               setUserList(ok)
               setNowCount(ok.length)
             }
@@ -80,38 +80,53 @@ export const UserListPage: FC = () => {
     if (typeof (roomID) === 'undefined') {
       console.log('クエリパラメータからroomIDを取得できませんでした。')
     } else {
-      pipe(
-        getRoomMembers({ roomID }),
-        TE.match(
-          (e) => console.log('Error : getRoomMembers'),
-          (ok) => setUserList(ok)
-        )
-      )()
+      // pipe(
+      //   getRoomMembers({ roomID }),
+      //   TE.match(
+      //     (e) => console.log('Error : getRoomMembers'),
+      //     (ok) => {
+            
+      //       // console.log(ok)
+      //       setUserList(ok)
+      //     }
+      //   )
+      // )()
+      console.log("bbbbb")
+      axios
+      .get(`http://localhost:8080/member/all?room=${roomID}`)
+      .then((res)=> {
+        console.log("aaaaa")
+        setUserList(res.data.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+
     }
     console.log('useEffect called')
-    return () => { socket.ws.close() }
+    // return () => { socket.ws.close() }
   }, [])
 
   const navigate = useNavigate()
 
   const eventStart = () => {
     socket.ws.close() 
-    pipe(
-      getRoomFinish(roomID),
-      TE.match(
-        (error) => console.log(error),
-        (ok) => navigate(`/event/questions?room=${roomID}`)
-      )
-    )
-    // axios 
-    //   // .get(`https://go-server-doer-vol5.herokuapp.com/room/finish/${roomID}`)
-    //   .get(`http://localhost:8080/room/finish/${roomID}`)
-    //   .then(() => { 
-    //     navigate(`/event/questions?room=${roomID}`);
-    //   })
-    //   .catch((err) => { 
-    //     console.log(err)
-    //   })
+    // pipe(
+    //   getRoomFinish(roomID),
+    //   TE.match(
+    //     (error) => console.log(error),
+    //     (ok) => navigate(`/event/questions?room=${roomID}`)
+    //   )
+    // )
+    axios 
+      // .get(`https://go-server-doer-vol5.herokuapp.com/room/finish/${roomID}`)
+      .get(`http://localhost:8080/room/finish/${roomID}`)
+      .then(() => { 
+        navigate(`/event/questions?room=${roomID}`);
+      })
+      .catch((err) => { 
+        console.log(err)
+      })
   }
 
   return (
