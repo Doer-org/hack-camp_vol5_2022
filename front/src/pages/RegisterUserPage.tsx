@@ -1,115 +1,110 @@
-import React, { FC } from "react";
-import { useState, useEffect } from "react";
-import RegisterUser from "../components/views/RegisterUser.jsx"
-import InputText from "../components/templates/InputText"
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import logo from "../assets/img/logo.png";
+import { FC, useState, useEffect } from 'react'
+import InputText from '../components/templates/InputText'
+import { useLocation, useNavigate } from 'react-router-dom'
+import logo from '../assets/img/logo.png'
 
-import * as TE from 'fp-ts/TaskEither';
+import * as TE from 'fp-ts/TaskEither'
 import { pipe } from 'fp-ts/function'
 
-import { useMeetHackApi } from "../hooks/useMeetHackApi"
-import { TPostAddNewMemberInput } from "@/types/api/member";
-import { TApiError } from "@/types/api/apiError.js";
-import { TGetRoomInfoOutput } from "@/types/api/room";
+import { useMeetHackApi } from '../hooks/useMeetHackApi'
+import { TPostAddNewMemberInput } from '@/types/api/member'
+import { TApiError } from '@/types/api/apiError.js'
+import { TGetRoomInfoOutput } from '@/types/api/room'
 
 export const RegisterUserPage: FC = () => {
-
   const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
 
   // query paramの取得
-  const search = useLocation().search;
-  const query = new URLSearchParams(search);
-  const roomID: string | undefined = query.get('room') ?? undefined;
+  const search = useLocation().search
+  const query = new URLSearchParams(search)
+  const roomID: string | undefined = query.get('room') ?? undefined
 
   // createUser data
-  const [name, setName] = useState(""); //必須
-  const [lang, setLang] = useState("");    //必須
-  const [comment, setComment] = useState("");
-  const [github, setGithub] = useState("");
-  const [twitter, setTwitter] = useState("");
-  const [question, setQuestion] = useState(""); //必須
+  const [name, setName] = useState('') // 必須
+  const [lang, setLang] = useState('') // 必須
+  const [comment, setComment] = useState('')
+  const [github, setGithub] = useState('')
+  const [twitter, setTwitter] = useState('')
+  const [question, setQuestion] = useState('') // 必須
 
   // Step bar
-  const [first, setFirst] = useState(false);
-  const [second, setSecond] = useState(false);
-  const [third, setThird] = useState(false);
+  const [first, setFirst] = useState(false)
+  const [second, setSecond] = useState(false)
+  const [third, setThird] = useState(false)
 
   // room status
-  const [roomStatus, setRoomStatus] = useState("");
+  const [roomStatus, setRoomStatus] = useState('')
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const createUserData = () => {
     console.log(roomID)
-    if (typeof (roomID) == "undefined") {
-      console.log("roomIDをクエリパラメータから取得できませんでした。")
+    if (typeof (roomID) === 'undefined') {
+      console.log('roomIDをクエリパラメータから取得できませんでした。')
     } else {
       const input: TPostAddNewMemberInput =
       {
-        name: name,
-        lang: lang,
-        comment: comment,
-        github: github,
-        twitter: twitter,
-        question: question,
-        roomID: roomID
+        name,
+        lang,
+        comment,
+        github,
+        twitter,
+        question,
+        roomID
       }
 
       pipe(
         addNewMember(input),
         TE.match(
-          (error: TApiError) => console.log("Error: createUserData " + error.error),
+          (error: TApiError) => console.log('Error: createUserData ' + error.error),
           (ok) => navigate(`/event/prepare?room=${roomID}`)
         )
       )()
     }
   }
 
-
   useEffect(() => {
-    if (typeof (roomID) == "undefined") {
-      console.log("roomIDをクエリパラメータから取得できませんでした。")
+    if (typeof (roomID) === 'undefined') {
+      console.log('roomIDをクエリパラメータから取得できませんでした。')
     } else {
       pipe(
-        getRoomInfo({ roomID: roomID }),
+        getRoomInfo({ roomID }),
         TE.match(
-          (error: TApiError) => console.log("Error : getRoomInfo " + error.error),
+          (error: TApiError) => console.log('Error : getRoomInfo ' + error.error),
           (ok: TGetRoomInfoOutput) => {
-            if (ok.status === "finished") {
-              navigate(`/event/user/list?room=${roomID}`);
+            if (ok.status === 'finished') {
+              navigate(`/event/user/list?room=${roomID}`)
             }
           }
         )
       )()
     }
-  }, []);
+  }, [])
 
   return (
-    <div className="py-10 bg-thin-purple px-2 h-screen">
-      <div className="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden md:max-w-lg"></div>
+    <div className="h-screen bg-thin-purple py-10 px-2">
+      <div className="mx-auto max-w-md overflow-hidden rounded-lg bg-white shadow-lg md:max-w-lg"></div>
       <div className="card flex flex-col items-center justify-center p-4 ">
         {
-          (first === false && second === false && third === false) ?
-            <>
+          (!first && !second && !third)
+            ? <>
               {/* ----- 0 step ------ */}
-              <div className="block  mb-12 rounded-lg shadow-lg bg-white max-w-sm text-center">
+              <div className="mb-12  block max-w-sm rounded-lg bg-white text-center shadow-lg">
 
-                <div className="text-3xl rounded-t-lg py-4 mb-4 bg-purple text-white font-bold tracking-wider">
+                <div className="mb-4 rounded-t-lg bg-purple py-4 text-3xl font-bold tracking-wider text-white">
                   <p >ユーザー登録</p>
                 </div>
 
                 <div className="px-12 py-4 ">
 
-                  <div className="my-2 px-2 py-1 w-full mt-2 w-60">
+                  <div className="my-2 w-full w-60 px-2 py-1">
                     <img src={logo} className="mb-4" />
                     <p>ユーザーの登録フォームです</p><br></br>
-                    <div className="bg-green-100 p-2 rounded-xl shadow-lg">
-                      <small className="block text-sm text-gray-800 font-bold m-2">
+                    <div className="rounded-xl bg-green-100 p-2 shadow-lg">
+                      <small className="m-2 block text-sm font-bold text-gray-800">
                         Tips 💡
                       </small>
-                      <p className="text-gray-700 text-sm">
+                      <p className="text-sm text-gray-700">
                         イベント終了後に入力した<br></br>
                         情報がRoomメンバーに<br></br>
                         共有されます！<br></br>
@@ -120,11 +115,10 @@ export const RegisterUserPage: FC = () => {
 
                   <button
                     className="
-                            font-semibold rounded shadow-lg text-2xl 
-                            bg-purple hover:bg-thick-purple text-white font-bold 
-                            py-2 px-8 rounded-full inline-block hover:shadow-sm 
-                            hover:translate-y-0.5 transform transition
-                            mb-4
+                            mb-4 inline-block rounded rounded-full
+                            bg-purple py-2 px-8 text-2xl
+                            font-semibold font-bold text-white shadow-lg transition
+                            hover:translate-y-0.5 hover:bg-thick-purple hover:shadow-sm
                           "
                     onClick={() => { setFirst(!first) }}
                   >
@@ -134,30 +128,29 @@ export const RegisterUserPage: FC = () => {
                 </div>
               </div>
 
-
               {/* ----- step bar ------ */}
-              <div className="w-11/12 lg:w-2/6 mx-auto">
-                <div className="bg-gray-200 h-1 flex items-center justify-between">
+              <div className="mx-auto w-11/12 lg:w-2/6">
+                <div className="flex h-1 items-center justify-between bg-gray-200">
 
-                  <div className="bg-white h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
-                    <div className="h-3 w-3 bg-fuchsia-500 rounded-full"></div>
+                  <div className="relative -mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow">
+                    <div className="h-3 w-3 rounded-full bg-fuchsia-500"></div>
                     <div className="absolute right-0 -mr-2">
-                      <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-24 w-36">
-                        <p tabIndex={0} className="focus:outline-none text-fuchsia-700 text-base font-bold">Step 0 : ようこそ！</p>
+                      <div className="relative mt-16 -mr-24 w-36 rounded bg-white px-2 py-1 shadow-lg">
+                        <p tabIndex={0} className="text-base font-bold text-fuchsia-700 focus:outline-none">Step 0 : ようこそ！</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="w-1/3 flex justify-end">
-                    <div className="bg-white h-6 w-6 rounded-full shadow"></div>
+                  <div className="flex w-1/3 justify-end">
+                    <div className="h-6 w-6 rounded-full bg-white shadow"></div>
                   </div>
 
-                  <div className="w-1/3 flex justify-end">
-                    <div className="bg-white h-6 w-6 rounded-full shadow"></div>
+                  <div className="flex w-1/3 justify-end">
+                    <div className="h-6 w-6 rounded-full bg-white shadow"></div>
                   </div>
 
-                  <div className="w-1/3 flex justify-end">
-                    <div className="bg-white h-6 w-6 rounded-full shadow"></div>
+                  <div className="flex w-1/3 justify-end">
+                    <div className="h-6 w-6 rounded-full bg-white shadow"></div>
                   </div>
 
                 </div>
@@ -168,12 +161,12 @@ export const RegisterUserPage: FC = () => {
             : null
         }
         {
-          (first === true && second === false && third === false) ?
-            <>
+          (first && !second && !third)
+            ? <>
               {/* ----- 1 step ------ */}
-              <div className="block  mb-12 rounded-lg shadow-lg bg-white max-w-sm text-center">
+              <div className="mb-12  block max-w-sm rounded-lg bg-white text-center shadow-lg">
 
-                <div className="text-3xl rounded-t-lg py-4 mb-4 bg-purple text-white font-bold tracking-wider">
+                <div className="mb-4 rounded-t-lg bg-purple py-4 text-3xl font-bold tracking-wider text-white">
                   <p >ユーザー登録</p>
                 </div>
 
@@ -200,7 +193,7 @@ export const RegisterUserPage: FC = () => {
                       name="lang"
                       value={lang}
                       setValue={setLang}
-                      pValue={"React, Golang, ..."}
+                      pValue={'React, Golang, ...'}
                     />
                     {/* <small className="block text-xs text-gray-600">
                         複数入力可能
@@ -214,18 +207,16 @@ export const RegisterUserPage: FC = () => {
                       name="comment"
                       value={comment}
                       setValue={setComment}
-                      pValue={"よろしくお願いします！"}
+                      pValue={'よろしくお願いします！'}
                     />
                   </div>
 
-
                   <button
                     className="
-                        font-semibold rounded shadow-lg text-2xl 
-                        bg-purple hover:bg-thick-purple text-white font-bold 
-                        py-2 px-8 rounded-full inline-block hover:shadow-sm 
-                        hover:translate-y-0.5 transform transition
-                        mb-4
+                        mb-4 inline-block rounded rounded-full
+                        bg-purple py-2 px-8 text-2xl
+                        font-semibold font-bold text-white shadow-lg transition
+                        hover:translate-y-0.5 hover:bg-thick-purple hover:shadow-sm
                       "
                     onClick={() => { setSecond(!second) }}
                     disabled={!name}
@@ -236,34 +227,31 @@ export const RegisterUserPage: FC = () => {
                 </div>
               </div>
 
-
-
-
               {/* ----- step bar ------ */}
-              <div className="w-11/12 lg:w-2/6 mx-auto">
-                <div className="bg-gray-200 h-1 flex items-center justify-between">
+              <div className="mx-auto w-11/12 lg:w-2/6">
+                <div className="flex h-1 items-center justify-between bg-gray-200">
 
-                  <div className="w-1/3 flex justify-between bg-fuchsia-500 h-1 items-center relative">
+                  <div className="relative flex h-1 w-1/3 items-center justify-between bg-fuchsia-500">
                     <div className="absolute right-0 -mr-2">
-                      <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-24 w-48">
-                        <p tabIndex={0} className="focus:outline-none text-fuchsia-700 text-base font-bold">Step 1 : 基本情報の入力</p>
+                      <div className="relative mt-16 -mr-24 w-48 rounded bg-white px-2 py-1 shadow-lg">
+                        <p tabIndex={0} className="text-base font-bold text-fuchsia-700 focus:outline-none">Step 1 : 基本情報の入力</p>
                       </div>
                     </div>
 
-                    <div className="bg-fuchsia-500 h-6 w-6 rounded-full shadow flex items-center justify-center -ml-2">
+                    <div className="-ml-2 flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-500 shadow">
                       <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check" />
                     </div>
-                    <div className="bg-white h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
-                      <div className="h-3 w-3 bg-fuchsia-500 rounded-full"></div>
+                    <div className="relative -mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow">
+                      <div className="h-3 w-3 rounded-full bg-fuchsia-500"></div>
                     </div>
                   </div>
 
-                  <div className="w-1/3 flex justify-end">
-                    <div className="bg-white h-6 w-6 rounded-full shadow"></div>
+                  <div className="flex w-1/3 justify-end">
+                    <div className="h-6 w-6 rounded-full bg-white shadow"></div>
                   </div>
 
-                  <div className="w-1/3 flex justify-end">
-                    <div className="bg-white h-6 w-6 rounded-full shadow"></div>
+                  <div className="flex w-1/3 justify-end">
+                    <div className="h-6 w-6 rounded-full bg-white shadow"></div>
                   </div>
 
                 </div>
@@ -274,12 +262,12 @@ export const RegisterUserPage: FC = () => {
             : null
         }
         {
-          (second === true && third === false) ?
-            <>
+          (second && !third)
+            ? <>
               {/* ----- 2 step ------ */}
-              <div className="block  mb-12 rounded-lg shadow-lg bg-white max-w-sm text-center">
+              <div className="mb-12  block max-w-sm rounded-lg bg-white text-center shadow-lg">
 
-                <div className="text-3xl rounded-t-lg py-4 mb-4 bg-purple text-white font-bold tracking-wider">
+                <div className="mb-4 rounded-t-lg bg-purple py-4 text-3xl font-bold tracking-wider text-white">
                   <p >ユーザー登録</p>
                 </div>
 
@@ -292,7 +280,7 @@ export const RegisterUserPage: FC = () => {
                       name="github"
                       value={github}
                       setValue={setGithub}
-                      pValue={"Doer-org"}
+                      pValue={'Doer-org'}
                     />
                   </div>
 
@@ -303,7 +291,7 @@ export const RegisterUserPage: FC = () => {
                       name="twitter"
                       value={twitter}
                       setValue={setTwitter}
-                      pValue={"du_doer"}
+                      pValue={'du_doer'}
                     />
                     <small className="block text-xs text-gray-600">
                       @以降のIDの入力をお願いします
@@ -312,11 +300,10 @@ export const RegisterUserPage: FC = () => {
 
                   <button
                     className="
-                        font-semibold rounded shadow-lg text-2xl 
-                        bg-purple hover:bg-thick-purple text-white font-bold 
-                        py-2 px-8 rounded-full inline-block hover:shadow-sm 
-                        hover:translate-y-0.5 transform transition
-                        mb-4
+                        mb-4 inline-block rounded rounded-full
+                        bg-purple py-2 px-8 text-2xl
+                        font-semibold font-bold text-white shadow-lg transition
+                        hover:translate-y-0.5 hover:bg-thick-purple hover:shadow-sm
                       "
                     onClick={() => { setThird(!third) }}
                   >
@@ -326,35 +313,32 @@ export const RegisterUserPage: FC = () => {
                 </div>
               </div>
 
-
               {/* ----- step bar ------ */}
-              <div className="w-11/12 lg:w-2/6 mx-auto">
-                <div className="bg-gray-200 h-1 flex items-center justify-between">
-                  <div className="w-1/3 bg-fuchsia-500 h-1 flex items-center">
-                    <div className="bg-fuchsia-500 h-6 w-6 rounded-full shadow flex items-center justify-center">
+              <div className="mx-auto w-11/12 lg:w-2/6">
+                <div className="flex h-1 items-center justify-between bg-gray-200">
+                  <div className="flex h-1 w-1/3 items-center bg-fuchsia-500">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-500 shadow">
                       <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check" />
                     </div>
                   </div>
 
-
-                  <div className="w-1/3 flex justify-between bg-fuchsia-500 h-1 items-center relative">
+                  <div className="relative flex h-1 w-1/3 items-center justify-between bg-fuchsia-500">
                     <div className="absolute right-0 -mr-2">
-                      <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 -mr-24 w-44">
-                        <p tabIndex={0} className="focus:outline-none text-fuchsia-700 text-base font-bold">Step 2 : SNS情報入力</p>
+                      <div className="relative mt-16 -mr-24 w-44 rounded bg-white px-2 py-1 shadow-lg">
+                        <p tabIndex={0} className="text-base font-bold text-fuchsia-700 focus:outline-none">Step 2 : SNS情報入力</p>
                       </div>
                     </div>
 
-                    <div className="bg-fuchsia-500 h-6 w-6 rounded-full shadow flex items-center justify-center -ml-2">
+                    <div className="-ml-2 flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-500 shadow">
                       <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check" />
                     </div>
-                    <div className="bg-white h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
-                      <div className="h-3 w-3 bg-fuchsia-500 rounded-full"></div>
+                    <div className="relative -mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow">
+                      <div className="h-3 w-3 rounded-full bg-fuchsia-500"></div>
                     </div>
                   </div>
 
-
-                  <div className="w-1/3 flex justify-end">
-                    <div className="bg-white h-6 w-6 rounded-full shadow"></div>
+                  <div className="flex w-1/3 justify-end">
+                    <div className="h-6 w-6 rounded-full bg-white shadow"></div>
                   </div>
                 </div>
               </div>
@@ -365,12 +349,12 @@ export const RegisterUserPage: FC = () => {
             : null
         }
         {
-          (third === true) ?
-            <>
+          (third)
+            ? <>
               {/* ----- 3 step ------ */}
-              <div className="block  mb-12 rounded-lg shadow-lg bg-white max-w-sm text-center">
+              <div className="mb-12  block max-w-sm rounded-lg bg-white text-center shadow-lg">
 
-                <div className="text-3xl rounded-t-lg py-4 mb-4 bg-purple text-white font-bold tracking-wider">
+                <div className="mb-4 rounded-t-lg bg-purple py-4 text-3xl font-bold tracking-wider text-white">
                   <p >ユーザー登録</p>
                 </div>
 
@@ -383,7 +367,7 @@ export const RegisterUserPage: FC = () => {
                       name="question"
                       value={question}
                       setValue={setQuestion}
-                      pValue={"得意な言語は?"}
+                      pValue={'得意な言語は?'}
                     />
                     <small className="block text-xs text-red-400">
                       Column "question" cannot be null 🐬
@@ -392,11 +376,10 @@ export const RegisterUserPage: FC = () => {
 
                   <button
                     className="
-                        font-semibold rounded shadow-lg text-2xl 
-                        bg-purple hover:bg-thick-purple text-white font-bold 
-                        py-2 px-8 rounded-full inline-block hover:shadow-sm 
-                        hover:translate-y-0.5 transform transition
-                        mb-4
+                        mb-4 inline-block rounded rounded-full
+                        bg-purple py-2 px-8 text-2xl
+                        font-semibold font-bold text-white shadow-lg transition
+                        hover:translate-y-0.5 hover:bg-thick-purple hover:shadow-sm
                       "
                     onClick={createUserData}
                     disabled={!question}
@@ -407,35 +390,34 @@ export const RegisterUserPage: FC = () => {
                 </div>
               </div>
 
-
               {/* ----- step bar ------ */}
-              <div className="w-11/12 lg:w-2/6 mx-auto">
-                <div className="bg-gray-200 h-1 flex items-center justify-between">
+              <div className="mx-auto w-11/12 lg:w-2/6">
+                <div className="flex h-1 items-center justify-between bg-gray-200">
 
-                  <div className="w-1/3 bg-fuchsia-500 h-1 flex items-center">
-                    <div className="bg-fuchsia-500 h-6 w-6 rounded-full shadow flex items-center justify-center">
+                  <div className="flex h-1 w-1/3 items-center bg-fuchsia-500">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-500 shadow">
                       <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check" />
                     </div>
                   </div>
 
-                  <div className="w-1/3 bg-fuchsia-500 h-1 flex items-center">
-                    <div className="bg-fuchsia-500 h-6 w-6 rounded-full shadow flex items-center justify-center">
+                  <div className="flex h-1 w-1/3 items-center bg-fuchsia-500">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-500 shadow">
                       <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check" />
                     </div>
                   </div>
 
-                  <div className="w-1/3 flex justify-between bg-fuchsia-500 h-1 items-center relative">
+                  <div className="relative flex h-1 w-1/3 items-center justify-between bg-fuchsia-500">
                     <div className="absolute right-0 -mr-2">
-                      <div className="relative bg-white shadow-lg px-2 py-1 rounded mt-16 w-40">
-                        <p tabIndex={0} className="focus:outline-none text-fuchsia-700 text-base font-bold">Step 3 : 質問の入力</p>
+                      <div className="relative mt-16 w-40 rounded bg-white px-2 py-1 shadow-lg">
+                        <p tabIndex={0} className="text-base font-bold text-fuchsia-700 focus:outline-none">Step 3 : 質問の入力</p>
                       </div>
                     </div>
 
-                    <div className="bg-fuchsia-500 h-6 w-6 rounded-full shadow flex items-center justify-center -ml-2">
+                    <div className="-ml-2 flex h-6 w-6 items-center justify-center rounded-full bg-fuchsia-500 shadow">
                       <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/thin_with_steps-svg1.svg" alt="check" />
                     </div>
-                    <div className="bg-white h-6 w-6 rounded-full shadow flex items-center justify-center -mr-3 relative">
-                      <div className="h-3 w-3 bg-fuchsia-500 rounded-full"></div>
+                    <div className="relative -mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-white shadow">
+                      <div className="h-3 w-3 rounded-full bg-fuchsia-500"></div>
                     </div>
                   </div>
 
@@ -449,5 +431,5 @@ export const RegisterUserPage: FC = () => {
 
       </div>
     </div>
-  );
+  )
 }

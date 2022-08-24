@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import NextButton from '../components/parts/Nextbutton'
 import { Footer } from '../components/layout/Footer'
 import { member } from '../data/member'

@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Home } from './pages/Home'
 import { CreateRoomPage } from './pages/CreateRoomPage'
@@ -15,7 +15,7 @@ export const Routing: FC = () => {
           <Route index element={<Home />} />
           <Route path="CreateRoom" element={<CreateRoomPage />} />
           <Route path="event" element={<RegisterUserPage />} />
-          <Route path="event/questions" element={<QuestionsPage />} />
+          <Route path="event/event" element={<QuestionsPage />} />
           <Route path="event/user/list" element={<UserInfoPage />} />
           <Route path="event/prepare" element={<UserListPage />} />
         </Routes>

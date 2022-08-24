@@ -16,4 +16,7 @@ export default defineConfig({
   define: {
     global: 'window',
   },
+  esbuild: {
+    jsxInject: "import React from 'react';",
+  },
 })

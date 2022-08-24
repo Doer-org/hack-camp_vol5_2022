@@ -1,42 +1,41 @@
-import React  from "react";
-import UserName from "../parts/UserName";
-import RadiusImage from "../parts/RadiusImage";
-import twitter from "../../assets/img/twitter-logo.png";
-import github from "../../assets/img/github-logo.png";
+import twitter from '../../assets/img/twitter-logo.png'
+import github from '../../assets/img/github-logo.png'
 
 const UserCard = ({ user }) => {
   return (
-  <div className="items-center bg-white mt-2 p-2 shadow-lg hover:shadow-2xl rounded cursor-pointer transitionshadow-lg rounded-2xl sm:w-full sm:h-full">
+  <div className="transitionshadow-lg mt-2 cursor-pointer items-center rounded rounded-2xl bg-white p-2 shadow-lg hover:shadow-2xl sm:h-full sm:w-full">
     <div className="card flex flex-col items-center justify-center p-4 ">
-        {user.github ? (
-          <div className="profile mx-auto rounded-full py-2 w-32">
+        {user.github
+          ? (
+          <div className="profile mx-auto w-32 rounded-full py-2">
             <img alt="profile" src={`https://github.com/${user.github}.png`} className="rounded-full"/>
           </div>
-        ):
-          <div className="profile mx-auto rounded-full py-2 w-32">
-              <img alt="profile" src={`https://avatars.githubusercontent.com/u/90210216?s=200&v=4`}  className="rounded-full"/>
+            )
+          : <div className="profile mx-auto w-32 rounded-full py-2">
+              <img alt="profile" src={'https://avatars.githubusercontent.com/u/90210216?s=200&v=4'} className="rounded-full"/>
           </div>
         }
 
-        <div className="name text-gray-800 text-2xl font-medium mt-4 ">
+        <div className="name mt-4 text-2xl font-medium text-gray-800 ">
             <p>{user.name}</p>
         </div>
 
-        <div className="work text-gray-700 mt-4">
+        <div className="work mt-4 text-gray-700">
             <p>{user.comment}</p>
         </div>
 
-        {user.lang ? 
-            <div className="work text-gray-700 mb-4">
+        {user.lang
+          ? <div className="work mb-4 text-gray-700">
                 <p>好きな言語 : {user.lang}</p>
             </div>
-          :null
+          : null
         }
 
-        <div className="mt-2 text-sm flex">
-            {user.twitter ? (
+        <div className="mt-2 flex text-sm">
+            {user.twitter
+              ? (
               <a
-                className="flex items-center mr-2 hover:opacity-70"
+                className="mr-2 flex items-center hover:opacity-70"
                 href={`https://twitter.com/${user.twitter}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -44,8 +43,10 @@ const UserCard = ({ user }) => {
                 <img className="w-[20px]" src={twitter} alt="Twitter" />
                 <span className="ml-1 text-[0.8rem]">@{user.twitter}</span>
               </a>
-            ) : null}
-            {user.twitter ? (
+                )
+              : null}
+            {user.twitter
+              ? (
               <a
                 className="flex items-center hover:opacity-70"
                 href={`https://github.com/${user.github}`}
@@ -55,11 +56,11 @@ const UserCard = ({ user }) => {
                 <img className="w-[20px]" src={github} alt="Twitter" />
                 <span className="ml-1 text-[0.8rem]">@{user.github}</span>
               </a>
-            ) : null}
+                )
+              : null}
         </div>
     </div>
   </div>
-  );
-};
-export default UserCard;
-
+  )
+}
+export default UserCard

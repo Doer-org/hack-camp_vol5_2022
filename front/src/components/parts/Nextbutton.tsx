@@ -1,13 +1,12 @@
-import React from "react";
-import { Link } from "react-router-dom";
 
+import { Link } from 'react-router-dom'
 
-function NextButton({path,name}) {
-    return(
-        <Link to={`${path}`} className="font-semibold rounded shadow-lg text-2xl bg-purple hover:bg-thick-purple text-white font-bold py-4 px-14 rounded-full inline-block hover:shadow-sm hover:translate-y-0.5 transform transition">
+function NextButton ({ path, name }) {
+  return (
+        <Link to={`${path}`} className="inline-block rounded rounded-full bg-purple py-4 px-14 text-2xl font-semibold font-bold text-white shadow-lg transition hover:translate-y-0.5 hover:bg-thick-purple hover:shadow-sm">
             {name}
         </Link>
-    );
+  )
 }
 
-export default NextButton;
+export default NextButton

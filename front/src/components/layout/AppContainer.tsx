@@ -1,13 +1,13 @@
 import { FC, ReactNode } from 'react'
 
 interface IProps {
-  content: ReactNode
+  children: ReactNode
 }
 
-export const AppContainer: FC<IProps> = ({ content }) => {
+export const AppContainer: FC<IProps> = ({ children }) => {
   return (
     <div className="px-6">
-      {content}
+      {children}
     </div>
   )
 }
