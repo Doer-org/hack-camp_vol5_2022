@@ -10,6 +10,7 @@ import { TGetRoomMembersOutput } from '@/types/api/member'
 
 import { pipe } from 'fp-ts/lib/function'
 import * as TE from 'fp-ts/TaskEither'
+import axios from 'axios'
 
 import axios from 'axios'
 
@@ -36,6 +37,7 @@ export const UserListPage: FC = () => {
   // ws.onerror = (e) => {
   //   console.error(e)
   // }
+
   const socket = new Socket(ws)
 
   const [userList, setUserList] = useState<TGetRoomMembersOutput[]>([])
@@ -64,7 +66,7 @@ export const UserListPage: FC = () => {
           getRoomMembers({ roomID }),
           TE.match(
             (error) => console.log('Error: getRoomMembers ' + error.error),
-            (ok) => {
+            (ok) => {  
               setUserList(ok)
               setNowCount(ok.length)
             }

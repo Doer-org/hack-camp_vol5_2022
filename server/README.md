@@ -7,7 +7,7 @@
 ## room作成用API
 
 ```
-$ POST http://localhost:8080/new/room/
+$ POST http://localhost:8080/room/new/
 ```
 
 #### FormData
