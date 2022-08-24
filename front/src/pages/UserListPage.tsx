@@ -17,7 +17,7 @@ export const UserListPage: FC = () => {
     addNewMember,
     getRoomInfo,
     getRoomMembers,
-    getRoomFinish,
+    getRoomFinish
   } = useMeetHackApi()
 
   const search = useLocation().search
@@ -25,8 +25,13 @@ export const UserListPage: FC = () => {
   const roomID = query.get('room') ?? undefined
 
   // websocket接続準備
-  // const ws = new WebSocket(`wss://go-server-doer-vol5.herokuapp.com/ws?room=${roomID}`)
-  const ws = new WebSocket(`wss://localhost:8080/ws?room=${roomID}`)
+  // const ws = new WebSocket(
+  //   `wss://go-server-doer-vol5.herokuapp.com/ws?room=${roomID}`
+  // )
+  const ws = new WebSocket(`ws://localhost:3000/ws`)
+  // ws.onerror = (e) => {
+  //   console.error(e)
+  // }
   const socket = new Socket(ws)
 
   const [userList, setUserList] = useState<TGetRoomMembersOutput[]>([])
