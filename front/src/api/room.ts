@@ -47,3 +47,21 @@ export const getRoomInfo = (input: TGetRoomInfoInput) => {
 		}
 	);
 };
+
+
+export const getRoomFinish = (roomID : string | undefined) => {
+	return TE.tryCatch(
+		async () => {
+			const { data } = await axiosClient().get('/room/finish/' + roomID); 
+			return;
+		},
+		(e: any) => {
+			try {
+				const resp: TApiError = { error: e.response.data.error };
+				return resp;
+			} catch (ee) {
+				return { error: 'unexpected error' };
+			}
+		}
+	);
+};

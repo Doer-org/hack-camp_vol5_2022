@@ -13,14 +13,15 @@ import { pipe } from 'fp-ts/lib/function'
 import * as TE from 'fp-ts/TaskEither'
 
 export const UserListPage: FC = () => {
-  const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
+  const { createRoom, addNewMember, getRoomInfo, getRoomMembers,getRoomFinish } = useMeetHackApi()
 
   const search = useLocation().search
   const query = new URLSearchParams(search)
   const roomID = query.get('room') ?? undefined
 
-  // websocket接続準備
-  const ws = new WebSocket(`wss://go-server-doer-vol5.herokuapp.com/ws?room=${roomID}`)
+  // websocket接続準備 
+  // const ws = new WebSocket(`wss://go-server-doer-vol5.herokuapp.com/ws?room=${roomID}`)
+  const ws = new WebSocket(`wss://localhost/ws?room=${roomID}`)
   const socket = new Socket(ws)
 
   const [userList, setUserList] = useState<TGetRoomMembersOutput[]>([])
@@ -94,15 +95,23 @@ export const UserListPage: FC = () => {
   const navigate = useNavigate()
 
   const eventStart = () => {
-    socket.ws.close()
-    axios
-      .get(`https://go-server-doer-vol5.herokuapp.com/room/finish/${roomID}`)
-      .then(() => {
-        navigate(`/event/questions?room=${roomID}`)
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+    socket.ws.close() 
+    pipe(
+      getRoomFinish(roomID),
+      TE.match(
+        (error) => console.log(error),
+        (ok) => navigate(`/event/questions?room=${roomID}`)
+      )
+    )
+    // axios 
+    //   // .get(`https://go-server-doer-vol5.herokuapp.com/room/finish/${roomID}`)
+    //   .get(`http://localhost:8080/room/finish/${roomID}`)
+    //   .then(() => { 
+    //     navigate(`/event/questions?room=${roomID}`);
+    //   })
+    //   .catch((err) => { 
+    //     console.log(err)
+    //   })
   }
 
   return (
