@@ -11,6 +11,8 @@ import { TGetRoomMembersOutput } from '@/types/api/member'
 import { pipe } from 'fp-ts/lib/function'
 import * as TE from 'fp-ts/TaskEither'
 
+import axios from 'axios'
+
 export const UserListPage: FC = () => {
   const {
     createRoom,
@@ -28,7 +30,9 @@ export const UserListPage: FC = () => {
   // const ws = new WebSocket(
   //   `wss://go-server-doer-vol5.herokuapp.com/ws?room=${roomID}`
   // )
-  const ws = new WebSocket(`ws://localhost:3000/ws`)
+
+  const ws_url = import.meta.env.VITE_WS_BASE_URL;
+  const ws = new WebSocket(`${ws_url}/ws?room=${roomID}`)
   // ws.onerror = (e) => {
   //   console.error(e)
   // }
@@ -79,30 +83,48 @@ export const UserListPage: FC = () => {
       }
     }
   }
+
   useEffect(() => {
     // connect, disconnect, message eventの追加
-    socket.on('connect', onConnect)
-    socket.on('disconnect', onDisConnect)
-    socket.on('message', receiveMessage)
+    socket.on("connect",onConnect);
+    socket.on("disconnect",onDisConnect);
+    socket.on("message",receiveMessage);
 
     // 初回のmemberアクセス
+    axios
+      .get(`http://localhost:8080/member/all?room=${roomID}`)
+      .then((res)=>{
+        setUserList(res.data.data)
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
+}, []);
 
-    if (typeof roomID === 'undefined') {
-      console.log('クエリパラメータからroomIDを取得できませんでした。')
-    } else {
-      pipe(
-        getRoomMembers({ roomID }),
-        TE.match(
-          (e) => console.log('Error : getRoomMembers'),
-          (ok) => setUserList(ok)
-        )
-      )()
-    }
-    console.log('useEffect called')
-    return () => {
-      socket.ws.close()
-    }
-  }, [])
+  // useEffect(() => {
+  //   // connect, disconnect, message eventの追加
+  //   socket.on('connect', onConnect)
+  //   socket.on('disconnect', onDisConnect)
+  //   socket.on('message', receiveMessage)
+
+  //   // 初回のmemberアクセス
+
+  //   if (typeof roomID === 'undefined') {
+  //     console.log('クエリパラメータからroomIDを取得できませんでした。')
+  //   } else {
+  //     pipe(
+  //       getRoomMembers({ roomID }),
+  //       TE.match(
+  //         (e) => console.log('Error : getRoomMembers'),
+  //         (ok) => setUserList(ok)
+  //       )
+  //     )()
+  //   }
+  //   console.log('useEffect called')
+  //   return () => {
+  //     socket.ws.close()
+  //   }
+  // }, [])
 
   const navigate = useNavigate()
 
