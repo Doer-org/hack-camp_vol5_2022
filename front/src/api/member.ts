@@ -49,7 +49,7 @@ export const postAddNewMember = (input: TPostAddNewMemberInput) => {
 export const getRoomMembers = (input: TGetRoomMembersInput) => {
   return TE.tryCatch(
     async () => {
-      const { data } = await axios.get(`/api/member/new?room=${input.roomID}`)
+      const { data } = await axios.get(`/api/member/all?room=${input.roomID}`)
       const d: TGetRoomMembersOutput[] = data.data
       return d
     },
