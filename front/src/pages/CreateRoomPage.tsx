@@ -1,23 +1,22 @@
-import React, { FC } from "react";
-import { useState, useEffect } from 'react'
-import { useMeetHackApi } from "../hooks/useMeetHackApi"
-import { TPostCreateNewRoomInput, TGetRoomInfoInput, TPostCreateNewRoomOutput } from "../types/api/room";
+import { FC, useState } from 'react'
+import { useMeetHackApi } from '../hooks/useMeetHackApi'
+import { TPostCreateNewRoomInput, TPostCreateNewRoomOutput } from '../types/api/room'
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import { Popup } from 'semantic-ui-react'
-import InputText from "../components/templates/InputText" //"../components /templates/InputText";
-import SecTitle from "../components/parts/SecTitle" // "../parts/SecTitle";
-import { TApiError } from "@/types/api/apiError";
+import InputText from '../components/templates/InputText' // "../components /templates/InputText";
+import SecTitle from '../components/parts/SecTitle' // "../parts/SecTitle";
+import { TApiError } from '@/types/api/apiError'
 
-import * as TE from 'fp-ts/TaskEither';
+import * as TE from 'fp-ts/TaskEither'
 import { pipe } from 'fp-ts/function'
 
 export const CreateRoomPage: FC = () => {
-  console.log("CreateRoom")
+  console.log('CreateRoom')
 
   const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
 
-  const [count, setCount] = useState(2);
+  const [count, setCount] = useState(2)
 
   const CountUp = () => {
     setCount(count + 1)
@@ -25,13 +24,13 @@ export const CreateRoomPage: FC = () => {
 
   const CountDown = () => {
     if (count > 2) {
-      setCount(count - 1);
+      setCount(count - 1)
     }
   }
-  //入力されたルーム名を保存するためのstate
-  const [roomName, setRoomName] = useState("");
+  // 入力されたルーム名を保存するためのstate
+  const [roomName, setRoomName] = useState('')
 
-  const [roomId, setRoomId] = useState("");
+  const [roomId, setRoomId] = useState('')
 
   console.log(roomId)
 
@@ -40,11 +39,11 @@ export const CreateRoomPage: FC = () => {
       name: roomName,
       max_count: count
     }
-    //Todo APIのエンドポイント変更 
+    // Todo APIのエンドポイント変更
     pipe(
       createRoom(input),
       TE.match(
-        (error: TApiError) => console.log("create room id error  " + error.error), // 送信失敗時の処理
+        (error: TApiError) => console.log('create room id error  ' + error.error), // 送信失敗時の処理
         (ok: TPostCreateNewRoomOutput) => {
           // 送信成功時の処理
           console.log(ok)
@@ -53,38 +52,38 @@ export const CreateRoomPage: FC = () => {
       )
     )()
   }
-  function copyUrlToClipboard() {
+  function copyUrlToClipboard () {
     const url = `https://meet-hack.vercel.app/event?room=${roomId}`
     navigator.clipboard.writeText(url)
       .then(function () {
-        console.log('Async: Copying to clipboard was successful!');
+        console.log('Async: Copying to clipboard was successful!')
       }, function (err) {
-        console.error('Async: Could not copy text: ', err);
-      });
+        console.error('Async: Could not copy text: ', err)
+      })
   }
 
   return (
     <div>
       {/* 一番外枠マージン2 */}
-      <div className="bg-thin-purple 
-                      py-10 
+      <div className="flex
                       h-screen
-                      flex justify-center items-center">
+                      items-center
+                      justify-center bg-thin-purple py-10">
 
         {/* sm以上で背景白のカード */}
-        <div className="w-5/6 sm:w-3/5
-                      bg-white shadow-lg rounded-xl 
-                      glid grid-cols-1
-                      mb-10
-                      text-center
+        <div className="glid mb-10
+                      w-5/6 grid-cols-1 rounded-xl
+                      bg-white text-center
+                      shadow-lg
+                      sm:w-3/5
                       ">
 
           {/* ルーム作成テーマピンク */}
-          <div className="text-2xl sm:text-3xl 
-                                    rounded-t-lg 
-                                    py-4 mb-4 
-                                    bg-purple 
-                                    text-white font-bold tracking-wider">
+          <div className="mb-4 rounded-t-lg
+                                    bg-purple
+                                    py-4 text-2xl
+                                    font-bold
+                                    tracking-wider text-white sm:text-3xl">
             <p >ルーム作成</p>
           </div>
 
@@ -105,7 +104,7 @@ export const CreateRoomPage: FC = () => {
               value={roomName}
               setValue={setRoomName}
               pValue={"Do'er 交流会"}
-            // className="text-gray-700 text-sm 
+            // className="text-gray-700 text-sm
             //                   font-bold rounded
             //                   w-4/5"
             />
@@ -114,24 +113,24 @@ export const CreateRoomPage: FC = () => {
           {/* 人数セクション */}
 
           <div className="">
-            <SecTitle title={"人数"} />
+            <SecTitle title={'人数'} />
             <div className="mt-4 flex justify-center">
               {/* -ボタン */}
               <button
                 onClick={CountDown}
                 className="
-                          flex-grow-0 bg-grey text-white w-10 h-12 text-lg 
-                          shadow-lg rounded-full mr-4 hover:bg-thick-grey 
-                          hover:shadow-sm hover:translate-y-0.5 transform transition">
+                          mr-4 h-12 w-10 grow-0 rounded-full bg-grey
+                          text-lg text-white shadow-lg transition
+                          hover:translate-y-0.5 hover:bg-thick-grey hover:shadow-sm">
                 ー
               </button>
 
               {/* 人数表示部分 */}
-              <div className="flex-grow-0 px-10 sm:px-20 py-1 
-                              bg-purple 
-                              text-2xl font-bold 
-                              text-white 
-                              rounded-full">
+              <div className="grow-0 rounded-full bg-purple px-10
+                              py-1
+                              text-2xl font-bold
+                              text-white
+                              sm:px-20">
                 {count}
               </div>
 
@@ -139,9 +138,9 @@ export const CreateRoomPage: FC = () => {
               <button
                 onClick={CountUp}
                 className="
-                          flex-grow-0 bg-grey text-white w-10 h-12 text-lg 
-                          shadow-lg rounded-full ml-4 hover:bg-thick-grey hover:shadow-sm 
-                          hover:translate-y-0.5 transform transition">
+                          ml-4 h-12 w-10 grow-0 rounded-full bg-grey
+                          text-lg text-white shadow-lg transition hover:translate-y-0.5
+                          hover:bg-thick-grey hover:shadow-sm">
                 ＋
               </button>
             </div>
@@ -149,26 +148,26 @@ export const CreateRoomPage: FC = () => {
 
           {/* チームURL発行 */}
 
-          <div className="my-3 mx-3 md:mx-20 py-4 md:py-10">
+          <div className="m-3 py-4 md:mx-20 md:py-10">
 
             {/* 発行ボタン */}
             <button
               onClick={CreateRoomId}
               className="
-                        font-semibold shadow-lg 
-                        text-lg
-                        sm:text-xl 
-                        bg-purple mt-4 mb-4
-                        hover:bg-thick-purple text-white py-4 px-10 
-                        rounded-lg inline-block hover:shadow-sm hover:translate-y-0.5 
-                        transform transition"
+                        my-4 inline-block
+                        rounded-lg
+                        bg-purple
+                        py-4 px-10 text-lg
+                        font-semibold text-white shadow-lg transition
+                        hover:translate-y-0.5 hover:bg-thick-purple hover:shadow-sm sm:text-xl"
             >ルームURL発行
             </button>
 
             {/* ルームID */}
-            {roomId ? (
-              <div className="mt-4 flex justify-center mb-4">
-                <Link to={`/event?room=${roomId}`} className="underline text-blue-600 truncate">
+            {roomId
+              ? (
+              <div className="my-4 flex justify-center">
+                <Link to={`/event?room=${roomId}`} className="truncate text-blue-600 underline">
                   {`https://meet-hack.vercel.app/event?room=${roomId}`}</Link>
                 <Popup
                   trigger={
@@ -200,7 +199,8 @@ export const CreateRoomPage: FC = () => {
                   position='right center'
                 />
               </div>
-            ) : (null)}
+                )
+              : (null)}
 
           </div>
           {/* ルームIDセクション終了 */}
@@ -208,5 +208,5 @@ export const CreateRoomPage: FC = () => {
         </div>
       </div>
     </div>
-  );
+  )
 }
