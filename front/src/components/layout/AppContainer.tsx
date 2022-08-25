@@ -6,7 +6,7 @@ interface IProps {
 
 export const AppContainer: FC<IProps> = ({ children }) => {
   return (
-    <div className="px-4 lg:px-20">
+    <div className="mx-4 lg:mx-20">
       {children}
     </div>
   )
