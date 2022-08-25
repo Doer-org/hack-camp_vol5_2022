@@ -1,6 +1,6 @@
 import { FC } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { Home } from './pages/Home'
+import { Home } from '@/pages/home'
 import { CreateRoomPage } from './pages/CreateRoomPage'
 import { RegisterUserPage } from './pages/RegisterUserPage'
 import { QuestionsPage } from './pages/QuestionsPage'

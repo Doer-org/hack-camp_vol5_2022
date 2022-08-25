@@ -6,6 +6,8 @@ import { StrictMode } from 'react'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <Routing />
+    <div className="text-gray-700">
+      <Routing />
+    </div>
   </StrictMode>
 )
