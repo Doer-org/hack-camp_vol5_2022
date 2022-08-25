@@ -5,12 +5,12 @@ import {memberData} from "@/data/member"
 
 export const SecContributors: FC = () => {
   return (
-    <section className="bg-thin-purple py-24">
+    <section className="bg-thin-purple py-36 lg:py-24">
       <AppContainer>
-        <h3 className="text-center text-3xl font-bold uppercase tracking-wide text-doer-purple">
+        <h3 className="text-center text-6xl font-bold uppercase tracking-wide text-doer-purple lg:text-3xl">
           creators & contributors
         </h3>
-        <div className="mt-20 grid grid-cols-2 gap-12">
+        <div className="mt-20 grid gap-12 lg:grid-cols-2">
           {memberData.map((member, idx) => {
             return(
               <div key={idx} className="col-span-1">

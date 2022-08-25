@@ -4,9 +4,9 @@ import {AppContainer} from "@/components/layout/AppContainer"
 
 export const AppHeader: FC = () => {
   return (
-    <Header className="py-1">
+    <Header className="py-6 lg:py-4">
       <AppContainer>
-        <div className="mt-3 text-3xl text-doer-purple">
+        <div className="text-7xl text-doer-purple lg:text-3xl">
           MeetHack
         </div>
       </AppContainer>

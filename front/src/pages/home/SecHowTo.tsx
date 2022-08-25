@@ -6,9 +6,9 @@ import ImgArrowDown from "@/assets/img/arrow_down.svg"
 
 export const SecHowTo: FC = () => {
   return (
-    <section className="py-24">
+    <section className="py-36 lg:py-24">
       <AppContainer>
-        <h3 className="text-center text-3xl font-bold tracking-wide text-doer-purple">
+        <h3 className="text-center text-6xl font-bold tracking-wide text-doer-purple lg:text-3xl">
           How To Use
         </h3>
         <div className="mx-12 mt-20 space-y-6">
@@ -16,12 +16,12 @@ export const SecHowTo: FC = () => {
             <Link className="text-doer-purple underline" to={"/CreateRoom"}>こちら</Link>
             でルーム名と参加人数を入力してルームを作ってください．
           </WindowBox>
-          <img src={ImgArrowDown} className="mx-auto w-8" alt=""/>
+          <img src={ImgArrowDown} className="mx-auto w-16 lg:w-8" alt=""/>
           <WindowBox title="Step1 ルームを作る">
             <Link className="text-doer-purple underline" to={"/CreateRoom"}>こちら</Link>
             でルーム名と参加人数を入力してルームを作ってください．
           </WindowBox>
-          <img src={ImgArrowDown} className="mx-auto w-8" alt=""/>
+          <img src={ImgArrowDown} className="mx-auto w-16 lg:w-8" alt=""/>
           <WindowBox title="Step1 ルームを作る">
             <Link className="text-doer-purple underline" to={"/CreateRoom"}>こちら</Link>
             でルーム名と参加人数を入力してルームを作ってください．
