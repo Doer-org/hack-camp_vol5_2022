@@ -27,7 +27,7 @@ export const SecTop: FC = () => {
           <NextButton path="CreateRoom" name="ルームを作成する" />
         </div>
       </AppContainer>
-      <img className="block sm:hidden" src={divider_pc} alt=""/>
+      <img className="hidden lg:block" src={divider_pc} alt=""/>
       <img className="lg:hidden" src={divider_sm} alt=""/>
     </section>
   )
