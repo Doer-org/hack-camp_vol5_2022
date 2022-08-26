@@ -2,10 +2,7 @@ import { FC, useState, useEffect } from 'react'
 import InputText from '../components/templates/InputText'
 import { useLocation, useNavigate } from 'react-router-dom'
 import logo from '../assets/img/logo.png'
-
-import * as TE from 'fp-ts/TaskEither'
-import { pipe } from 'fp-ts/function'
-
+ 
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
 import { TPostAddNewMemberInput } from '@/types/api/member'
 import { TApiError } from '@/types/api/apiError.js'
@@ -52,32 +49,24 @@ export const RegisterUserPage: FC = () => {
         question,
         roomID
       }
-
-      pipe(
-        addNewMember(input),
-        TE.match(
-          (error: TApiError) => console.log('Error: createUserData ' + error.error),
-          (ok) => navigate(`/event/prepare?room=${roomID}`)
-        )
-      )()
+      
+      addNewMember(input)
+      .then ((ok) => navigate(`/event/prepare?room=${roomID}`))
+      .catch((error) => console.log(error))
     }
   }
 
   useEffect(() => {
     if (typeof (roomID) === 'undefined') {
       console.log('roomIDをクエリパラメータから取得できませんでした。')
-    } else {
-      pipe(
-        getRoomInfo({ roomID }),
-        TE.match(
-          (error: TApiError) => console.log('Error : getRoomInfo ' + error.error),
-          (ok: TGetRoomInfoOutput) => {
-            if (ok.status === 'finished') {
-              navigate(`/event/user/list?room=${roomID}`)
-            }
-          }
-        )
-      )()
+    } else { 
+      getRoomInfo({ roomID })
+      .then((ok) => {
+        if (ok.status === 'finished') {
+          navigate(`/event/user/list?room=${roomID}`)
+        }
+      })
+      .catch((error) =>console.log(error)) 
     }
   }, [])
 

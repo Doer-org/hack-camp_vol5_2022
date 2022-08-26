@@ -4,12 +4,10 @@ import { useLocation } from 'react-router-dom'
 import robot from '../assets/img/robot.png'
 import UserInfoCard from '../components/templates/UserInfoCard'
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TGetRoomInfoOutput } from '../types/api/room'
-import * as TE from 'fp-ts/TaskEither'
-import { pipe } from 'fp-ts/function'
+import { TGetRoomInfoOutput } from '../types/api/room' 
 
 export const UserInfoPage: FC = () => {
-  const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
+  const { getRoomInfo, getRoomMembers } = useMeetHackApi()
 
   // query paramの取得
   const search = useLocation().search
@@ -18,25 +16,18 @@ export const UserInfoPage: FC = () => {
 
   const [roomInfo, setRoomInfo] = useState<TGetRoomInfoOutput>()
   const [users, setUsers] = useState<TGetRoomMembersOutput[]>([])
-
+    
   useEffect(() => {
     if (typeof (roomID) === 'undefined') {
       console.log('クエリパラメータからroomIDを取得できませんでした。')
-    } else {
-      pipe(
-        getRoomInfo({ roomID }),
-        TE.match(
-          (error) => console.log('Error: getRoomInfo' + error),
-          (ok) => setRoomInfo(ok)
-        )
-      )()
-      pipe(
-        getRoomMembers({ roomID }),
-        TE.match(
-          (error) => console.log('Error: getRoomMembers' + error),
-          (ok) => setUsers(ok)
-        )
-      )()
+    } else { 
+      getRoomInfo({ roomID })
+      .then((ok) => setRoomInfo(ok) )
+      .catch((error) => console.log(error)) 
+
+      getRoomMembers({ roomID })
+      .then((ok) => setUsers(ok))
+      .catch((error) => console.log(error)) 
     }
   }, [])
 

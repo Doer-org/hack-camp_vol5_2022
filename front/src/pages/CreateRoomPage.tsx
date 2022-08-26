@@ -7,9 +7,7 @@ import { Popup } from 'semantic-ui-react'
 import InputText from '../components/templates/InputText' // "../components /templates/InputText";
 import SecTitle from '../components/parts/SecTitle' // "../parts/SecTitle";
 import { TApiError } from '@/types/api/apiError'
-
-import * as TE from 'fp-ts/TaskEither'
-import { pipe } from 'fp-ts/function'
+ 
 
 export const CreateRoomPage: FC = () => {
   console.log('CreateRoom')
@@ -39,18 +37,16 @@ export const CreateRoomPage: FC = () => {
       name: roomName,
       max_count: count
     }
-    // Todo APIのエンドポイント変更
-    pipe(
-      createRoom(input),
-      TE.match(
-        (error: TApiError) => console.log('create room id error  ' + error.error), // 送信失敗時の処理
-        (ok: TPostCreateNewRoomOutput) => {
-          // 送信成功時の処理
-          console.log(ok)
-          setRoomId(ok.id)
-        }
-      )
-    )()
+    // Todo APIのエンドポイント変更 
+    createRoom(input)
+    .then((ok) => {
+        // 送信成功時の処理
+        console.log(ok)
+        setRoomId(ok.id) 
+    })
+    .catch((error) => 
+      console.log(error)
+    ) 
   }
   function copyUrlToClipboard () {
     const url = `https://meet-hack.vercel.app/event?room=${roomId}`

@@ -8,11 +8,8 @@ import robot from '../assets/img/robot.png'
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
 import { TGetRoomMembersOutput } from '@/types/api/member'
 
-import { pipe } from 'fp-ts/lib/function'
-import * as TE from 'fp-ts/TaskEither'
-import axios from 'axios'
-
-import axios from 'axios'
+import axios from 'axios' 
+ 
 
 export const UserListPage: FC = () => {
   const {
@@ -53,101 +50,57 @@ export const UserListPage: FC = () => {
   const onDisConnect = () => {
     console.log('ws disconnect')
   }
-
+  
   const receiveMessage = (data) => {
     // websocketで通信を受け取るたびにmember更新
-    if (data) {
-      // //get member
+    if (data) { 
       console.log('receive data', data)
       if (typeof roomID === 'undefined') {
         console.log('クエリパラメータからroomIDを取得できませんでした。')
       } else {
-        pipe(
-          getRoomMembers({ roomID }),
-          TE.match(
-            (error) => console.log('Error: getRoomMembers ' + error.error),
-            (ok) => {  
-              setUserList(ok)
-              setNowCount(ok.length)
-            }
-          )
-        )()
-        pipe(
-          getRoomInfo({ roomID }),
-          TE.match(
-            (error) => console.log('Error: getRoomInfo ' + error.error),
-            (ok) => {
-              setRoomName(ok.name)
-              setMaxCount(ok.max_count)
-            }
-          )
-        )()
+        getRoomMembers({ roomID })
+        .then((ok) => {
+          setUserList(ok)
+          setNowCount(ok.length)
+        })
+        .catch((error) => 
+          console.log(error)
+        ) 
+        getRoomInfo({ roomID })
+        .then((ok) => { 
+          setRoomName(ok.name)
+          setMaxCount(ok.max_count)
+        })
+        .catch((error) => console.log(error)) 
       }
     }
-  }
+  } 
 
   useEffect(() => {
     // connect, disconnect, message eventの追加
-    socket.on("connect",onConnect);
-    socket.on("disconnect",onDisConnect);
-    socket.on("message",receiveMessage);
-
-    // 初回のmemberアクセス
-    axios
-      .get(`http://localhost:8080/member/all?room=${roomID}`)
-      .then((res)=>{
-        setUserList(res.data.data)
-      })
-      .catch((err)=>{
-        console.log(err)
-      })
-}, []);
-
-  // useEffect(() => {
-  //   // connect, disconnect, message eventの追加
-  //   socket.on('connect', onConnect)
-  //   socket.on('disconnect', onDisConnect)
-  //   socket.on('message', receiveMessage)
-
-  //   // 初回のmemberアクセス
-
-  //   if (typeof roomID === 'undefined') {
-  //     console.log('クエリパラメータからroomIDを取得できませんでした。')
-  //   } else {
-  //     pipe(
-  //       getRoomMembers({ roomID }),
-  //       TE.match(
-  //         (e) => console.log('Error : getRoomMembers'),
-  //         (ok) => setUserList(ok)
-  //       )
-  //     )()
-  //   }
-  //   console.log('useEffect called')
-  //   return () => {
-  //     socket.ws.close()
-  //   }
-  // }, [])
+    socket.on('connect', onConnect)
+    socket.on('disconnect', onDisConnect)
+    socket.on('message', receiveMessage) 
+    // 初回のmemberアクセス 
+    if (typeof roomID === 'undefined') {
+      console.log('クエリパラメータからroomIDを取得できませんでした。')
+    } else {    
+      getRoomMembers({ roomID })
+      .then((ok) => { console.log("AAAAAAAAAAAAAAAAAAAAAAAA"); setUserList(ok)})
+      .catch((error) => console.log(error)) 
+    } 
+    return () => {
+      socket.ws.close()
+    }
+  }, [])
 
   const navigate = useNavigate()
 
   const eventStart = () => {
     socket.ws.close()
-    pipe(
-      getRoomFinish(roomID),
-      TE.match(
-        (error) => console.log(error),
-        (ok) => navigate(`/event/questions?room=${roomID}`)
-      )
-    )
-    // axios
-    //   // .get(`https://go-server-doer-vol5.herokuapp.com/room/finish/${roomID}`)
-    //   .get(`http://localhost:8080/room/finish/${roomID}`)
-    //   .then(() => {
-    //     navigate(`/event/questions?room=${roomID}`);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err)
-    //   })
+    getRoomFinish(roomID)
+    .then((ok) => navigate(`/api/event/questions?room=${roomID}`))
+    .catch((error) => console.log(error))  
   }
 
   return (
