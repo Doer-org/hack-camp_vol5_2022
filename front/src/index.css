@@ -4,9 +4,8 @@
 
 @layer base {
     html {
-        font-family: HackGen, sans-serif;
-        src: url("./assets/font/HackGen_v2.7.0/HackGen-Bold.ttf"),
-        url("./assets/font/HackGen_v2.7.0/HackGen-Regular.ttf");
-
+        /*font-family: HackGen, sans-serif;*/
+        /*src: url("./assets/font/HackGen_v2.7.0/HackGen-Bold.ttf"),*/
+        /*url("./assets/font/HackGen_v2.7.0/HackGen-Regular.ttf");*/
     }
 }
