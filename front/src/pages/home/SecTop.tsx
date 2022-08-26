@@ -23,7 +23,7 @@ export const SecTop: FC = () => {
           </span>
           に Hack 仲間を増やしませんか？
         </h2>
-        <div className="mt-24 text-center lg:mt-20">
+        <div className="mt-24 text-center lg:mt-16">
           <NextButton path="CreateRoom" name="ルームを作成する" />
         </div>
       </AppContainer>
