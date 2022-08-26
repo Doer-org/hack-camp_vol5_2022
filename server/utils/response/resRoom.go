@@ -3,7 +3,7 @@ package response
 import (
 	"time"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/domain"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/entity"
 )
 
 type RoomJSON struct {
@@ -14,7 +14,7 @@ type RoomJSON struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
-func RoomToJSON(room domain.Room) RoomJSON {
+func RoomToJSON(room entity.Room) RoomJSON {
 	return RoomJSON{
 		Id:        room.Id,
 		Name:      room.Name,
@@ -24,7 +24,7 @@ func RoomToJSON(room domain.Room) RoomJSON {
 	}
 }
 
-func RoomsToJSON(rooms []domain.Room) []RoomJSON {
+func RoomsToJSON(rooms []entity.Room) []RoomJSON {
 	roomsJSON := []RoomJSON{}
 	for _, room := range rooms {
 		roomsJSON = append(roomsJSON, RoomToJSON(room))
