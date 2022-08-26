@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/controller"
 )
 
 func main() {
@@ -12,7 +13,7 @@ func main() {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
-	router := InitRouter(db)
+	router := controller.InitRouter(db)
 	port := fmt.Sprintf(":%s", os.Getenv("PORT"))
 	router.Run(port)
 }

@@ -1,10 +1,9 @@
-package main
+package controller
 
 import (
 	"log"
 	"net/http"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/controller"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/config"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/websocket"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
@@ -25,7 +24,7 @@ func InitRouter(db db.DB) *gin.Engine {
 	// room
 	repoRoom := repository.NewRoomRepotisory(db)
 	ucRoom := usecase.NewRoomUsecase(repoRoom)
-	conRoom := controller.NewRoomController(ucRoom)
+	conRoom := NewRoomController(ucRoom)
 
 	r.GET("/room/all", conRoom.GetAllRoom)
 	r.POST("/room/new", conRoom.NewRoom)
@@ -35,7 +34,7 @@ func InitRouter(db db.DB) *gin.Engine {
 	//member
 	repoMember := repository.NewMemberRepository(db)
 	ucMember := usecase.NewMemberUsecase(repoMember)
-	conMember := controller.NewMemberController(ucMember)
+	conMember := NewMemberController(ucMember)
 
 	r.POST("/member/new", conMember.NewMember)
 	r.GET("/member/all", conMember.GetAllMember)
