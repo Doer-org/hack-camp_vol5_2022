@@ -6,7 +6,7 @@ import { RegisterUserPage } from './pages/RegisterUserPage'
 import { QuestionsPage } from './pages/QuestionsPage'
 import { UserInfoPage } from './pages/UserInfoPage'
 import { UserListPage } from './pages/UserListPage'
-import { StepZero } from './pages/event/StepZero'
+import { StepZero } from './pages/step0/index'
 
 export const Routing: FC = () => {
   return (

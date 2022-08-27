@@ -1,14 +1,10 @@
-import { useNavigate } from 'react-router-dom'
-import { FC } from 'react'
+import {FC} from "react"
 import github from '../../assets/img/github_logo_button.png'
+import RegisterNextButton from '../../components/parts/RegisterNextButton'
 
-export const StepZero: FC = () => {
-    const navigate = useNavigate()
-
-
-    return(
-    <div className="h-screen bg-thin-purple py-10 px-2">
-                <div className="card flex flex-col items-center justify-center p-4 ">
+export const SecCard: FC =()=> {
+    return (
+        <section className="card flex flex-col items-center justify-center p-4 ">
 
                     {/* ----- 0 step ------ */}
         <div className="mb-12  block max-w-sm rounded-lg bg-white text-center shadow-lg">
@@ -33,24 +29,10 @@ export const StepZero: FC = () => {
                 <img src={ github } className="w-10 pr-2"/>
                 GitHub
                 </button>
-                <br></br>
 
-
-                <button
-                    className="
-                            mt-20
-                            mb-4 inline-block rounded
-                            bg-purple py-2 px-8 text-2xl
-                            font-semibold text-white shadow-lg transition
-                            hover:translate-y-0.5 hover:bg-thick-purple hover:shadow-sm">
-                Next
-                </button>
-                <br></br>
+                <RegisterNextButton path="" name="Next"/>
             </div>
             </div>
-                </div>
-
-        
-    </div>
+                </section>
     )
 }
