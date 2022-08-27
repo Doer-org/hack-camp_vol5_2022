@@ -17,7 +17,7 @@ export const StepZero: FC = () => {
                 </div>
 
             <div className="px-12 py-4 ">
-                <div className="my-2 w-full w-60 px-2 py-1 my-10">
+                <div className="w-full w-60 px-2 py-1 my-10">
                     <p>SNS登録</p>
                     <br></br>
                 </div>
