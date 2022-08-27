@@ -6,7 +6,7 @@ interface IProps {
   name: string
 }
 
-export const NextButton: FC<IProps> = ({ path, name }) => {
+export const RegisterNextButton: FC<IProps> = ({ path, name }) => {
   return (
     <Link to={`${path}`}>
       <button
@@ -23,5 +23,3 @@ export const NextButton: FC<IProps> = ({ path, name }) => {
     </Link>
   )
 }
-
-export default NextButton

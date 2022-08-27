@@ -1,6 +1,6 @@
 import {FC} from "react"
 import github from '../../assets/img/github_logo_button.png'
-import RegisterNextButton from '../../components/parts/RegisterNextButton'
+import { RegisterNextButton } from '../../components/parts/RegisterNextButton'
 
 export const SecCard: FC =()=> {
     return (
