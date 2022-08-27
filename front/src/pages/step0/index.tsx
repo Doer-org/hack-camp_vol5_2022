@@ -7,7 +7,9 @@ export const StepZero: FC = () => {
     const navigate = useNavigate()
 
     return(
-    <div className="h-screen bg-thin-purple py-10 px-2">
+    <div className="flex h-screen justify-center
+                    bg-thin-purple 
+                    py-10 px-2 ">
     <SecCard />
         
     </div>
