@@ -6,6 +6,7 @@ import { RegisterUserPage } from './pages/RegisterUserPage'
 import { QuestionsPage } from './pages/QuestionsPage'
 import { UserInfoPage } from './pages/UserInfoPage'
 import { UserListPage } from './pages/UserListPage'
+import {EventNew} from "@/pages/event/new"
 
 export const Routing: FC = () => {
   return (
@@ -14,6 +15,7 @@ export const Routing: FC = () => {
         <Routes>
           <Route index element={<Home />} />
           <Route path="CreateRoom" element={<CreateRoomPage />} />
+          <Route path="/event/new" element={<EventNew />} />
           <Route path="event" element={<RegisterUserPage />} />
           <Route path="event/event" element={<QuestionsPage />} />
           <Route path="event/user/list" element={<UserInfoPage />} />
