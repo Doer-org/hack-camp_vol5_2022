@@ -7,15 +7,12 @@ import { RegisterCardBody} from "./RegisterCardBody"
 
 export const SecCard: FC =()=> {
     return (
-        <section className="card flex flex-col 
-                            justify-center
-                            p-4 ">
-
+        <>
             {/* ----- 0 step ------ */}
-        <RegisterCardTemprate>
-            <RegisterCardHead name="参加者登録" children/>
-                <RegisterCardBody>
+            <RegisterCardTemprate>
+                <RegisterCardHead name="参加者登録" children/>
 
+                <RegisterCardBody>
                     <div className="w-60 px-2 py-2 my-10
                                     text-xl">
                         <p>SNS登録</p>
@@ -25,7 +22,7 @@ export const SecCard: FC =()=> {
                     <RegisterNextButton path="" name="Next"/>
 
                 </RegisterCardBody>
-        </RegisterCardTemprate>
-        </section>
+            </RegisterCardTemprate>
+        </>
     )
 }
