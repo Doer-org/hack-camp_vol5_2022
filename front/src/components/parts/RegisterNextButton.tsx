@@ -11,7 +11,7 @@ export const RegisterNextButton: FC<IProps> = ({ path, name }) => {
     <Link to={`${path}`}>
       <button
         className="
-          mt-20 py-2 px-8 mb-4 
+          mt-16 py-2 px-8 mb-4 
           inline-block 
           rounded shadow-lg 
           bg-purple 

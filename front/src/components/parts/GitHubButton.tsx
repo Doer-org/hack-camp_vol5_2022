@@ -14,7 +14,7 @@ export const GitHubButton: FC<IProps> = ({ path }) => {
                             mb-4 flex
                             mx-auto
                             rounded 
-                            bg-gray-900 py-2 px-8 text-2xl
+                            bg-gray-900 py-2 px-7 text-2xl
                             font-semibold text-white shadow-lg transition
                             hover:translate-y-0.5 hover:bg-gray-700 hover:shadow-sm">
                 <img src={ github } className="w-10 pr-2"/>
