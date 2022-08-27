@@ -1,5 +1,5 @@
 
-const SecTitle = ({ style, github, name }) => {
+const SecTitle = ({ style, github, name } : { style: any, github: any, name: any }) : JSX.Element => {
   return (
     <div>
       {github

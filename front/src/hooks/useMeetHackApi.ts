@@ -1,58 +1,63 @@
-import * as RoomApi from '../api/room';
-import * as MemberApi from '../api/member';
-import { TPostCreateNewRoomInput, TGetRoomInfoInput } from '../types/api/room';
-import { TPostAddNewMemberInput, TGetRoomMembersInput } from '../types/api/member';
+import * as RoomApi from '../api/room'
+import * as MemberApi from '../api/member'
+import { TPostCreateNewRoomInput, TGetRoomInfoInput, TPostCreateNewRoomOutput, TGetRoomInfoOutput } from '../types/api/room'
+import { TPostAddNewMemberInput, TGetRoomMembersInput, TPostAddNewMemberOutput, TGetRoomMembersOutput } from '../types/api/member'
 import * as E from 'fp-ts/Either'
 
-export const useMeetHackApi = () => {
-	const createRoom = (input: TPostCreateNewRoomInput) => {
-		return (
-            RoomApi.postCreateNewRoom(input)().then((ret) => { 
-                if (E.isLeft(ret)){
-                    throw "useMeetHackApi (createRoom)"
-                } else {
-                    return ret.right
-                } 
-            })  
-        )
-	};
-	const addNewMember = (input: TPostAddNewMemberInput) => {
-		return( 
-            MemberApi.postAddNewMember(input)().then((ret) => { 
-                if (E.isLeft(ret)){
-                    throw "useMeetHackApi (addNewMember)"
-                } else {
-                    return ret.right
-                } 
-            }) 
-        )
-	};
-	const getRoomInfo = (input: TGetRoomInfoInput) => {
-		return (
-            RoomApi.getRoomInfo(input)().then((ret) => { 
-                if (E.isLeft(ret)){
-                    throw "useMeetHackApi (getRoomInfo)"
-                } else {
-                    return ret.right
-                } 
-            })  
-        )
-	};
-	const getRoomMembers = (input: TGetRoomMembersInput) => {
-		return (
-            MemberApi.getRoomMembers(input)().then((ret) => { 
-                if (E.isLeft(ret)){
-                    throw "useMeetHackApi (getRoomMembers)"
-                } else {
-                    return ret.right
-                } 
-            })  
-        )
-	};
+interface IApis  {
+    createRoom: (input: TPostCreateNewRoomInput) => Promise<TPostCreateNewRoomOutput>;
+    addNewMember: (input: TPostAddNewMemberInput) => Promise<TPostAddNewMemberOutput>;
+    getRoomInfo: (input: TGetRoomInfoInput) => Promise<TGetRoomInfoOutput>;
+    getRoomMembers: (input: TGetRoomMembersInput) => Promise<TGetRoomMembersOutput[]>;
+    getRoomFinish: (input: string | undefined) => Promise<void>; 
+}
 
-	const getRoomFinish = (input: string | undefined) => {
-		return RoomApi.getRoomFinish(input)();
-	};
+export const useMeetHackApi = () : IApis => {
+	const createRoom = async (input: TPostCreateNewRoomInput) : Promise<TPostCreateNewRoomOutput> => {
+		return await RoomApi.postCreateNewRoom(input)().then((ret) => {
+			if (E.isLeft(ret)) {
+				throw Error('useMeetHackApi (createRoom)')
+			} else {
+				return ret.right
+			}
+		})
+	}
+	const addNewMember = async (input: TPostAddNewMemberInput) : Promise<TPostAddNewMemberOutput>  => {
+		return await MemberApi.postAddNewMember(input)().then((ret) => {
+			if (E.isLeft(ret)) {
+				throw Error('useMeetHackApi (addNewMember)')
+			} else {
+				return ret.right
+			}
+		})
+	}
+	const getRoomInfo = async (input: TGetRoomInfoInput): Promise<TGetRoomInfoOutput> => {
+		return await RoomApi.getRoomInfo(input)().then((ret) => {
+			if (E.isLeft(ret)) {
+				throw Error('useMeetHackApi (getRoomInfo)')
+			} else {
+				return ret.right
+			}
+		})
+	}
+	const getRoomMembers = async (input: TGetRoomMembersInput) : Promise<TGetRoomMembersOutput[]> => {
+		return await MemberApi.getRoomMembers(input)().then((ret) => {
+			if (E.isLeft(ret)) {
+				throw Error('useMeetHackApi (getRoomMembers)')
+			} else {
+				return ret.right
+			}
+		})
+	}
 
-	return { createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish };
-};
+	const getRoomFinish = async (input: string | undefined) : Promise<void> => { 
+        return await  RoomApi.getRoomFinish(input)().then((ret) => {
+			if (E.isLeft(ret)) {
+				throw Error('useMeetHackApi (getRoomMembers)')
+			} else {
+				return ret.right
+			}
+		})
+	}
+	return { createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish }
+}

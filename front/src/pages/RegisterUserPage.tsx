@@ -4,9 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import logo from '../assets/img/logo.png'
  
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TPostAddNewMemberInput } from '@/types/api/member'
-import { TApiError } from '@/types/api/apiError.js'
-import { TGetRoomInfoOutput } from '@/types/api/room'
+import { TPostAddNewMemberInput } from '@/types/api/member' 
 
 export const RegisterUserPage: FC = () => {
   const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
@@ -34,7 +32,7 @@ export const RegisterUserPage: FC = () => {
 
   const navigate = useNavigate()
 
-  const createUserData = () => {
+  const createUserData = () : void => {
     console.log(roomID)
     if (typeof (roomID) === 'undefined') {
       console.log('roomIDをクエリパラメータから取得できませんでした。')

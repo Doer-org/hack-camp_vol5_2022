@@ -1,0 +1,12 @@
+{
+    "eslint.workingDirectories": [
+        "./front"
+    ],
+    "rust-analyzer.checkOnSave.overrideCommand": null,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.fixAll.eslint": true
+    }
+}
+  

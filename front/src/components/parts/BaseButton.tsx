@@ -1,5 +1,5 @@
 
-function BaseButton ({ name, onClick }) {
+function BaseButton ({ name, onClick } : {name:any, onClick :any}) : JSX.Element {
   return (
         <button onClick={onClick} className="inline-block rounded-full
                             bg-purple py-2

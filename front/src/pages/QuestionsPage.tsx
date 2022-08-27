@@ -5,9 +5,7 @@ import QuestionCard from '../components/parts/QuestionCard'
 import BaseButton from '../components/parts/BaseButton'
 import NextButton from '../components/parts/Nextbutton'
 import robot from '../assets/img/robot.png'
-import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TApiError } from '@/types/api/apiError'
-import { TGetRoomMembersOutput } from '../types/api/member' 
+import { useMeetHackApi } from '../hooks/useMeetHackApi' 
 
 interface Question {
   id: number
@@ -50,11 +48,11 @@ export const QuestionsPage: FC = () => {
   }, [])
 
   const [current, setCurrent] = useState(0)
-  const nextQuestion = () => {
+  const nextQuestion = () : void => {
     setCurrent(current + 1)
     console.log(current)
   }
-  const backQuestion = () => {
+  const backQuestion = () : void => {
     setCurrent(current - 1)
     console.log(current)
   }

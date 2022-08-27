@@ -8,8 +8,7 @@ import robot from '../assets/img/robot.png'
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
 import { TGetRoomMembersOutput } from '@/types/api/member'
 
-import axios from 'axios' 
- 
+
 
 export const UserListPage: FC = () => {
   const {
@@ -22,15 +21,15 @@ export const UserListPage: FC = () => {
 
   const search = useLocation().search
   const query = new URLSearchParams(search)
-  const roomID = query.get('room') ?? undefined
+  const roomID = query.get('room') ?? ""
 
   // websocket接続準備
   // const ws = new WebSocket(
   //   `wss://go-server-doer-vol5.herokuapp.com/ws?room=${roomID}`
   // )
 
-  const ws_url = import.meta.env.VITE_WS_BASE_URL;
-  const ws = new WebSocket(`${ws_url}/ws?room=${roomID}`)
+  const wsUrl: string = import.meta.env.VITE_WS_BASE_URL
+  const ws = new WebSocket(`${wsUrl}/ws?room=${roomID}`)
   // ws.onerror = (e) => {
   //   console.error(e)
   // }
@@ -42,65 +41,65 @@ export const UserListPage: FC = () => {
   const [maxCount, setMaxCount] = useState(0)
   const [nowCount, setNowCount] = useState(0)
 
-  const onConnect = () => {
+  const onConnect = (): void => {
     console.log('ws connect')
     ws.send('connect')
   }
 
-  const onDisConnect = () => {
+  const onDisConnect = (): void => {
     console.log('ws disconnect')
   }
-  
-  const receiveMessage = (data) => {
+
+  const receiveMessage = (data: any): void => {
     // websocketで通信を受け取るたびにmember更新
-    if (data) { 
-      console.log('receive data', data)
-      if (typeof roomID === 'undefined') {
-        console.log('クエリパラメータからroomIDを取得できませんでした。')
-      } else {
-        getRoomMembers({ roomID })
+    // if (data) { 
+    console.log('receive data', data)
+    if (typeof roomID === 'undefined') {
+      console.log('クエリパラメータからroomIDを取得できませんでした。')
+    } else {
+      getRoomMembers({ roomID })
         .then((ok) => {
           setUserList(ok)
           setNowCount(ok.length)
         })
-        .catch((error) => 
+        .catch((error) =>
           console.log(error)
-        ) 
-        getRoomInfo({ roomID })
-        .then((ok) => { 
+        )
+      getRoomInfo({ roomID })
+        .then((ok) => {
           setRoomName(ok.name)
           setMaxCount(ok.max_count)
         })
-        .catch((error) => console.log(error)) 
-      }
+        .catch((error) => console.log(error))
     }
-  } 
+    // }
+  }
 
   useEffect(() => {
     // connect, disconnect, message eventの追加
     socket.on('connect', onConnect)
     socket.on('disconnect', onDisConnect)
-    socket.on('message', receiveMessage) 
+    socket.on('message', receiveMessage)
     // 初回のmemberアクセス 
     if (typeof roomID === 'undefined') {
       console.log('クエリパラメータからroomIDを取得できませんでした。')
-    } else {    
+    } else {
       getRoomMembers({ roomID })
-      .then((ok) => { console.log("AAAAAAAAAAAAAAAAAAAAAAAA"); setUserList(ok)})
-      .catch((error) => console.log(error)) 
-    } 
-    return () => {
-      socket.ws.close()
+        .then((ok) => { setUserList(ok) })
+        .catch((error) => console.log(error))
     }
+    // return () => {
+    //   socket.ws.close()
+    // }
   }, [])
 
   const navigate = useNavigate()
 
-  const eventStart = () => {
+  const eventStart = (): void => {
     socket.ws.close()
     getRoomFinish(roomID)
-    .then((ok) => navigate(`/api/event/questions?room=${roomID}`))
-    .catch((error) => console.log(error))  
+      .then((ok) => navigate(`/api/event/questions?room=${roomID}`))
+      .catch((error) => console.log(error))
   }
 
   return (

@@ -16,7 +16,7 @@ function defaultArg(value: string | undefined, defaultValue: string): string {
   }
 }
 
-export const postAddNewMember = (input: TPostAddNewMemberInput) => {
+export const postAddNewMember = (input: TPostAddNewMemberInput) : TE.TaskEither<TApiError, TPostAddNewMemberOutput> => {
   const params = new URLSearchParams({
     name: input.name,
     roomID: input.roomID,
@@ -46,7 +46,7 @@ export const postAddNewMember = (input: TPostAddNewMemberInput) => {
   )
 }
 
-export const getRoomMembers = (input: TGetRoomMembersInput) => {
+export const getRoomMembers = (input: TGetRoomMembersInput): TE.TaskEither<TApiError, TGetRoomMembersOutput[]>  => {
   return TE.tryCatch(
     async () => {
       const { data } = await axios.get(`/api/member/all?room=${input.roomID}`)

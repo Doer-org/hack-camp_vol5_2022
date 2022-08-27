@@ -1,5 +1,5 @@
 
-export const Footer = () => {
+export const Footer = () : JSX.Element => {
   return (
         <footer className="mt-32 bg-thick-purple
                             text-white"

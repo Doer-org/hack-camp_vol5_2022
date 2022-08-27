@@ -1,26 +1,25 @@
 import { FC, useState } from 'react'
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TPostCreateNewRoomInput, TPostCreateNewRoomOutput } from '../types/api/room'
+import { TPostCreateNewRoomInput } from '../types/api/room'
 
 import { Link } from 'react-router-dom'
 import { Popup } from 'semantic-ui-react'
 import InputText from '../components/templates/InputText' // "../components /templates/InputText";
-import SecTitle from '../components/parts/SecTitle' // "../parts/SecTitle";
-import { TApiError } from '@/types/api/apiError'
+import SecTitle from '../components/parts/SecTitle' // "../parts/SecTitle"; 
  
 
 export const CreateRoomPage: FC = () => {
   console.log('CreateRoom')
 
-  const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
+  const { createRoom } = useMeetHackApi()
 
   const [count, setCount] = useState(2)
 
-  const CountUp = () => {
+  const CountUp = () : void => {
     setCount(count + 1)
   }
 
-  const CountDown = () => {
+  const CountDown = () : void  => {
     if (count > 2) {
       setCount(count - 1)
     }
@@ -32,7 +31,7 @@ export const CreateRoomPage: FC = () => {
 
   console.log(roomId)
 
-  const CreateRoomId = () => {
+  const CreateRoomId = () : void => {
     const input: TPostCreateNewRoomInput = {
       name: roomName,
       max_count: count
@@ -48,7 +47,7 @@ export const CreateRoomPage: FC = () => {
       console.log(error)
     ) 
   }
-  function copyUrlToClipboard () {
+  function copyUrlToClipboard () : void {
     const url = `https://meet-hack.vercel.app/event?room=${roomId}`
     navigator.clipboard.writeText(url)
       .then(function () {
