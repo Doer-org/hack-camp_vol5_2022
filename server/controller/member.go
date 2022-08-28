@@ -6,21 +6,31 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/model"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/view"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
-func newMember(c *gin.Context) {
-	name := c.PostForm("name")
-	comment := c.PostForm("comment")
-	lang := c.PostForm("lang")
-	github := c.PostForm("github")
-	twitter := c.PostForm("twitter")
-	question := c.PostForm("question")
-	room := c.Query("room")
+type memberController struct {
+	uc usecase.MemberUsecase
+}
+
+func NewMemberController(uc usecase.MemberUsecase) memberController {
+	return memberController{
+		uc: uc,
+	}
+}
+
+func (con memberController) NewMember(ctx *gin.Context) {
+	name := ctx.PostForm("name")
+	comment := ctx.PostForm("comment")
+	lang := ctx.PostForm("lang")
+	github := ctx.PostForm("github")
+	twitter := ctx.PostForm("twitter")
+	question := ctx.PostForm("question")
+	room := ctx.Query("room")
 
 	if name == "" || room == "" || question == "" {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "name, room or question valid error",
@@ -29,23 +39,23 @@ func newMember(c *gin.Context) {
 		return
 	}
 
-	member := model.NewMember(name, comment, lang, github, twitter, question, room)
-	memberJSON := view.MemberToJSON(member)
+	member := con.uc.NewMember(name, comment, lang, github, twitter, question, room)
 
-	c.JSON(
+	memberJSON := response.MemberJSON(member)
+
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": memberJSON,
 		},
 	)
-
 }
 
-func getAllMember(c *gin.Context) {
-	room := c.Query("room")
+func (con memberController) GetAllMember(ctx *gin.Context) {
+	room := ctx.Query("room")
 
 	if room == "" {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "room valid error",
@@ -54,10 +64,10 @@ func getAllMember(c *gin.Context) {
 		return
 	}
 
-	members := model.GetAllMember(room)
-	membersJSON := view.MembersToJSON(members)
+	members := con.uc.GetAllMember(room)
+	membersJSON := response.MembersToJSON(members)
 
-	c.JSON(
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": membersJSON,
@@ -65,11 +75,11 @@ func getAllMember(c *gin.Context) {
 	)
 }
 
-func getMemberByID(c *gin.Context) {
-	id, err := strconv.Atoi(c.Param("id"))
+func (con memberController) GetMemberByID(ctx *gin.Context) {
+	id, err := strconv.Atoi(ctx.Param("id"))
 
 	if id == 0 {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "id is required",
@@ -78,7 +88,7 @@ func getMemberByID(c *gin.Context) {
 		return
 	}
 	if err != nil {
-		c.JSON(
+		ctx.JSON(
 			http.StatusBadRequest,
 			gin.H{
 				"error": "id must be integer",
@@ -87,9 +97,10 @@ func getMemberByID(c *gin.Context) {
 		return
 	}
 
-	member := model.GetMemberByID(id) //Goの型式でdbからデータを返す
-	memberJSON := view.MemberToJSON(member)
-	c.JSON(
+	member := con.uc.GetMemberByID(id) //Goの型式でdbからデータを返す
+	memberJSON := response.MemberToJSON(member)
+
+	ctx.JSON(
 		http.StatusOK,
 		gin.H{
 			"data": memberJSON,

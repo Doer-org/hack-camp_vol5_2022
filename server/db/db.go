@@ -5,7 +5,6 @@ package db
 import (
 	"fmt"
 	"os"
-	// "time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
@@ -20,7 +19,7 @@ type DB struct {
 	Conn     *gorm.DB
 }
 
-func NewDB() *DB {
+func NewDB() DB {
 
 	// DBの環境変数
 	host := os.Getenv("POSTGRES_HOST")
@@ -29,7 +28,7 @@ func NewDB() *DB {
 	password := os.Getenv("POSTGRES_PASSWORD")
 	dbName := os.Getenv("POSTGRES_DB")
 
-	return newDB(&DB{
+	return newDB(DB{
 		Host:     host,
 		Port:     port,
 		Username: username,
@@ -38,7 +37,7 @@ func NewDB() *DB {
 	})
 }
 
-func newDB(d *DB) *DB {
+func newDB(d DB) DB {
 	// DB接続情報 local
 	connInfo := fmt.Sprintf(
 		"user=%s password=%s host=%s port=%s dbname=%s sslmode=disable",

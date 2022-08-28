@@ -4,36 +4,43 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/gin-gonic/gin"
-
+	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/config"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/websocket"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/repository"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
+	"github.com/gin-gonic/gin"
 )
 
-func InitRouter() *gin.Engine {
+func InitRouter(db db.DB) *gin.Engine {
 	r := gin.Default()
 
 	//CORSの設定
-	configCors(r)
+	config.ConfigCors(r)
 
 	// health check
 	r.GET("/", func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"message": "hello, gin 🍸"}) })
 
 	// room
-	r.GET("/room/all", getAllRoom)
-	r.POST("/room/new", newRoom)
-	r.GET("/room/:id", getRoomByID)
-	r.GET("/room/finish/:id", changeRoomStatus)
+	repoRoom := repository.NewRoomRepotisory(db)
+	ucRoom := usecase.NewRoomUsecase(repoRoom)
+	conRoom := NewRoomController(ucRoom)
+
+	r.GET("/room/all", conRoom.GetAllRoom)
+	r.POST("/room/new", conRoom.NewRoom)
+	r.GET("/room/:id", conRoom.GetRoomByID)
+	r.GET("/room/finish/:id", conRoom.ChangeRoomStatus)
 
 	//member
-	r.POST("/member/new", newMember)
-	r.GET("/member/all", getAllMember)
-	r.GET("/member/:id", getMemberByID)
-	r.GET("/member/random", getRandomMember)
+	repoMember := repository.NewMemberRepository(db)
+	ucMember := usecase.NewMemberUsecase(repoMember)
+	conMember := NewMemberController(ucMember)
 
-	// websocket 以下は mahiro72にお任せ
-	// hub := websocket.NewHub()
-	// go hub.Run()
+	r.POST("/member/new", conMember.NewMember)
+	r.GET("/member/all", conMember.GetAllMember)
+	r.GET("/member/:id", conMember.GetMemberByID)
 
+	// websocket
 	// roomIDとHubの紐づけ
 	hubs := make(map[string]*websocket.Hub)
 
