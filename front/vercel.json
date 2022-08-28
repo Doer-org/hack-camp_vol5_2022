@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source":  "/api/:path*",
+      "destination": "https://go-server-doer-vol5.herokuapp.com/:path*"
+    }
+  ]
+}
