@@ -6,7 +6,7 @@ interface IProps {
 
 export const BaseStepWindow: FC<IProps> = ({children}) => {
   return(
-    <div className="rounded bg-white p-10 text-gray-600">
+    <div className="h-full rounded bg-thin-purple p-28 text-gray-600 lg:h-auto lg:bg-white lg:p-10">
       {children}
     </div>
   )

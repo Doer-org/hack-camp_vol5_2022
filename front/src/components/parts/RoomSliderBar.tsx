@@ -8,14 +8,14 @@ interface IProps {
 export const RoomSliderBar: FC<IProps> = ({setState, value}) => {
   return(
     <div>
-      <label className="mb-4 block text-slate-600">
-        <span className="mr-3">
+      <label className="mb-4 block text-slate-600 lg:mb-4">
+        <span className="mr-6 text-3xl lg:mr-3 lg:text-base">
           参加人数
         </span>
-        <span className="mr-0.5 text-2xl font-bold text-doer-purple">
+        <span className="mr-2 text-5xl font-bold text-doer-purple lg:mr-0.5 lg:text-2xl">
           {value}
         </span>
-        <span>
+        <span className="text-3xl lg:text-base">
           人
         </span>
       </label>
@@ -26,7 +26,7 @@ export const RoomSliderBar: FC<IProps> = ({setState, value}) => {
         max={15}
         type="range"
         list="n_human"
-        className="mb-6 h-1.5 w-full cursor-pointer appearance-none rounded-3xl bg-gray-200"
+        className="mb-6 h-5 w-full cursor-pointer appearance-none rounded-3xl bg-gray-300 lg:h-1.5 lg:bg-gray-200"
       />
     </div>
   )
