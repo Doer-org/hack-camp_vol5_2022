@@ -9,16 +9,6 @@ export default ({ mode }): UserConfigExport => {
     server: {
       port: parseInt(process.env.PORT ?? '3000'),
       cors: false,
-      proxy: {
-        '/api': {
-          target: process.env.VITE_API_BASE_URL,
-          rewrite: (path) => path.replace('/api', '')
-        },
-        '/ws': {
-          target: 'ws://localhost:8080',
-          ws: true
-        }
-      }
     },
     plugins: [reactRefresh()],
     resolve: {

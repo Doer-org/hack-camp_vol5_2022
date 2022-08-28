@@ -6,34 +6,14 @@ import {
   TGetRoomMembersOutput,
 } from '@/types/api/member'
 import { TApiError } from '@/types/api/apiError'
-import axios from 'axios'
+import {TaskEither} from "fp-ts/TaskEither"
+import {AxiosClient} from "@/api/client"
 
-function defaultArg(value: string | undefined, defaultValue: string): string {
-  if (typeof value === 'string') {
-    return value
-  } else {
-    return defaultValue
-  }
-}
-
-export const postAddNewMember = (input: TPostAddNewMemberInput) => {
-  const params = new URLSearchParams({
-    name: input.name,
-    roomID: input.roomID,
-    question: input.question,
-    comment: defaultArg(input.comment, ''),
-    lang: defaultArg(input.lang, ''),
-    github: defaultArg(input.github, ''),
-    twitter: defaultArg(input.twitter, ''),
-  })
+export const postAddNewMember = (input: TPostAddNewMemberInput): TaskEither<TApiError, TPostAddNewMemberOutput> => {
   return TE.tryCatch(
     async () => {
-      const { data } = await axios.post(
-        `/api/member/new?room=${input.roomID}`,
-        params
-      )
-      const d: TPostAddNewMemberOutput = data.data
-      return d
+      const { data } = await AxiosClient().post(`/member/new?room=${input.roomID}`, input)
+      return data.data
     },
     (e: any) => {
       try {
@@ -46,12 +26,11 @@ export const postAddNewMember = (input: TPostAddNewMemberInput) => {
   )
 }
 
-export const getRoomMembers = (input: TGetRoomMembersInput) => {
+export const getRoomMembers = (input: TGetRoomMembersInput): TaskEither<TApiError, TGetRoomMembersOutput[]> => {
   return TE.tryCatch(
     async () => {
-      const { data } = await axios.get(`/api/member/all?room=${input.roomID}`)
-      const d: TGetRoomMembersOutput[] = data.data
-      return d
+      const { data } = await AxiosClient().get(`/member/all?room=${input.roomID}`)
+      return data.data
     },
     (e: any) => {
       try {
