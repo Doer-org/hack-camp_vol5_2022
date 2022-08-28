@@ -6,18 +6,18 @@ import {
 } from '@/types/api/room'
 import { TApiError } from '@/types/api/ApiError'
 import * as TE from 'fp-ts/TaskEither'
-import axios from 'axios'
+import {AxiosClient} from "@/api/client"
+import {TaskEither} from "fp-ts/TaskEither"
 
-export const postCreateNewRoom = (input: TPostCreateNewRoomInput) => {
+export const postCreateNewRoom = (input: TPostCreateNewRoomInput): TaskEither<TApiError, TPostCreateNewRoomOutput> => {
   const params = new URLSearchParams({
     name: input.name,
     max_count: input.max_count.toString(),
   })
   return TE.tryCatch(
     async () => {
-      const { data } = await axios.post('/api/room/new', params)
-      const d: TPostCreateNewRoomOutput = data.data
-      return d
+      const { data } = await AxiosClient().post('/room/new', params)
+      return data.data
     },
     (e: any) => {
       try {
@@ -30,12 +30,11 @@ export const postCreateNewRoom = (input: TPostCreateNewRoomInput) => {
   )
 }
 
-export const getRoomInfo = (input: TGetRoomInfoInput) => {
+export const getRoomInfo = (input: TGetRoomInfoInput): TaskEither<TApiError, TGetRoomInfoOutput> => {
   return TE.tryCatch(
     async () => {
-      const { data } = await axios.get(`/api/room/${input.roomID}`)
-      const d: TGetRoomInfoOutput = data.data
-      return d
+      const { data } = await AxiosClient().get(`/room/${input.roomID}`)
+      return data.data
     },
     (e: any) => {
       try {
@@ -48,11 +47,11 @@ export const getRoomInfo = (input: TGetRoomInfoInput) => {
   )
 }
 
-export const getRoomFinish = (roomID: string | undefined) => {
+export const getRoomFinish = (roomID: string): TaskEither<TApiError, void> => {
   return TE.tryCatch(
     async () => {
       if (typeof roomID !== 'undefined') {
-        await axios.get(`/api/finish/${roomID}`)
+        await AxiosClient().get(`/finish/${roomID}`)
       }
     },
     (e: any) => {

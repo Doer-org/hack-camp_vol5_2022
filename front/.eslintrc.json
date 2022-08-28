@@ -29,6 +29,7 @@
         "react/react-in-jsx-scope": "off",
         "comma-dangle": "off",
         "react/no-unescaped-entities": "off",
-        "semi": ["error", "never"]
+        "semi": ["error", "never"],
+        "@typescript-eslint/no-misused-promises": "off"
     }
 }
