@@ -6,17 +6,13 @@ import BaseButton from '../components/parts/BaseButton'
 import NextButton from '../components/parts/Nextbutton'
 import robot from '../assets/img/robot.png'
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TApiError } from '@/types/api/apiError'
-import { TGetRoomMembersOutput } from '../types/api/member'
-import { pipe } from 'fp-ts/function'
-import * as TE from 'fp-ts/TaskEither'
 
 interface Question {
   id: number
   question: string
 }
 export const QuestionsPage: FC = () => {
-  const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
+  const { getRoomMembers } = useMeetHackApi()
   // query paramの取得
   const search = useLocation().search
   const query = new URLSearchParams(search)
@@ -28,39 +24,35 @@ export const QuestionsPage: FC = () => {
     if (typeof (roomID) === 'undefined') {
       console.log('クエリパラメータからroomIDを取得できませんでした。')
     } else {
-      pipe(
-        getRoomMembers({ roomID }),
-        TE.match(
-          (error: TApiError) => {
-            console.log('Error: getRoomMembers ' + error)
-          },
-          (ok: TGetRoomMembersOutput[]) => {
-            const userNames = ok.map((user) => user.name)
-            console.log(userNames)
-            setUsers(userNames)
-            const d = new Date()
-            const month = d.getMonth() + 1
-            const count = ok.length
-            const questions: Question[] = ok.map((item) => {
-              return {
-                id: (item.id + month - 1) % count,
-                question: item.question
-              }
-            })
-            questions.sort((a, b) => b.id - a.id)
-            setQuestions(questions)
-          }
+      getRoomMembers({ roomID })
+        .then((ok) => {
+          const userNames = ok.map((user) => user.name)
+          console.log(userNames)
+          setUsers(userNames)
+          const d = new Date()
+          const month = d.getMonth() + 1
+          const count = ok.length
+          const questions: Question[] = ok.map((item) => {
+            return {
+              id: (item.id + month - 1) % count,
+              question: item.question
+            }
+          })
+          questions.sort((a, b) => b.id - a.id)
+          setQuestions(questions)
+        })
+        .catch((error) =>
+          console.log(error)
         )
-      )()
     }
   }, [])
 
   const [current, setCurrent] = useState(0)
-  const nextQuestion = () => {
+  const nextQuestion = (): void => {
     setCurrent(current + 1)
     console.log(current)
   }
-  const backQuestion = () => {
+  const backQuestion = (): void => {
     setCurrent(current - 1)
     console.log(current)
   }
@@ -107,12 +99,12 @@ export const QuestionsPage: FC = () => {
               {/* {!current - 1 < 0 ? ( */}
               {current - 1 < 0
                 ? (
-                <>
-                  <div className="mb-0 mt-3">
-                    <BaseButton onClick={(e) => backQuestion()} name="前の人" />
-                  </div>
-                </>
-                  )
+                  <>
+                    <div className="mb-0 mt-3">
+                      <BaseButton onClick={(e) => backQuestion()} name="前の人" />
+                    </div>
+                  </>
+                )
                 : null}
             </>
           )}
