@@ -30,6 +30,7 @@
         "comma-dangle": "off",
         "react/no-unescaped-entities": "off",
         "semi": ["error", "never"],
-        "@typescript-eslint/no-misused-promises": "off"
+        "@typescript-eslint/no-misused-promises": "off",
+        "indent": ["error", 2]
     }
 }

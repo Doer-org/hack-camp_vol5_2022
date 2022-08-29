@@ -3,10 +3,10 @@ import { SecCard } from './SecCard'
 import {RegisterBackground} from './RegisterBackground'
 
 
-export const StepZero: FC = () => {
-    return(
+export const EventStep0: FC = () => {
+  return(
     <RegisterBackground>
-    <SecCard />
+      <SecCard />
     </RegisterBackground>
-    )
+  )
 }

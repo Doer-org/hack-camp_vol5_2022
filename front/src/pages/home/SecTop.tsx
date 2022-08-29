@@ -24,7 +24,7 @@ export const SecTop: FC = () => {
           に Hack 仲間を増やしませんか？
         </h2>
         <div className="mt-24 text-center lg:mt-16">
-          <NextButton path="CreateRoom" name="ルームを作成する" />
+          <NextButton path="/event/new" name="ルームを作成する" />
         </div>
       </AppContainer>
       <img className="hidden lg:block" src={divider_pc} alt=""/>

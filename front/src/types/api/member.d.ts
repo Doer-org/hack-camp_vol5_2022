@@ -1,4 +1,4 @@
-export type TPostAddNewMemberInput = {
+export interface TPostAddNewMemberInput {
     name : string
     roomID : string
     question : string
@@ -8,7 +8,7 @@ export type TPostAddNewMemberInput = {
     twitter : string | undefined
 } 
 
-export type TPostAddNewMemberOutput =  {
+export interface TPostAddNewMemberOutput {
     id : number
     name : string
     comment : string
@@ -19,11 +19,11 @@ export type TPostAddNewMemberOutput =  {
     room : string
 }
 
-export type TGetRoomMembersInput = {
+export interface TGetRoomMembersInput {
     roomID : string
 }
 
-export type TGetRoomMembersOutput = {
+export interface TGetRoomMembersOutput {
     id : number
     name : string
     comment : string

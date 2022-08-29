@@ -25,7 +25,7 @@ export const EventNew: FC = () => {
 
   const copyToClipboard = async (): Promise<void> => {
     if (roomInfo != null) {
-      await navigator.clipboard.writeText(`${window.location.origin}/event?id=${roomInfo.id}`)
+      await navigator.clipboard.writeText(`${window.location.origin}/event?room=${roomInfo.id}`)
       setIsCopied(true)
     }
   }
@@ -64,7 +64,7 @@ export const EventNew: FC = () => {
               <input
                 disabled
                 type="text"
-                value={`${window.location.origin}/event?id=${roomInfo.id}`}
+                value={`${window.location.origin}/event?room=${roomInfo.id}`}
                 className="w-full rounded border px-3 py-2 text-4xl tracking-wider text-gray-400 lg:text-base"
               />
               <button

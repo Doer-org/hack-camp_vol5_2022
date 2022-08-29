@@ -8,11 +8,21 @@ import {
 import { TApiError } from '@/types/api/apiError'
 import {TaskEither} from "fp-ts/TaskEither"
 import {AxiosClient} from "@/api/client"
+import {defaultArg} from "@/api/utile"
 
 export const postAddNewMember = (input: TPostAddNewMemberInput): TaskEither<TApiError, TPostAddNewMemberOutput> => {
+  const params = new URLSearchParams({
+    name: input.name,
+    roomID: input.roomID,
+    question: input.question,
+    comment: defaultArg(input.comment, ''),
+    lang: defaultArg(input.lang, ''),
+    github: defaultArg(input.github, ''),
+    twitter: defaultArg(input.twitter, ''),
+  })
   return TE.tryCatch(
     async () => {
-      const { data } = await AxiosClient().post(`/member/new?room=${input.roomID}`, input)
+      const { data } = await AxiosClient().post(`/member/new?room=${input.roomID}`, params)
       return data.data
     },
     (e: any) => {
