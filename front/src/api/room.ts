@@ -51,7 +51,7 @@ export const getRoomFinish = (roomID: string): TaskEither<TApiError, void> => {
   return TE.tryCatch(
     async () => {
       if (typeof roomID !== 'undefined') {
-        await AxiosClient().get(`/finish/${roomID}`)
+        await AxiosClient().get(`/room/finish/${roomID}`)
       }
     },
     (e: any) => {

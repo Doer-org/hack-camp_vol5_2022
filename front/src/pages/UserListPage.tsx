@@ -138,7 +138,7 @@ export const UserListPage: FC = () => {
         (error) => console.log(error),
         (ok) => navigate(`/event/questions?room=${roomID}`)
       )
-    )
+    )()
     // axios
     //   // .get(`https://go-server-doer-vol5.herokuapp.com/room/finish/${roomID}`)
     //   .get(`http://localhost:8080/room/finish/${roomID}`)
