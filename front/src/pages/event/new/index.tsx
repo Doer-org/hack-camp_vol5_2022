@@ -21,10 +21,6 @@ export const EventNew: FC = () => {
       .createRoom({name: roomName, max_count: participant})
       .then((ret) => setRoomInfo(ret))
       .catch((error) => console.log(error))
-    // const res = await mtApi.createRoom({name: roomName, max_count: participant})()
-    // if (res._tag === "Right") {
-    //   setRoomInfo(res.right)
-    // }
   }
 
   const copyToClipboard = async (): Promise<void> => {
