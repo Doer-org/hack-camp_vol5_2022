@@ -4,7 +4,7 @@ import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/Either'
 import * as MemberApi from '@/api/member'
 import * as RoomApi from '@/api/room'
-import { TPostAddNewMemberInput } from '@/types/api/member'
+import { IPostAddNewMemberInput } from '@/types/api/member'
 
 describe('getRoomMembers: /member/new?room={input.roomID}', () => {
   it('正常系：メンバーの情報を取得', async () => {
@@ -25,7 +25,7 @@ describe('getRoomMembers: /member/new?room={input.roomID}', () => {
   })
 })
 
-const memberData = (n : string, id : string, q : string) : TPostAddNewMemberInput => { 
+const memberData = (n : string, id : string, q : string) : IPostAddNewMemberInput => { 
   return { 
     name: n,
     roomID: id,

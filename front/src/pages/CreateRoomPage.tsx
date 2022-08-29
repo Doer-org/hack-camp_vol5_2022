@@ -1,6 +1,6 @@
 import { FC, useState } from 'react'
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TPostCreateNewRoomInput } from '../types/api/room'
+import { IPostCreateNewRoomInput } from '../types/api/room'
 
 import { Link } from 'react-router-dom'
 import { Popup } from 'semantic-ui-react'
@@ -32,7 +32,7 @@ export const CreateRoomPage: FC = () => {
   console.log(roomId)
 
   const CreateRoomId = (): void => {
-    const input: TPostCreateNewRoomInput = {
+    const input: IPostCreateNewRoomInput = {
       name: roomName,
       max_count: count
     }

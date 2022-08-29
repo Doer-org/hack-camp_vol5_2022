@@ -6,7 +6,7 @@ import UserPrepareCard from '../components/templates/UserPrepareCard'
 import robot from '../assets/img/robot.png'
 
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TGetRoomMembersOutput } from '@/types/api/member'
+import { IGetRoomMembersOutput } from '@/types/api/member'
 
 
 
@@ -36,7 +36,7 @@ export const UserListPage: FC = () => {
 
   const socket = new Socket(ws)
 
-  const [userList, setUserList] = useState<TGetRoomMembersOutput[]>([])
+  const [userList, setUserList] = useState<IGetRoomMembersOutput[]>([])
   const [roomName, setRoomName] = useState('')
   const [maxCount, setMaxCount] = useState(0)
   const [nowCount, setNowCount] = useState(0)
