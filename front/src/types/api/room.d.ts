@@ -1,9 +1,9 @@
-export type TPostCreateNewRoomInput = {
+export interface TPostCreateNewRoomInput   {
     name : string
     max_count : number
 }
 
-export type TPostCreateNewRoomOutput = {
+export interface TPostCreateNewRoomOutput {
     id : string
     name : string
     max_count : number
@@ -11,11 +11,11 @@ export type TPostCreateNewRoomOutput = {
     create_at : Date
 }
 
-export type TGetRoomInfoInput = {
+export interface TGetRoomInfoInput {
     roomID : string
 }
 
-export type TGetRoomInfoOutput = { 
+export interface TGetRoomInfoOutput { 
     id : string 
     name : string 
     max_count : number 

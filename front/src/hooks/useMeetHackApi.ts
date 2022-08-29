@@ -61,7 +61,7 @@ export const useMeetHackApi = (): IApis => {
   }
 
   const getRoomFinish = async (input: string | undefined): Promise<void> => {
-    return await RoomApi.getRoomFinish(input)().then((ret) => {
+    return await RoomApi.getRoomFinish(input??"")().then((ret) => {
       if (E.isLeft(ret)) {
         throw Error('useMeetHackApi (getRoomMembers)')
       } else {
