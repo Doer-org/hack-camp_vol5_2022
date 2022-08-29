@@ -19,7 +19,7 @@ export const Routing: FC = () => {
           <Route path="/event/new" element={<EventNew />} />
           <Route path="event" element={<RegisterUserPage />} />
           <Route path="/event/step0" element={<EventStep0/>} />
-          <Route path="event/event" element={<QuestionsPage />} />
+          <Route path="event/questions" element={<QuestionsPage />} />
           <Route path="event/user/list" element={<UserInfoPage />} />
           <Route path="event/prepare" element={<UserListPage />} />
         </Routes>
