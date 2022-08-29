@@ -1,28 +1,25 @@
 import { FC, useState } from 'react'
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TPostCreateNewRoomInput, TPostCreateNewRoomOutput } from '../types/api/room'
+import { TPostCreateNewRoomInput } from '../types/api/room'
 
 import { Link } from 'react-router-dom'
 import { Popup } from 'semantic-ui-react'
 import InputText from '../components/templates/InputText' // "../components /templates/InputText";
-import SecTitle from '../components/parts/SecTitle' // "../parts/SecTitle";
-import { TApiError } from '@/types/api/apiError'
+import SecTitle from '../components/parts/SecTitle' // "../parts/SecTitle"; 
 
-import * as TE from 'fp-ts/TaskEither'
-import { pipe } from 'fp-ts/function'
 
 export const CreateRoomPage: FC = () => {
   console.log('CreateRoom')
 
-  const { createRoom, addNewMember, getRoomInfo, getRoomMembers } = useMeetHackApi()
+  const { createRoom } = useMeetHackApi()
 
   const [count, setCount] = useState(2)
 
-  const CountUp = () => {
+  const CountUp = (): void => {
     setCount(count + 1)
   }
 
-  const CountDown = () => {
+  const CountDown = (): void => {
     if (count > 2) {
       setCount(count - 1)
     }
@@ -34,25 +31,25 @@ export const CreateRoomPage: FC = () => {
 
   console.log(roomId)
 
-  const CreateRoomId = () => {
+  const CreateRoomId = (): void => {
     const input: TPostCreateNewRoomInput = {
       name: roomName,
       max_count: count
     }
-    // Todo APIのエンドポイント変更
-    pipe(
-      createRoom(input),
-      TE.match(
-        (error: TApiError) => console.log('create room id error  ' + error.error), // 送信失敗時の処理
-        (ok: TPostCreateNewRoomOutput) => {
-          // 送信成功時の処理
-          console.log(ok)
-          setRoomId(ok.id)
-        }
+    // Todo APIのエンドポイント変更 
+    console.log("=================")
+    createRoom(input)
+      .then((ok) => {
+        // 送信成功時の処理
+        console.log("=================")
+        console.log(ok)
+        setRoomId(ok.id)
+      })
+      .catch((error) =>
+        console.log(error)
       )
-    )()
   }
-  function copyUrlToClipboard () {
+  function copyUrlToClipboard(): void {
     const url = `https://meet-hack.vercel.app/event?room=${roomId}`
     navigator.clipboard.writeText(url)
       .then(function () {
@@ -166,40 +163,40 @@ export const CreateRoomPage: FC = () => {
             {/* ルームID */}
             {roomId
               ? (
-              <div className="my-4 flex justify-center">
-                <Link to={`/event?room=${roomId}`} className="truncate text-blue-600 underline">
-                  {`https://meet-hack.vercel.app/event?room=${roomId}`}</Link>
-                <Popup
-                  trigger={
-                    <button
-                      onClick={(e) => copyUrlToClipboard()}
-                      type="button"
-                      data-bs-toggle="popover"
-                      data-bs-placement="top"
-                      data-bs-content="Right popover"
-                    >
-                      <svg
-                        className="h-8 w-8 text-black text-gray-400"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        strokeWidth="2"
-                        stroke="currentColor"
-                        fill="none"
-                        strokeLinecap="round"
-                        strokeLinejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" />
-                        <rect x="8" y="4" width="12" height="12" rx="2" />
-                        <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2" />
-                      </svg>
-                    </button>
-                  }
-                  content='Copied!'
-                  on='click'
-                  position='right center'
-                />
-              </div>
-                )
+                <div className="my-4 flex justify-center">
+                  <Link to={`/event?room=${roomId}`} className="truncate text-blue-600 underline">
+                    {`https://meet-hack.vercel.app/event?room=${roomId}`}</Link>
+                  <Popup
+                    trigger={
+                      <button
+                        onClick={(e) => copyUrlToClipboard()}
+                        type="button"
+                        data-bs-toggle="popover"
+                        data-bs-placement="top"
+                        data-bs-content="Right popover"
+                      >
+                        <svg
+                          className="h-8 w-8 text-black text-gray-400"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          strokeWidth="2"
+                          stroke="currentColor"
+                          fill="none"
+                          strokeLinecap="round"
+                          strokeLinejoin="round">
+                          <path stroke="none" d="M0 0h24v24H0z" />
+                          <rect x="8" y="4" width="12" height="12" rx="2" />
+                          <path d="M16 16v2a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-8a2 2 0 0 1 2 -2h2" />
+                        </svg>
+                      </button>
+                    }
+                    content='Copied!'
+                    on='click'
+                    position='right center'
+                  />
+                </div>
+              )
               : (null)}
 
           </div>
