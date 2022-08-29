@@ -41,7 +41,7 @@ export const EventStep1: FC = () => {
         {
           roomID !== null
             ?
-            <div onClick={() => navigate(`/event/step2/${roomID}`)}>
+            <div onClick={() => navigate(`/event/step2?room=${roomID}`)}>
               <BaseRectButton text={"次へ"}/>
             </div>
             :
