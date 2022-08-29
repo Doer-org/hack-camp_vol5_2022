@@ -5,7 +5,7 @@ import * as E from 'fp-ts/Either'
 import * as RoomApi from '@/api/room'
 
 describe('/room/new', () => {
-  it('正常系：新たにRoomを作成', async () => {
+  it('正常系：Roomを作成', async () => {
     const input = {
       name: 'roomName',
       max_count: 2
