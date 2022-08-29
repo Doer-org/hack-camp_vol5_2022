@@ -19,7 +19,7 @@ interface IApis {
 	addNewMember: (input: IPostAddNewMemberInput) => Promise<IPostAddNewMemberOutput>;
 	getRoomInfo: (input: IGetRoomInfoInput) => Promise<IGetRoomInfoOutput>;
 	getRoomMembers: (input: IGetRoomMembersInput) => Promise<IGetRoomMembersOutput[]>;
-	getRoomFinish: (input: string | undefined) => Promise<void>;
+	getRoomFinish: (input: string) => Promise<void>;
 }
 
 export const useMeetHackApi = (): IApis => {
@@ -60,8 +60,8 @@ export const useMeetHackApi = (): IApis => {
     })
   }
 
-  const getRoomFinish = async (input: string | undefined): Promise<void> => {
-    return await RoomApi.getRoomFinish(input??"")().then((ret) => {
+  const getRoomFinish = async (input: string): Promise<void> => {
+    return await RoomApi.getRoomFinish(input)().then((ret) => {
       if (E.isLeft(ret)) {
         throw Error('useMeetHackApi (getRoomMembers)')
       } else {
