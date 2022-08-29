@@ -1,13 +1,16 @@
-import {FC, useState} from "react"
-import {BaseStepWindow} from "@/components/parts/BaseStepWindow"
-import {EventBackground} from "@/components/parts/EventBackground"
-import {BaseInput} from "@/components/parts/BaseInput"
-import {BaseRectButton} from "@/components/parts/BaseRectButton"
+import { FC, useState } from "react"
+import { BaseStepWindow } from "@/components/parts/BaseStepWindow"
+import { EventBackground } from "@/components/parts/EventBackground"
+import { BaseInput } from "@/components/parts/BaseInput"
+import { BaseRectButton } from "@/components/parts/BaseRectButton"
 import IconUser from "@/assets/img/icon_user.png"
-import {useLocation, useNavigate} from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { setStep1 } from "@/store/slice/formSlice"
 
 export const EventStep1: FC = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const search = new URLSearchParams(useLocation().search)
   const roomID: string | null = search.get("room")
@@ -17,6 +20,13 @@ export const EventStep1: FC = () => {
   const [github, setGithub] = useState<string>("")
   const [twitter, setTwitter] = useState<string>("")
   const [comment, setComment] = useState<string>("")
+
+  const setFormValue = (): void => {
+    dispatch(setStep1({ name, lang, github, twitter, comment }))
+    if (roomID !== null) {
+      navigate(`/event/step2?room=${roomID}`)
+    }
+  }
 
   return (
     <EventBackground>
@@ -38,15 +48,9 @@ export const EventStep1: FC = () => {
           </div>
           <BaseInput name={"ひとこと"} placeholder={"寿司が好きです 🍣"} setState={setComment}/>
         </div>
-        {
-          roomID !== null
-            ?
-            <div onClick={() => navigate(`/event/step2?room=${roomID}`)}>
-              <BaseRectButton text={"次へ"}/>
-            </div>
-            :
-            <></>
-        }
+        <div onClick={() => setFormValue()}>
+          <BaseRectButton text={"次へ"}/>
+        </div>
       </BaseStepWindow>
     </EventBackground>
   )

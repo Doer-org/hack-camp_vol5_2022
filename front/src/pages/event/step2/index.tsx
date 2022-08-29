@@ -1,12 +1,20 @@
-import {FC, useState} from "react"
-import {EventBackground} from "@/components/parts/EventBackground"
-import {BaseStepWindow} from "@/components/parts/BaseStepWindow"
-import {BaseInput} from "@/components/parts/BaseInput"
+import { FC, useState } from "react"
+import { EventBackground } from "@/components/parts/EventBackground"
+import { BaseStepWindow } from "@/components/parts/BaseStepWindow"
+import { BaseInput } from "@/components/parts/BaseInput"
 import IconUser from "@/assets/img/icon_user.png"
-import {BaseRectButton} from "@/components/parts/BaseRectButton"
+import { BaseRectButton } from "@/components/parts/BaseRectButton"
+import { useDispatch } from "react-redux"
+import { setStep2 } from "@/store/slice/formSlice"
 
 export const EventStep2: FC = () => {
+  const dispatch = useDispatch()
+
   const [question, setQuestion] = useState<string>("")
+
+  const next = () => {
+    dispatch(setStep2({ question }))
+  }
 
   return (
     <EventBackground>
@@ -18,7 +26,9 @@ export const EventStep2: FC = () => {
         <div className={"mb-24 space-y-8 text-4xl lg:mb-12 lg:space-y-6 lg:text-base"}>
           <BaseInput name={"他の人に聞いてみたい質問"} placeholder={"地元のおすすめの観光地を教えてください！"} setState={setQuestion} />
         </div>
-        <BaseRectButton text={"準備完了！"} />
+        <div onClick={next}>
+          <BaseRectButton text={"準備完了！"} />
+        </div>
       </BaseStepWindow>
     </EventBackground>
   )
