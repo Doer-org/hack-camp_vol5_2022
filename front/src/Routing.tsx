@@ -8,8 +8,9 @@ import { UserInfoPage } from './pages/UserInfoPage'
 import { UserListPage } from './pages/UserListPage'
 import { EventStep0 } from '@/pages/event/step0'
 import { EventNew } from "@/pages/event/new"
-import {EventStep1} from "@/pages/event/step1"
-import {EventStep2} from "@/pages/event/step2"
+import { EventStep1 } from "@/pages/event/step1"
+import { EventStep2 } from "@/pages/event/step2"
+import { EventPrepare } from "@/pages/event/prepare"
 
 export const Routing: FC = () => {
   return (
@@ -23,9 +24,10 @@ export const Routing: FC = () => {
           <Route path="/event/step0" element={<EventStep0/>} />
           <Route path="/event/step1" element={<EventStep1 />} />
           <Route path="/event/step2" element={<EventStep2 />} />
+          <Route path="/event/prepare" element={<EventPrepare />} />
           <Route path="event/questions" element={<QuestionsPage />} />
           <Route path="event/user/list" element={<UserInfoPage />} />
-          <Route path="event/prepare" element={<UserListPage />} />
+          <Route path="/event/prepare/old" element={<UserListPage />} />
         </Routes>
       </BrowserRouter>
     </>
