@@ -1,7 +1,7 @@
 # dir
 SERVER_DIR:=./server
 FRONT_DIR:=./front
-DB_DIR:=./db
+DB_DIR:=./db/data
 
 # container
 DB_CONTAINER_NAME:=hack-camp_vol5_2022-db
