@@ -5,6 +5,7 @@ package db
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/lib/pq"
@@ -59,6 +60,7 @@ func newDB(d DB) DB {
 	for i := 0; i < 30 && err != nil; i++ {
 		fmt.Println(err)
 		fmt.Printf("db connect failed...\n\n")
+		time.Sleep(time.Second * 1)
 		db, err = gorm.Open("postgres", connInfo)
 	}
 
