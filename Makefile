@@ -17,7 +17,6 @@ PROXY_CONTAINER_NAME:=proxy-hack-camp_vol5_2022
 
 # command
 RM := rm -rf
-ecstatic-router-353016
 
 
 .PHONY: all
