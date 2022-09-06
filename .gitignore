@@ -2,3 +2,6 @@
 /db/data
 
 .idea
+
+#dockerfile
+*.prd
