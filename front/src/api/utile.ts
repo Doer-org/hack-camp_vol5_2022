@@ -1,7 +1,7 @@
-export const defaultArg = (value: string | undefined, defaultValue: string): string => {
-  if (typeof value === 'string') {
-    return value
-  } else {
+export const defaultArg = <T>(value: T | undefined, defaultValue: T): T => {
+  if (typeof value === 'undefined') {
     return defaultValue
+  } else {
+    return value
   }
 }
