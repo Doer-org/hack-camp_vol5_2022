@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { flow, pipe } from 'fp-ts/lib/function'
 import * as TE from 'fp-ts/TaskEither'
 import * as E from 'fp-ts/Either'
-import * as RoomApi from '@/api/room'
+import * as RoomApi from '@/api/room'  
 
 describe('/room/new', () => {
   it('正常系：Roomを作成', async () => {
@@ -25,7 +25,7 @@ describe('/room/new', () => {
     expect(E.isLeft(resp)).toBe(true)  
   })
 })
-
+ 
 // describe('/room/new', () => {
 //   it('異常系：部屋の最大人数max_count >= 2', async () => {
 //     const input = {

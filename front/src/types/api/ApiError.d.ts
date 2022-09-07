@@ -1,1 +1,1 @@
-export type TApiError =  { error: string } 
+export interface IApiError { error: string } 
