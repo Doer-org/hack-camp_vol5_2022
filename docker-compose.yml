@@ -1,42 +1,45 @@
 version: '3'
 
 services:
-#  front:
-#    build:
-#      context: .
-#      dockerfile: ./docker/front/Dockerfile
-#    container_name: hack-camp_vol5_2022-front
-#    tty: true
-#    volumes:
-#      - ./front:/app/front
-#    command: sh -c "cd /app/front && npm install && npm start"
-#    ports:
-#      - 3000:3000
+  front:
+    build:
+      context: ./front
+      dockerfile: Dockerfile
+    container_name: front-hack-camp_vol5_2022
+    ports:
+      - 3000:80
+    tty: true
 
   server:
     build:
-      context: .
-      dockerfile: ./server/Dockerfile
-    container_name: hack-camp_vol5_2022-server
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: server-hack-camp_vol5_2022
     env_file:
       - docker-compose.env
-    ports:
-      - 8080:8080
     tty: true
-    volumes:
-      - ./server:/go/src/github.com/Doer-org/hack-camp_vol5_2022
     depends_on:
       - db
-    command: go run .
 
   db:
-    container_name: hack-camp_vol5_2022-db
-    build: ./docker/db
+    container_name: db-hack-camp_vol5_2022
+    build:
+      context: ./db
+      dockerfile: Dockerfile
     ports:
       - 5432:5432
     volumes:
-      - ./docker/db/init:/docker-entrypoint-initdb.d
-      - ./db:/var/lib/postgresql/data
+      - ./db/data:/var/lib/postgresql/data
     env_file:
       - docker-compose.env
     restart: always
+
+  proxy:
+    container_name: proxy-hack-camp_vol5_2022
+    build: 
+      context: ./proxy
+      dockerfile: Dockerfile
+    depends_on:
+      - server
+    ports:
+      - 80:80
