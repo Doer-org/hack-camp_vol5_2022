@@ -13,7 +13,7 @@ export const CEventStartMsg: FC<IProps> = ({ maxCount, current , onEventStart })
       {
         current < maxCount
           ?
-          <div className={"mx-auto w-72"}>
+          <div className={"mx-auto w-full lg:w-72"}>
             <BaseRectButton
               isWhite={true}
               onClick={onEventStart}
@@ -32,7 +32,7 @@ export const CEventStartMsg: FC<IProps> = ({ maxCount, current , onEventStart })
                 メンバーをさらに追加することもできます。
               </span>
             </div>
-            <div className={"mx-auto w-72"}>
+            <div className={"mx-auto w-full lg:w-72"}>
               <BaseRectButton
                 onClick={onEventStart}
                 text={"イベントをはじめる"}

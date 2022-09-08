@@ -73,8 +73,13 @@ export const EventPrepare: FC = () => {
   return (
     <EventBackground>
       <BaseStepWindow>
-        <div className={"mb-20 text-center text-xl lg:mb-8"}>
-          {roomName} の待機室
+        <div className={"mb-20 text-center lg:mb-8"}>
+          <span className={"mr-4 text-5xl tracking-wider lg:mr-2 lg:text-2xl"}>
+            {roomName}
+          </span>
+          <span className={"text-3xl lg:text-base"}>
+            の待機室
+          </span>
         </div>
         <CWaiting maxCount={maxCount} current={memberList.length} />
         {

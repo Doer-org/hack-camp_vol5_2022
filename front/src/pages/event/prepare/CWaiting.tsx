@@ -15,10 +15,10 @@ export const CWaiting: FC<IProps> = ({ maxCount, current }) => {
           ?
           <div>
             <CCircularProgress maxCount={maxCount} current={current} />
-            <p className={"my-20 text-center text-4xl lg:my-8 lg:text-lg"}>
+            <p className={"my-12 text-center text-4xl lg:my-8 lg:text-lg"}>
               マッチング中...
             </p>
-            <div className={"flex h-12 justify-center"}>
+            <div className={"mb-12 flex h-12 justify-center lg:mb-0"}>
               <Loader isActive={true} />
             </div>
           </div>
