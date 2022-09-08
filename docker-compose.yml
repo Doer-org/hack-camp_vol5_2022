@@ -1,17 +1,17 @@
 version: '3'
 
 services:
-  front:
-    build:
-      context: .
-      dockerfile: ./docker/front/Dockerfile
-    container_name: hack-camp_vol5_2022-front
-    tty: true
-    volumes:
-      - ./front:/app/front
-    command: sh -c "cd /app/front && npm install && npm start"
-    ports:
-      - 3000:3000
+#  front:
+#    build:
+#      context: .
+#      dockerfile: ./docker/front/Dockerfile
+#    container_name: hack-camp_vol5_2022-front
+#    tty: true
+#    volumes:
+#      - ./front:/app/front
+#    command: sh -c "cd /app/front && npm install && npm start"
+#    ports:
+#      - 3000:3000
 
   server:
     build:

@@ -31,7 +31,7 @@ export const CMemberCard: FC<IProps> = ({ member }) => {
               {member.comment}
             </span>
           </div>
-          <div className={"flex space-x-6"}>
+          <div className={"flex items-center space-x-6"}>
             {
               member.github !== ""
                 ?

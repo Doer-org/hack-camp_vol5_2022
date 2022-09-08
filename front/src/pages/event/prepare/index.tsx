@@ -7,54 +7,83 @@ import { useWebSocket } from "@/hooks/useWebSocket"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useMeetHackApi } from "@/hooks/useMeetHackApi"
 import { IMember } from "@/types/data/member"
+import { CEventStartMsg } from "@/pages/event/prepare/CEventStartMsg"
 
 export const EventPrepare: FC = () => {
   const ws = useWebSocket()
   const navigate = useNavigate()
   const mhApi = useMeetHackApi()
 
-  const [memberList, setMemberList] = useState<IMember[]>([])
+  const search = new URLSearchParams(useLocation().search)
 
-  // 接続
-  const onConnect = (socket: WebSocket): void => {
-    console.log('ws connect')
-    ws.sendEvent(socket, 'connect')
+  const [memberList, setMemberList] = useState<IMember[]>([])
+  const [roomName, setRoomName] = useState<string>("")
+  const [maxCount, setMaxCount] = useState<number>(2)
+  const [roomID, setRoomID] = useState<string|null>(search.get("room"))
+
+  // 参加済みの Room メンバーを取得
+  const updateMemberList = (roomID: string): void => {
+    mhApi.getRoomMembers({ roomID })
+      .then((ok) => { setMemberList(ok) })
+      .catch((error) => console.error(error))
   }
-  // 接続解除
-  const onDisConnect = (): void => {
-    console.log('ws disconnect')
+
+  // Room 情報の取得
+  const getRoomInfo = (roomID: string): void => {
+    mhApi.getRoomInfo({ roomID })
+      .then((ok) => {
+        setRoomName(ok.name)
+        setMaxCount(ok.max_count)
+      })
+      .catch((error) => console.error(error))
   }
-  // メッセージを受信
+
+  const EventStart = (roomID: string): void => {
+    mhApi.getRoomFinish(roomID)
+      .then((ok) => navigate(`/event/questions?room=${roomID}`))
+      .catch((error) => console.error(error))
+  }
 
   // =========================== init
-  // roomID の取得
-  const search = new URLSearchParams(useLocation().search)
-  const roomID: string | null = search.get("room")
-
-  // webSocket 周りの処理
-  if (roomID !== null) {
-    // webSocket 接続
-    const wsClient = ws.conn(roomID)
-  }
-
   useEffect(() => {
-    ws.addEvent('connect', onConnect)
-    ws.addEvent('disconnect', onDisConnect)
-    // socket.on('message', receiveMessage)
     if(roomID === null) {
       navigate("/event/new")
       return
     }
-
-    mhApi.getRoomMembers({ roomID })
-      .then((ok) => { setMemberList(ok) })
-      .catch((error) => console.log(error))
+    // webSocket 接続
+    const wsClient = ws.conn(roomID)
+    ws.sendEvent(wsClient, 'joinNewMember')
+    ws.receiveEvent(
+      wsClient,
+      event => {
+        if (event.data === "joinNewMember") {
+          // すでに参加済みの Room メンバーを取得
+          updateMemberList(roomID)
+        }
+      }
+    )
+    // Room の情報を取得
+    getRoomInfo(roomID)
+    // ページを離れるとき，websocket を閉じる
+    return () => {
+      ws.disconnect(wsClient)
+    }
   }, [])
 
   return (
     <EventBackground>
       <BaseStepWindow>
-        <CWaiting isWaiting={true}/>
+        <div className={"mb-20 text-center text-xl lg:mb-8"}>
+          {roomName} の待機室
+        </div>
+        <CWaiting maxCount={maxCount} current={memberList.length} />
+        {
+          roomID !== null
+            ?
+            <CEventStartMsg onEventStart={() => EventStart(roomID)} maxCount={maxCount} current={memberList.length} />
+            :
+            <></>
+        }
         <div className={"space-y-4"}>
           {
             memberList?.map((member, idx) => {

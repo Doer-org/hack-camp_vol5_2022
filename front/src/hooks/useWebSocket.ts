@@ -1,13 +1,12 @@
-import { EventEmitter } from "events"
 
 interface IUseWebSocket {
   conn: (roomId: string) => WebSocket
-  addEvent: (eventName: string, eventFunc) => void
   sendEvent: (ws: WebSocket, data: string) => void
+  receiveEvent: (ws: WebSocket, eventFunc: (event: MessageEvent) => void) => any
+  disconnect: (ws: WebSocket) => void
 }
 
 export const useWebSocket = (): IUseWebSocket => {
-  const EE = new EventEmitter()
 
   // WebSocket と接続
   const conn = (roomID: string): WebSocket => {
@@ -15,15 +14,30 @@ export const useWebSocket = (): IUseWebSocket => {
     return new WebSocket(`${URL}/ws?room=${roomID}`)
   }
 
-  // Event を追加
-  const addEvent = (eventName: string, eventFunc: any): void => {
-    EE.on(eventName, eventFunc)
-  }
-
   // Event を送信
   const sendEvent = (ws: WebSocket, data: string): void => {
-    ws.send(data)
+    // websocket が開いているとき
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.send(data)
+      return
+    }
+    // websocket が接続中のとき
+    if (ws.readyState === WebSocket.CONNECTING) {
+      ws.addEventListener("open", () => sendEvent(ws, data))
+    }
   }
 
-  return { conn, addEvent, sendEvent }
+  // Event を取得
+  const receiveEvent = (ws: WebSocket, eventFunc): any => {
+    ws.onmessage = (event) => {
+      eventFunc(event)
+    }
+  }
+
+  // WebSocketを閉じる
+  const disconnect = (ws: WebSocket): void => {
+    ws.close()
+  }
+
+  return { conn, sendEvent, receiveEvent, disconnect }
 }

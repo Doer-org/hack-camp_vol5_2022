@@ -3,17 +3,18 @@ import { CCircularProgress } from "@/pages/event/prepare/CCircularProgress"
 import { Loader } from "@/components/parts/Loader"
 
 interface IProps {
-  isWaiting: boolean
+  maxCount: number
+  current: number
 }
 
-export const CWaiting: FC<IProps> = ({ isWaiting }) => {
+export const CWaiting: FC<IProps> = ({ maxCount, current }) => {
   return (
     <div>
       {
-        isWaiting
+        current < maxCount
           ?
           <div>
-            <CCircularProgress />
+            <CCircularProgress maxCount={maxCount} current={current} />
             <p className={"my-20 text-center text-4xl lg:my-8 lg:text-lg"}>
               マッチング中...
             </p>
@@ -22,7 +23,9 @@ export const CWaiting: FC<IProps> = ({ isWaiting }) => {
             </div>
           </div>
           :
-          <></>
+          <div className={"mb-20 lg:mb-8"}>
+            <CCircularProgress maxCount={maxCount} current={current} />
+          </div>
       }
     </div>
   )
