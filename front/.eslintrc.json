@@ -31,6 +31,7 @@
         "react/no-unescaped-entities": "off",
         "semi": ["error", "never"],
         "@typescript-eslint/no-misused-promises": "off",
-        "indent": ["error", 2]
+        "indent": ["error", 2],
+        "object-curly-spacing": ["error", "always"]
     }
 }

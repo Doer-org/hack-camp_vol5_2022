@@ -21,15 +21,11 @@ export const EventNew: FC = () => {
       .createRoom({name: roomName, max_count: participant})
       .then((ret) => setRoomInfo(ret))
       .catch((error) => console.log(error))
-    // const res = await mtApi.createRoom({name: roomName, max_count: participant})()
-    // if (res._tag === "Right") {
-    //   setRoomInfo(res.right)
-    // }
   }
 
   const copyToClipboard = async (): Promise<void> => {
     if (roomInfo != null) {
-      await navigator.clipboard.writeText(`${window.location.origin}/event?room=${roomInfo.id}`)
+      await navigator.clipboard.writeText(`${window.location.origin}/event/step0?room=${roomInfo.id}`)
       setIsCopied(true)
     }
   }
@@ -68,7 +64,7 @@ export const EventNew: FC = () => {
               <input
                 disabled
                 type="text"
-                value={`${window.location.origin}/event?room=${roomInfo.id}`}
+                value={`${window.location.origin}/event/step0?room=${roomInfo.id}`}
                 className="w-full rounded border px-3 py-2 text-4xl tracking-wider text-gray-400 lg:text-base"
               />
               <button

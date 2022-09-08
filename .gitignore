@@ -1,4 +1,7 @@
 *.env
-/db
+/db/data
 
 .idea
+
+#dockerfile
+*.prd

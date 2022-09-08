@@ -23,12 +23,13 @@ export interface IGetRoomMembersInput {
 	roomID: string;
 }
 
-export interface IGetRoomMembersOutput {
-	id: number;
-	name: string;
-	comment: string;
-	github: string;
-	twitter: string;
-	question: string;
-	room: string;
+export interface TGetRoomMembersOutput {
+    id : number
+    name : string
+    lang: string
+    comment : string
+    github : string
+    twitter : string 
+    question : string
+    room : string
 }
