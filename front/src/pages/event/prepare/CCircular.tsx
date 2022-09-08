@@ -7,14 +7,16 @@ interface IProps {
 export const CCircular: FC<IProps> = ({ percent }) => {
   const [device, setDevice] = useState<"pc"|"sp">("pc")
   const [circumference, setCircumference] = useState<number>(60 * 2 * Math.PI)
+  const BASE_PARAM_PC = 60
+  const BASE_PARAM_SM = 144
 
   const updateWidth = (): void => {
     if (window.innerWidth > 1180) {
       setDevice("pc")
-      setCircumference(60 * 2 * Math.PI)
+      setCircumference(BASE_PARAM_PC * 2 * Math.PI)
     } else {
       setDevice("sp")
-      setCircumference(144 * 2 * Math.PI)
+      setCircumference(BASE_PARAM_SM * 2 * Math.PI)
     }
   }
 
@@ -34,9 +36,9 @@ export const CCircular: FC<IProps> = ({ percent }) => {
               strokeWidth="15"
               stroke="currentColor"
               fill="transparent"
-              r="60"
-              cx="80"
-              cy="80"
+              r={BASE_PARAM_PC}
+              cx={BASE_PARAM_PC * 4 / 3}
+              cy={BASE_PARAM_PC * 4 / 3}
             />
             {
               percent < 100
@@ -49,9 +51,9 @@ export const CCircular: FC<IProps> = ({ percent }) => {
                   strokeLinecap="round"
                   stroke="currentColor"
                   fill="transparent"
-                  r="60"
-                  cx="80"
-                  cy="80"
+                  r={BASE_PARAM_PC}
+                  cx={BASE_PARAM_PC * 4 / 3}
+                  cy={BASE_PARAM_PC * 4 / 3}
                 />
                 :
                 <circle
@@ -62,9 +64,9 @@ export const CCircular: FC<IProps> = ({ percent }) => {
                   strokeLinecap="round"
                   stroke="currentColor"
                   fill="transparent"
-                  r="60"
-                  cx="80"
-                  cy="80"
+                  r={BASE_PARAM_PC}
+                  cx={BASE_PARAM_PC * 4 / 3}
+                  cy={BASE_PARAM_PC * 4 / 3}
                 />
             }
           </svg>
@@ -75,9 +77,9 @@ export const CCircular: FC<IProps> = ({ percent }) => {
               strokeWidth="20"
               stroke="currentColor"
               fill="transparent"
-              r="144"
-              cx="192"
-              cy="192"
+              r={BASE_PARAM_SM}
+              cx={BASE_PARAM_SM * 4 / 3}
+              cy={BASE_PARAM_SM * 4 / 3}
             />
             {
               percent < 100
@@ -90,9 +92,9 @@ export const CCircular: FC<IProps> = ({ percent }) => {
                   strokeLinecap="round"
                   stroke="currentColor"
                   fill="transparent"
-                  r="144"
-                  cx="192"
-                  cy="192"
+                  r={BASE_PARAM_SM}
+                  cx={BASE_PARAM_SM * 4 / 3}
+                  cy={BASE_PARAM_SM * 4 / 3}
                 />
                 :
                 <circle
@@ -103,9 +105,9 @@ export const CCircular: FC<IProps> = ({ percent }) => {
                   strokeLinecap="round"
                   stroke="currentColor"
                   fill="transparent"
-                  r="144"
-                  cx="192"
-                  cy="192"
+                  r={BASE_PARAM_SM}
+                  cx={BASE_PARAM_SM * 4 / 3}
+                  cy={BASE_PARAM_SM * 4 / 3}
                 />
             }
           </svg>
