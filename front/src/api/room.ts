@@ -1,15 +1,15 @@
 import {
-  TPostCreateNewRoomInput,
-  TPostCreateNewRoomOutput,
-  TGetRoomInfoInput,
-  TGetRoomInfoOutput,
+  IPostCreateNewRoomInput,
+  IPostCreateNewRoomOutput,
+  IGetRoomInfoInput,
+  IGetRoomInfoOutput,
 } from '@/types/api/room'
-import { TApiError } from '@/types/api/ApiError'
+import { IApiError } from '@/types/api/ApiError'
 import * as TE from 'fp-ts/TaskEither'
 import {AxiosClient} from "@/api/client"
 import {TaskEither} from "fp-ts/TaskEither"
 
-export const postCreateNewRoom = (input: TPostCreateNewRoomInput): TaskEither<TApiError, TPostCreateNewRoomOutput> => {
+export const postCreateNewRoom = (input: IPostCreateNewRoomInput): TaskEither<IApiError, IPostCreateNewRoomOutput> => {
   const params = new URLSearchParams({
     name: input.name,
     max_count: input.max_count.toString(),
@@ -21,7 +21,7 @@ export const postCreateNewRoom = (input: TPostCreateNewRoomInput): TaskEither<TA
     },
     (e: any) => {
       try {
-        const resp: TApiError = { error: e.response.data.error }
+        const resp: IApiError = { error: e.response.data.error }
         return resp
       } catch (ee) {
         return { error: 'unexpected error' }
@@ -30,7 +30,7 @@ export const postCreateNewRoom = (input: TPostCreateNewRoomInput): TaskEither<TA
   )
 }
 
-export const getRoomInfo = (input: TGetRoomInfoInput): TaskEither<TApiError, TGetRoomInfoOutput> => {
+export const getRoomInfo = (input: IGetRoomInfoInput): TaskEither<IApiError, IGetRoomInfoOutput> => {
   return TE.tryCatch(
     async () => {
       const { data } = await AxiosClient().get(`/room/${input.roomID}`)
@@ -38,7 +38,7 @@ export const getRoomInfo = (input: TGetRoomInfoInput): TaskEither<TApiError, TGe
     },
     (e: any) => {
       try {
-        const resp: TApiError = { error: e.response.data.error }
+        const resp: IApiError = { error: e.response.data.error }
         return resp
       } catch (ee) {
         return { error: 'unexpected error' }
@@ -47,7 +47,7 @@ export const getRoomInfo = (input: TGetRoomInfoInput): TaskEither<TApiError, TGe
   )
 }
 
-export const getRoomFinish = (roomID: string): TaskEither<TApiError, void> => {
+export const getRoomFinish = (roomID: string): TaskEither<IApiError, void> => {
   return TE.tryCatch(
     async () => {
       if (typeof roomID !== 'undefined') {
@@ -56,7 +56,7 @@ export const getRoomFinish = (roomID: string): TaskEither<TApiError, void> => {
     },
     (e: any) => {
       try {
-        const resp: TApiError = { error: e.response.data.error }
+        const resp: IApiError = { error: e.response.data.error }
         return resp
       } catch (ee) {
         return { error: 'unexpected error' }

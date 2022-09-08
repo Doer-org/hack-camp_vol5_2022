@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import * as path from 'path'
 
 import reactRefresh from '@vitejs/plugin-react-refresh'
@@ -16,11 +17,14 @@ export default ({ mode }): UserConfigExport => {
         '@': path.resolve(__dirname, 'src')
       }
     },
-    define: {
-      global: 'window'
-    },
+    // define: {
+    //   global: 'window'
+    // },
     esbuild: {
       jsxInject: "import React from 'react';"
-    }
+    },
+    
+    test: { 
+    },
   })
 }

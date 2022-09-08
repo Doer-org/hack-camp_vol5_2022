@@ -26,7 +26,9 @@
   "scripts": {
     "start": "vite serve",
     "build": "vite build",
-    "test": "react-scripts test",
+    "test": "vitest",
+    "test:watch": "vitest -w",
+    "coverage": "vitest --coverage",
     "eject": "react-scripts eject",
     "lint:js": "eslint '**/*.@(js|ts|tsx)'"
   },
@@ -67,7 +69,8 @@
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.4",
     "typescript": "*",
-    "vite": "^3.0.7"
+    "vite": "^3.0.7",
+    "vitest": "^0.22.1"
   },
   "volta": {
     "node": "14.20.0"

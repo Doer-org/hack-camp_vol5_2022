@@ -1,29 +1,29 @@
 import * as RoomApi from '../api/room'
 import * as MemberApi from '../api/member'
 import {
-  TPostCreateNewRoomInput,
-  TGetRoomInfoInput,
-  TPostCreateNewRoomOutput,
-  TGetRoomInfoOutput
+  IPostCreateNewRoomInput,
+  IGetRoomInfoInput,
+  IPostCreateNewRoomOutput,
+  IGetRoomInfoOutput
 } from '../types/api/room'
 import {
-  TPostAddNewMemberInput,
-  TGetRoomMembersInput,
-  TPostAddNewMemberOutput,
-  TGetRoomMembersOutput
+  IPostAddNewMemberInput,
+  IGetRoomMembersInput,
+  IPostAddNewMemberOutput,
+  IGetRoomMembersOutput
 } from '../types/api/member'
 import * as E from 'fp-ts/Either'
 
 interface IApis {
-	createRoom: (input: TPostCreateNewRoomInput) => Promise<TPostCreateNewRoomOutput>;
-	addNewMember: (input: TPostAddNewMemberInput) => Promise<TPostAddNewMemberOutput>;
-	getRoomInfo: (input: TGetRoomInfoInput) => Promise<TGetRoomInfoOutput>;
-	getRoomMembers: (input: TGetRoomMembersInput) => Promise<TGetRoomMembersOutput[]>;
+	createRoom: (input: IPostCreateNewRoomInput) => Promise<IPostCreateNewRoomOutput>;
+	addNewMember: (input: IPostAddNewMemberInput) => Promise<IPostAddNewMemberOutput>;
+	getRoomInfo: (input: IGetRoomInfoInput) => Promise<IGetRoomInfoOutput>;
+	getRoomMembers: (input: IGetRoomMembersInput) => Promise<IGetRoomMembersOutput[]>;
 	getRoomFinish: (input: string) => Promise<void>;
 }
 
 export const useMeetHackApi = (): IApis => {
-  const createRoom = async (input: TPostCreateNewRoomInput): Promise<TPostCreateNewRoomOutput> => {
+  const createRoom = async (input: IPostCreateNewRoomInput): Promise<IPostCreateNewRoomOutput> => {
     return await RoomApi.postCreateNewRoom(input)().then((ret) => {
       if (E.isLeft(ret)) {
         throw Error('useMeetHackApi (createRoom)')
@@ -32,7 +32,7 @@ export const useMeetHackApi = (): IApis => {
       }
     })
   }
-  const addNewMember = async (input: TPostAddNewMemberInput): Promise<TPostAddNewMemberOutput> => {
+  const addNewMember = async (input: IPostAddNewMemberInput): Promise<IPostAddNewMemberOutput> => {
     return await MemberApi.postAddNewMember(input)().then((ret) => {
       if (E.isLeft(ret)) {
         throw Error('useMeetHackApi (addNewMember)')
@@ -41,7 +41,7 @@ export const useMeetHackApi = (): IApis => {
       }
     })
   }
-  const getRoomInfo = async (input: TGetRoomInfoInput): Promise<TGetRoomInfoOutput> => {
+  const getRoomInfo = async (input: IGetRoomInfoInput): Promise<IGetRoomInfoOutput> => {
     return await RoomApi.getRoomInfo(input)().then((ret) => {
       if (E.isLeft(ret)) {
         throw Error('useMeetHackApi (getRoomInfo)')
@@ -50,7 +50,7 @@ export const useMeetHackApi = (): IApis => {
       }
     })
   }
-  const getRoomMembers = async (input: TGetRoomMembersInput): Promise<TGetRoomMembersOutput[]> => {
+  const getRoomMembers = async (input: IGetRoomMembersInput): Promise<IGetRoomMembersOutput[]> => {
     return await MemberApi.getRoomMembers(input)().then((ret) => {
       if (E.isLeft(ret)) {
         throw Error('useMeetHackApi (getRoomMembers)')

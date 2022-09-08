@@ -1,16 +1,16 @@
 import * as TE from 'fp-ts/TaskEither'
 import {
-  TPostAddNewMemberInput,
-  TPostAddNewMemberOutput,
-  TGetRoomMembersInput,
-  TGetRoomMembersOutput,
+  IPostAddNewMemberInput,
+  IPostAddNewMemberOutput,
+  IGetRoomMembersInput,
+  IGetRoomMembersOutput,
 } from '@/types/api/member'
-import { TApiError } from '@/types/api/apiError'
+import { IApiError } from '@/types/api/apiError'
 import {TaskEither} from "fp-ts/TaskEither"
 import {AxiosClient} from "@/api/client"
 import {defaultArg} from "@/api/utile"
 
-export const postAddNewMember = (input: TPostAddNewMemberInput): TaskEither<TApiError, TPostAddNewMemberOutput> => {
+export const postAddNewMember = (input: IPostAddNewMemberInput): TaskEither<IApiError, IPostAddNewMemberOutput> => {
   const params = new URLSearchParams({
     name: input.name,
     roomID: input.roomID,
@@ -27,7 +27,7 @@ export const postAddNewMember = (input: TPostAddNewMemberInput): TaskEither<TApi
     },
     (e: any) => {
       try {
-        const resp: TApiError = { error: e.response.data.error }
+        const resp: IApiError = { error: e.response.data.error }
         return resp
       } catch (ee) {
         return { error: 'unexpected error' } // E.left({ error : "unexpected error" } )
@@ -36,7 +36,7 @@ export const postAddNewMember = (input: TPostAddNewMemberInput): TaskEither<TApi
   )
 }
 
-export const getRoomMembers = (input: TGetRoomMembersInput): TaskEither<TApiError, TGetRoomMembersOutput[]> => {
+export const getRoomMembers = (input: IGetRoomMembersInput): TaskEither<IApiError, IGetRoomMembersOutput[]> => {
   return TE.tryCatch(
     async () => {
       const { data } = await AxiosClient().get(`/member/all?room=${input.roomID}`)
@@ -44,10 +44,10 @@ export const getRoomMembers = (input: TGetRoomMembersInput): TaskEither<TApiErro
     },
     (e: any) => {
       try {
-        const resp: TApiError = { error: e.response.data.error }
+        const resp: IApiError = { error: e.response.data.error }
         return resp
       } catch (ee) {
-        const resp: TApiError = { error: 'unexpected error' }
+        const resp: IApiError = { error: 'unexpected error' }
         return resp
       }
     }

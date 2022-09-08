@@ -1,10 +1,10 @@
-import { TGetRoomMembersOutput } from '@/types/api/member'
+import { IGetRoomMembersOutput } from '@/types/api/member'
 import { FC, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import robot from '../assets/img/robot.png'
 import UserInfoCard from '../components/templates/UserInfoCard'
 import { useMeetHackApi } from '../hooks/useMeetHackApi'
-import { TGetRoomInfoOutput } from '../types/api/room'
+import { IGetRoomInfoOutput } from '../types/api/room'
 
 export const UserInfoPage: FC = () => {
   const { getRoomInfo, getRoomMembers } = useMeetHackApi()
@@ -14,8 +14,8 @@ export const UserInfoPage: FC = () => {
   const query = new URLSearchParams(search)
   const roomID = query.get('room') ?? undefined
 
-  const [roomInfo, setRoomInfo] = useState<TGetRoomInfoOutput>()
-  const [users, setUsers] = useState<TGetRoomMembersOutput[]>([])
+  const [roomInfo, setRoomInfo] = useState<IGetRoomInfoOutput>()
+  const [users, setUsers] = useState<IGetRoomMembersOutput[]>([])
 
   useEffect(() => {
     if (typeof (roomID) === 'undefined') {

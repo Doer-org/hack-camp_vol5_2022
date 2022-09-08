@@ -6,14 +6,14 @@ import {RoomSliderBar} from "@/components/parts/RoomSliderBar"
 import {BaseRectButton} from "@/components/parts/BaseRectButton"
 import IconCopy from "@/assets/img/icon_copy.png"
 import {useMeetHackApi} from "@/hooks/useMeetHackApi"
-import {TPostCreateNewRoomOutput} from "@/types/api/room"
+import {IPostCreateNewRoomOutput} from "@/types/api/room"
 
 export const EventNew: FC = () => {
   const mtApi = useMeetHackApi()
 
   const [roomName, setRoomName] = useState<string>("")
   const [participant, setParticipant] = useState<number>(2)
-  const [roomInfo, setRoomInfo] = useState<TPostCreateNewRoomOutput>()
+  const [roomInfo, setRoomInfo] = useState<IPostCreateNewRoomOutput>()
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
   const createRoom = async (): Promise<void> => {

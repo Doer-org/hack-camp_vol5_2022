@@ -6,7 +6,7 @@
     "extends": [
         "plugin:react/recommended",
         "standard-with-typescript",
-        "plugin:tailwindcss/recommended",
+        "plugin:tailwindcss/recommended", 
         "prettier"
     ],
     "overrides": [
@@ -20,7 +20,7 @@
         "react",
         "import",
         "unused-imports",
-        "tailwindcss"
+        "tailwindcss" 
     ],
     "rules": {
         "@typescript-eslint/no-unused-vars": "off",
