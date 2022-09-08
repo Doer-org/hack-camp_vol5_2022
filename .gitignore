@@ -1,6 +1,6 @@
 *.env
 /db/data
-
+/db
 .idea
 
 #dockerfile
