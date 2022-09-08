@@ -26,6 +26,7 @@ export interface TGetRoomMembersInput {
 export interface TGetRoomMembersOutput {
     id : number
     name : string
+    lang: string
     comment : string
     github : string
     twitter : string 
