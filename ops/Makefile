@@ -14,6 +14,7 @@ PROXY_DIR:=../proxy
 ## manifest
 MANIFEST_FRONT_DEPLOYMENT_PATH:=./meet-hack/front/deployment.yml
 MANIFEST_FRONT_SERVICE_PATH:=./meet-hack/front/service.yml
+MANIFEST_FRONT_INGRESS_PATH:=./meet-hack/front/ingress.yml
 
 MANIFEST_SERVER_DEPLOYMENT_PATH:=./meet-hack/server/deployment.yml
 MANIFEST_SERVER_SERVICE_PATH:=./meet-hack/server/service.yml
@@ -55,7 +56,7 @@ setup-auth:
 status:
 	kubectl get nodes,pods,services
 
-all:build-all-image upload-all-image deploy-all
+all:build-all-image upload-all-image deploy-all status
 
 # service, deploymentの削除
 fclean:
@@ -84,8 +85,6 @@ upload-front-image:setup-auth
 deploy-front:
 	kubectl apply -f $(MANIFEST_FRONT_DEPLOYMENT_PATH)\
 		-f $(MANIFEST_FRONT_SERVICE_PATH)
-
-
 
 ###               ###
 #      server       #

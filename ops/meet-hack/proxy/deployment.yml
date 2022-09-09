@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: meet-hack-proxy
-          image: gcr.io/ecstatic-router-353016/meet-hack-proxy
+          image: gcr.io/ecstatic-router-353016/meet-hack-proxy@sha256:864cd07d30b38438ae34c6747497d48fe894bf27eef30528b62fdaf9192e5de2
           imagePullPolicy: Always
           ports:
             - containerPort: 80
