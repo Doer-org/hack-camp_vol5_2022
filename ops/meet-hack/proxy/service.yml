@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: meet-hack-proxy
+  name: service-meet-hack-proxy
   labels:
-    app: meet-hack-proxy
+    app: service-meet-hack-proxy
 spec:
-  selector:
-    app: meet-hack-proxy
+  type: LoadBalancer
   ports:
     - name: http-port
       protocol: TCP
       port: 80
       targetPort: 80
-  type: LoadBalancer
+  selector:
+    app: meet-hack-proxy
