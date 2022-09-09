@@ -123,12 +123,6 @@ attach-proxy:
 	docker exec -it $(PROXY_CONTAINER_NAME) /bin/bash
 
 
-##
-# deploy
-##
-.PHONY: deploy-front
-deploy-front:
-
 
 
 ##
