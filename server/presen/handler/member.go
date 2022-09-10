@@ -7,7 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/handler/response"
 )
 
 type memberHandler struct {
