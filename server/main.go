@@ -13,6 +13,7 @@ func main() {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
+	// router初期化
 	router := router.InitRouter(db)
 
 	port := os.Getenv("PORT")
