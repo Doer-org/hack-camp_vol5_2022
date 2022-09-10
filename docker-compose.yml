@@ -1,14 +1,14 @@
 version: '3'
 
 services:
-  front:
-    build:
-      context: ./front
-      dockerfile: Dockerfile
-    container_name: front-hack-camp_vol5_2022
-    ports:
-      - 3000:80
-    tty: true
+  # front:
+  #   build:
+  #     context: ./front
+  #     dockerfile: Dockerfile
+  #   container_name: front-hack-camp_vol5_2022
+  #   ports:
+  #     - 3000:80
+  #   tty: true
 
   server:
     build:
