@@ -14,6 +14,7 @@ func main() {
 	defer db.Conn.Close()
 
 	router := router.InitRouter(db)
-	port := fmt.Sprintf(":%s", os.Getenv("PORT"))
-	router.Run(port)
+
+	port := os.Getenv("PORT")
+	router.Run(fmt.Sprintf(":%s", port))
 }
