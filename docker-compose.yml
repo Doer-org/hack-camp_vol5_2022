@@ -43,3 +43,19 @@ services:
       - server
     ports:
       - 80:80
+    volumes:
+      - ./proxy/logs:/var/log/nginx
+
+  redis:
+    container_name: redis-hack-camp_vol5_2022
+    build: 
+      context: ./redis
+      dockerfile: Dockerfile
+    restart: always
+    tty: true
+    ports:
+      - 6379:6379
+    depends_on:
+      - server
+    volumes:
+      - /redis/data:/data
