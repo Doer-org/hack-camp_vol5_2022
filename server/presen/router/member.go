@@ -3,8 +3,8 @@ package router
 import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/db"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/repository"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/presen/handler"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
 
 	"github.com/gin-gonic/gin"
 )

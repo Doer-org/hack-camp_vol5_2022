@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func initPubsubRouter(r *gin.Engine){
+func initPubsubRouter(r *gin.Engine) {
 	// websocket
 	// roomIDとHubの紐づけ
 	hubs := make(map[string]*websocket.Hub)

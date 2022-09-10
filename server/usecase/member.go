@@ -1,8 +1,8 @@
 package usecase
 
 import (
-	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/repository"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/entity"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/repository"
 )
 
 type memberUsecase struct {

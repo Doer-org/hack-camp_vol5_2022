@@ -3,9 +3,9 @@ package repository
 import (
 	"math/rand"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/db"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/entity"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/repository"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/db"
 )
 
 type memberRepository struct {
