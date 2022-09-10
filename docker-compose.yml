@@ -57,5 +57,5 @@ services:
       - 6379:6379
     depends_on:
       - server
-    volumes:
-      - /redis/data:/data
+    # volumes:
+    #   - /redis/data:/data
