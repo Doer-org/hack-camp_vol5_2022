@@ -135,7 +135,7 @@ attach-proxy:
 
 .PHONY: attach-redis
 attach-redis:
-	docker exec -it $(REDIS_CONTAINER_NAME) /bin/bash
+	docker exec -it $(REDIS_CONTAINER_NAME) redis-cli
 
 
 
