@@ -4,12 +4,12 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/middleware"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/websocket"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/presen/middleware"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/presen/websocket"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/presen/handler"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/db"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/repository"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/handler"
 
 	"github.com/gin-gonic/gin"
 )
