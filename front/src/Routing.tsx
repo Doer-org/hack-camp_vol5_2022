@@ -11,6 +11,7 @@ import { EventNew } from "@/pages/event/new"
 import { EventStep1 } from "@/pages/event/step1"
 import { EventStep2 } from "@/pages/event/step2"
 import { EventPrepare } from "@/pages/event/prepare"
+import { EventQuestions } from "@/pages/event/questions"
 
 export const Routing: FC = () => {
   return (
@@ -25,7 +26,8 @@ export const Routing: FC = () => {
           <Route path="/event/step1" element={<EventStep1 />} />
           <Route path="/event/step2" element={<EventStep2 />} />
           <Route path="/event/prepare" element={<EventPrepare />} />
-          <Route path="event/questions" element={<QuestionsPage />} />
+          <Route path="/event/questions" element={<EventQuestions />} />
+          <Route path="/event/questions/old" element={<QuestionsPage />} />
           <Route path="event/user/list" element={<UserInfoPage />} />
           <Route path="/event/prepare/old" element={<UserListPage />} />
         </Routes>
