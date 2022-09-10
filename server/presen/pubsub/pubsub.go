@@ -5,10 +5,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/redis"
+	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 )
-
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -18,13 +18,22 @@ var upgrader = websocket.Upgrader{
 		return true
 	},
 }
-var rd = redis.NewClient(&redis.Options{
-	Addr: "redis-hack-camp_vol5_2022:6379",
-})
+
+// var rd = redis.NewClient(&redis.Options{
+// 	Addr: "redis-hack-camp_vol5_2022:6379",
+// })
+
+// 空のコンテキストを生成
 var ctx = context.Background()
 
+func PubSubHandler(ctx *gin.Context){
+	roomId := ctx.Query("room")
+	pubsub(ctx.Writer, ctx.Request, roomId)
+}
+
 // should handle more errors
-func Pubsub(w http.ResponseWriter, r *http.Request) {
+func pubsub(w http.ResponseWriter, r *http.Request, roomId string) {
+	// WebSocket通信に更新
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println("websocket connection err:", err)
@@ -35,8 +44,8 @@ func Pubsub(w http.ResponseWriter, r *http.Request) {
 	go func() {
 	loop:
 		for {
-			sub := rd.Subscribe(ctx, "test-channel")
-			ch := sub.Channel()
+			pubsub := redis.Rs.Subscribe(ctx, roomId)
+			ch := pubsub.Channel()
 
 			// should break outer for loop if err
 			for msg := range ch {
@@ -57,10 +66,9 @@ func Pubsub(w http.ResponseWriter, r *http.Request) {
 		}
 		log.Println(string(msg))
 
-		if err := rd.Publish(ctx, "test-channel", msg).Err(); err != nil {
+		if err := redis.Rs.Publish(ctx, roomId, msg).Err(); err != nil {
 			log.Println("redis publish err:", err)
 			break
 		}
 	}
-
 }
