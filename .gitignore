@@ -1,7 +1,16 @@
+# env
 *.env
+
+
+# volumes
 /db/data
-/db
-.idea
+/redis/data
+
 
 #dockerfile
 *.prd
+
+
+# other
+.idea
+/proxy/logs
