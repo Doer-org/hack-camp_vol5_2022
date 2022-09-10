@@ -1,5 +1,4 @@
-import { GithubAuthProvider 
-} from 'firebase/auth'
+import { GithubAuthProvider } from 'firebase/auth'
 import { FB } from '@/firebase/client'
 import * as TE from 'fp-ts/TaskEither'
 export type UserId = string
