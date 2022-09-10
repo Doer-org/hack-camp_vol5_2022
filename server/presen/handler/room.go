@@ -1,4 +1,4 @@
-package controller
+package handler
 
 import (
 	"net/http"
@@ -10,17 +10,17 @@ import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
-type roomController struct {
+type roomHandler struct {
 	uc usecase.RoomUsecase
 }
 
-func NewRoomController(uc usecase.RoomUsecase) roomController {
-	return roomController{
+func NewRoomHandler(uc usecase.RoomUsecase) roomHandler {
+	return roomHandler{
 		uc: uc,
 	}
 }
 
-func (con roomController) GetAllRoom(ctx *gin.Context) {
+func (con roomHandler) GetAllRoom(ctx *gin.Context) {
 	rooms := con.uc.GetAllRoom()
 	roomsJSON := response.RoomsToJSON(rooms)
 	ctx.JSON(
@@ -31,7 +31,7 @@ func (con roomController) GetAllRoom(ctx *gin.Context) {
 	)
 }
 
-func (con roomController) NewRoom(ctx *gin.Context) {
+func (con roomHandler) NewRoom(ctx *gin.Context) {
 	name := ctx.PostForm("name")
 	max_count, err := strconv.Atoi(ctx.PostForm("max_count"))
 
@@ -66,7 +66,7 @@ func (con roomController) NewRoom(ctx *gin.Context) {
 	)
 }
 
-func (con roomController) GetRoomByID(ctx *gin.Context) {
+func (con roomHandler) GetRoomByID(ctx *gin.Context) {
 	id := ctx.Param("id")
 	room := con.uc.GetRoomByID(id)
 	roomJSON := response.RoomToJSON(room)
@@ -78,7 +78,7 @@ func (con roomController) GetRoomByID(ctx *gin.Context) {
 	)
 }
 
-func (con roomController) ChangeRoomStatus(ctx *gin.Context) {
+func (con roomHandler) ChangeRoomStatus(ctx *gin.Context) {
 	id := ctx.Param("id")
 
 	if id == "" {

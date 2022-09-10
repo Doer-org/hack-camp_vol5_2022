@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/controller"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/db"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/presen/router"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 	db := db.NewDB()
 	defer db.Conn.Close()
 
-	router := controller.InitRouter(db)
+	router := router.InitRouter(db)
 	port := fmt.Sprintf(":%s", os.Getenv("PORT"))
 	router.Run(port)
 }

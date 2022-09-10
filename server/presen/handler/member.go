@@ -1,4 +1,4 @@
-package controller
+package handler
 
 import (
 	"net/http"
@@ -10,17 +10,17 @@ import (
 	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/response"
 )
 
-type memberController struct {
+type memberHandler struct {
 	uc usecase.MemberUsecase
 }
 
-func NewMemberController(uc usecase.MemberUsecase) memberController {
-	return memberController{
+func NewMemberHandler(uc usecase.MemberUsecase) memberHandler {
+	return memberHandler{
 		uc: uc,
 	}
 }
 
-func (con memberController) NewMember(ctx *gin.Context) {
+func (con memberHandler) NewMember(ctx *gin.Context) {
 	name := ctx.PostForm("name")
 	comment := ctx.PostForm("comment")
 	lang := ctx.PostForm("lang")
@@ -51,7 +51,7 @@ func (con memberController) NewMember(ctx *gin.Context) {
 	)
 }
 
-func (con memberController) GetAllMember(ctx *gin.Context) {
+func (con memberHandler) GetAllMember(ctx *gin.Context) {
 	room := ctx.Query("room")
 
 	if room == "" {
@@ -75,7 +75,7 @@ func (con memberController) GetAllMember(ctx *gin.Context) {
 	)
 }
 
-func (con memberController) GetMemberByID(ctx *gin.Context) {
+func (con memberHandler) GetMemberByID(ctx *gin.Context) {
 	id, err := strconv.Atoi(ctx.Param("id"))
 
 	if id == 0 {

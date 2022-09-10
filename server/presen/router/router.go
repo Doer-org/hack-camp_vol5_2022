@@ -1,14 +1,16 @@
-package controller
+package router
 
 import (
 	"log"
 	"net/http"
 
-	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/config"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/middleware"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/websocket"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/repository"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/db"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/repository"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/controller/handler"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -16,7 +18,7 @@ func InitRouter(db db.DB) *gin.Engine {
 	r := gin.Default()
 
 	//CORSの設定
-	config.ConfigCors(r)
+	middleware.Cors(r)
 
 	// health check
 	r.GET("/", func(c *gin.Context) { c.JSON(http.StatusOK, gin.H{"message": "hello, gin 🍸"}) })
@@ -24,21 +26,22 @@ func InitRouter(db db.DB) *gin.Engine {
 	// room
 	repoRoom := repository.NewRoomRepotisory(db)
 	ucRoom := usecase.NewRoomUsecase(repoRoom)
-	conRoom := NewRoomController(ucRoom)
+	hRoom := handler.NewRoomHandler(ucRoom)
 
-	r.GET("/room/all", conRoom.GetAllRoom)
-	r.POST("/room/new", conRoom.NewRoom)
-	r.GET("/room/:id", conRoom.GetRoomByID)
-	r.GET("/room/finish/:id", conRoom.ChangeRoomStatus)
+
+	r.GET("/room/all", hRoom.GetAllRoom)
+	r.POST("/room/new", hRoom.NewRoom)
+	r.GET("/room/:id", hRoom.GetRoomByID)
+	r.GET("/room/finish/:id", hRoom.ChangeRoomStatus)
 
 	//member
 	repoMember := repository.NewMemberRepository(db)
 	ucMember := usecase.NewMemberUsecase(repoMember)
-	conMember := NewMemberController(ucMember)
+	hMember := handler.NewMemberHandler(ucMember)
 
-	r.POST("/member/new", conMember.NewMember)
-	r.GET("/member/all", conMember.GetAllMember)
-	r.GET("/member/:id", conMember.GetMemberByID)
+	r.POST("/member/new", hMember.NewMember)
+	r.GET("/member/all", hMember.GetAllMember)
+	r.GET("/member/:id", hMember.GetMemberByID)
 
 	// websocket
 	// roomIDとHubの紐づけ

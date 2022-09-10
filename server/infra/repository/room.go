@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"github.com/Doer-org/hack-camp_vol5_2022/server/db"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/infra/db"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/entity"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/repository"
 )
