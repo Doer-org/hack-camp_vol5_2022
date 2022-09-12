@@ -1,23 +1,41 @@
-import {FC, useEffect} from 'react'
+import { FC, useEffect, useState } from 'react'
 import { EventBackground } from "@/components/parts/EventBackground"
-import {BaseStepWindow} from "@/components/parts/BaseStepWindow"
-import {BaseRectButton} from "@/components/parts/BaseRectButton"
-import {CGithubButton} from "@/pages/event/step0/CGithubButton"
-import {CTwitterButton} from "@/pages/event/step0/CTwitterButton"
+import { BaseStepWindow } from "@/components/parts/BaseStepWindow"
+import { BaseRectButton } from "@/components/parts/BaseRectButton"
+import { CGithubButton } from "@/pages/event/step0/CGithubButton"
 import IconUser from "@/assets/img/icon_user.png"
-import {useLocation, useNavigate} from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useFirebase } from "@/hooks/useFirebase"
+import { useDispatch } from "react-redux"
 
 export const EventStep0: FC = () => {
-  const navigate = useNavigate()
-
   const search = new URLSearchParams(useLocation().search)
-  const roomID: string | null = search.get("room")
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { githubLogin, setUserToState } = useFirebase()
+
+  const [roomID, setRoomID] = useState<string|null>(search.get("room"))
+  // const [user, setUser] = useState<User>()
 
   useEffect(() => {
     // roomID が無いとき
     if (roomID === null) {
-      navigate("/event/new")
+      return
     }
+    // ユーザのログイン状態が変わったらsetする
+    setUserToState(
+      user => {
+        console.log(user)
+        if (user !== null) {
+          console.log(user)
+          // dispatch(setUser({}))
+          navigate(`/event/step1?room=${roomID}`)
+        } else {
+          console.log("logout")
+        }
+      }
+    )
+    navigate("/event/new")
   }, [])
 
   return(
@@ -43,8 +61,11 @@ export const EventStep0: FC = () => {
           roomID !== null
             ?
             <div className="space-y-8 lg:space-y-4">
-              <CGithubButton />
-              <CTwitterButton />
+              <CGithubButton onLogin={
+                async () => await githubLogin()
+              }/>
+              {/* TODO Twitter ログイン */}
+              {/* <CTwitterButton /> */}
               <div onClick={() => navigate(`/event/step1?room=${roomID}`)}>
                 <BaseRectButton isWhite={true} text={"ログインせずに始める"} />
               </div>

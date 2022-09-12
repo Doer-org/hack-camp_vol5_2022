@@ -26,12 +26,18 @@ export const EventStep1: FC = () => {
     dispatch(setStep1({ name, lang, github, twitter, comment }))
     if (roomID !== null) {
       navigate(`/event/step2?room=${roomID}`)
+    } else {
+      navigate("/event/new")
     }
   }
 
   const formStep1 = useSelector((state) => state.form.step1)
 
   useEffect(() => {
+    if (roomID === null) {
+      navigate("/event/new")
+      return
+    }
     setName(formStep1.name)
     setLang(formStep1.lang)
     setGithub(formStep1.github)

@@ -1,12 +1,12 @@
-import {FC, useState} from "react"
-import {BaseStepWindow} from "@/components/parts/BaseStepWindow"
+import { FC, useState } from "react"
+import { BaseStepWindow } from "@/components/parts/BaseStepWindow"
 import iconRoom from "@/assets/img/icon_room.png"
-import {BaseInput} from "@/components/parts/BaseInput"
-import {RoomSliderBar} from "@/components/parts/RoomSliderBar"
-import {BaseRectButton} from "@/components/parts/BaseRectButton"
+import { BaseInput } from "@/components/parts/BaseInput"
+import { RoomSliderBar } from "@/components/parts/RoomSliderBar"
+import { BaseRectButton } from "@/components/parts/BaseRectButton"
 import IconCopy from "@/assets/img/icon_copy.png"
-import {useMeetHackApi} from "@/hooks/useMeetHackApi"
-import {IPostCreateNewRoomOutput} from "@/types/api/room"
+import { useMeetHackApi } from "@/hooks/useMeetHackApi"
+import { IPostCreateNewRoomOutput } from "@/types/api/room"
 
 export const EventNew: FC = () => {
   const mtApi = useMeetHackApi()
@@ -18,7 +18,7 @@ export const EventNew: FC = () => {
 
   const createRoom = async (): Promise<void> => {
     mtApi
-      .createRoom({name: roomName, max_count: participant})
+      .createRoom({ name: roomName, max_count: participant })
       .then((ret) => setRoomInfo(ret))
       .catch((error) => console.log(error))
   }
@@ -42,7 +42,7 @@ export const EventNew: FC = () => {
         </p>
         <div className="mb-20 space-y-10 lg:mb-12">
           <div className="text-4xl lg:text-base">
-            <BaseInput setState={setRoomName} name="ルーム名" placeholder="エンジニア同好会" />
+            <BaseInput value={roomName} setState={setRoomName} name="ルーム名" placeholder="エンジニア同好会" />
           </div>
           <RoomSliderBar value={participant} setState={setParticipant} />
           <span className="text-2xl text-gray-400 lg:text-xs">

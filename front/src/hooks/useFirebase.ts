@@ -1,24 +1,24 @@
-
-import * as AG from '@/firebase/authGithub'
-import * as E from 'fp-ts/Either' 
+import * as AuthService from '@/firebase/auth'
+import { User } from "firebase/auth"
 
 interface IApis {
-	githubLogin: () => Promise<firebase.default.User>
+	githubLogin: () => Promise<void>
 	githubLogout: () => Promise<void>
+  setUserToState: (func: (user: User|null) => void) => void
 }
 
-export const useFirebase = (): IApis => { 
-  const githubLogin = async () : Promise<firebase.default.User> => {  
-    return await AG.login()().then((ret) => { 
-      if (E.isLeft(ret)) {
-        throw ret.left
-      } else {
-        return ret.right
-      }
-    })
+export const useFirebase = (): IApis => {
+  const githubLogin = async (): Promise<void> => {
+    await AuthService.githubLogin()
   }
+
   const githubLogout = async () : Promise<void> => {  
-    return await AG.logout()
+    return await AuthService.logout()
   }
-  return { githubLogin, githubLogout }
+
+  const setUserToState = (func: (user: User|null) => void): void => {
+    AuthService.detectStatusChanges(func)
+  }
+
+  return { githubLogin, githubLogout, setUserToState }
 }
