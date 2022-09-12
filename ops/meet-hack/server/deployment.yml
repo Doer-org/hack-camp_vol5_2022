@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: meet-hack-api
+  name: meet-hack-server
 spec:
   selector:
     matchLabels:
-      app: meet-hack-api
-  replicas: 2
+      app: meet-hack-server
+  # replicas: 2
   template:
     metadata:
       labels:
-        app: meet-hack-api
+        app: meet-hack-server
     spec:
       containers:
-        - name: meet-hack-api
-          image: gcr.io/ecstatic-router-353016/meet-hack-api
+        - name: meet-hack-server
+          image: gcr.io/meethack-dev-362310/meet-hack-server@sha256:94938396ce244c8962c56e9a8448dbb658d650b02b63e485799241743668ad46
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

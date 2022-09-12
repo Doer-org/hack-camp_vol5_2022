@@ -10,23 +10,32 @@ FRONT_DIR:=../front
 SERVER_DIR:=../server
 DB_DIR:=../db
 PROXY_DIR:=../proxy
+REDIS_DIR:=../redis
+
 
 ## manifest
 MANIFEST_FRONT_DEPLOYMENT_PATH:=./meet-hack/front/deployment.yml
 MANIFEST_FRONT_SERVICE_PATH:=./meet-hack/front/service.yml
-MANIFEST_FRONT_INGRESS_PATH:=./meet-hack/front/ingress.yml
+MANIFEST_FRONT_AUTOSCALING_PATH:=./meet-hack/front/autoscaling.yml
 
 MANIFEST_SERVER_DEPLOYMENT_PATH:=./meet-hack/server/deployment.yml
 MANIFEST_SERVER_SERVICE_PATH:=./meet-hack/server/service.yml
+MANIFEST_SERVER_AUTOSCALING_PATH:=./meet-hack/server/autoscaling.yml
 
 MANIFEST_PROXY_DEPLOYMENT_PATH:=./meet-hack/proxy/deployment.yml
 MANIFEST_PROXY_SERVICE_PATH:=./meet-hack/proxy/service.yml
+MANIFEST_PROXY_AUTOSCALING_PATH:=./meet-hack/proxy/autoscaling.yml
+
+MANIFEST_REDIS_DEPLOYMENT_PATH:=./meet-hack/redis/deployment.yml
+MANIFEST_REDIS_SERVICE_PATH:=./meet-hack/redis/service.yml
 
 
 ## image
 FRONT_IMAGE_NAME:=gcr.io/$(PROJECT_ID)/meet-hack
-SERVER_IMAGE_NAME:=gcr.io/$(PROJECT_ID)/meet-hack-api
+SERVER_IMAGE_NAME:=gcr.io/$(PROJECT_ID)/meet-hack-server
 PROXY_IMAGE_NAME:=gcr.io/$(PROJECT_ID)/meet-hack-proxy
+REDIS_IMAGE_NAME:=gcr.io/$(PROJECT_ID)/meet-hack-redis
+
 
 # zone
 ZONE:=asia-northeast1-a
@@ -84,7 +93,8 @@ upload-front-image:setup-auth
 # front の deploy
 deploy-front:
 	kubectl apply -f $(MANIFEST_FRONT_DEPLOYMENT_PATH)\
-		-f $(MANIFEST_FRONT_SERVICE_PATH)
+		-f $(MANIFEST_FRONT_SERVICE_PATH)\
+		-f $(MANIFEST_FRONT_AUTOSCALING_PATH)
 
 ###               ###
 #      server       #
@@ -105,7 +115,8 @@ upload-server-image:setup-auth
 # server の deploy
 deploy-server:
 	kubectl apply -f $(MANIFEST_SERVER_DEPLOYMENT_PATH)\
-		-f $(MANIFEST_SERVER_SERVICE_PATH)
+		-f $(MANIFEST_SERVER_SERVICE_PATH)\
+		-f $(MANIFEST_SERVER_AUTOSCALING_PATH)
 
 
 
@@ -128,7 +139,31 @@ upload-proxy-image:setup-auth
 # proxy の deploy
 deploy-proxy:
 	kubectl apply -f $(MANIFEST_PROXY_DEPLOYMENT_PATH)\
-		-f $(MANIFEST_PROXY_SERVICE_PATH)
+		-f $(MANIFEST_PROXY_SERVICE_PATH)\
+		-f $(MANIFEST_PROXY_AUTOSCALING_PATH)
+
+
+
+###              ###
+#      redis       #
+###              ###
+
+# redis image の build
+build-redis-image:
+	cd $(REDIS_DIR) && docker build . -t $(REDIS_IMAGE_NAME) -f Dockerfile.prd
+
+# redis の image のテスト
+test-redis-image:
+	docker run --rm -p 80:80 $(REDIS_IMAGE_NAME)
+
+# redis の upload
+upload-redis-image:setup-auth
+	docker push $(REDIS_IMAGE_NAME)
+
+# redis の deploy
+deploy-redis:
+	kubectl apply -f $(MANIFEST_REDIS_DEPLOYMENT_PATH)\
+		-f $(MANIFEST_REDIS_SERVICE_PATH)
 
 
 
