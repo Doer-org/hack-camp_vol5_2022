@@ -6,8 +6,8 @@ import {
 } from '@/types/api/room'
 import { IApiError } from '@/types/api/ApiError'
 import * as TE from 'fp-ts/TaskEither'
-import {AxiosClient} from "@/api/client"
-import {TaskEither} from "fp-ts/TaskEither"
+import { AxiosClient } from "@/api/client"
+import { TaskEither } from "fp-ts/TaskEither"
 
 export const postCreateNewRoom = (input: IPostCreateNewRoomInput): TaskEither<IApiError, IPostCreateNewRoomOutput> => {
   const params = new URLSearchParams({

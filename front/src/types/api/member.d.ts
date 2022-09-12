@@ -23,7 +23,7 @@ export interface IGetRoomMembersInput {
 	roomID: string;
 }
 
-export interface TGetRoomMembersOutput {
+export interface IGetRoomMembersOutput {
     id : number
     name : string
     lang: string
