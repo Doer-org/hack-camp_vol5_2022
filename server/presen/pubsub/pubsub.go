@@ -19,10 +19,6 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
-// var rd = redis.NewClient(&redis.Options{
-// 	Addr: "redis-hack-camp_vol5_2022:6379",
-// })
-
 // 空のコンテキストを生成
 var ctx = context.Background()
 
@@ -44,15 +40,20 @@ func pubsub(w http.ResponseWriter, r *http.Request, roomId string) {
 	go func() {
 	loop:
 		for {
-			pubsub := redis.Rs.Subscribe(ctx, roomId)
+			pubsub := redis.Rs.Subscribe(ctx, "roomId")
+			log.Println("redis subscribe")
 			ch := pubsub.Channel()
 
 			// should break outer for loop if err
 			for msg := range ch {
+				// msg.payloadにはjoinNewMemberが入っている
+				// これでfrontでデータを受け取ったことを確認し、userを取得するリクエストが走る
 				err := conn.WriteMessage(websocket.TextMessage, []byte(msg.Payload))
 				if err != nil {
 					log.Println("websocket write err:", err)
 					break loop
+				} else {
+					log.Println("### websocket write ok")
 				}
 			}
 		}
@@ -66,9 +67,10 @@ func pubsub(w http.ResponseWriter, r *http.Request, roomId string) {
 		}
 		log.Println(string(msg))
 
-		if err := redis.Rs.Publish(ctx, roomId, msg).Err(); err != nil {
+		if err := redis.Rs.Publish(ctx, "roomId", msg).Err(); err != nil {
 			log.Println("redis publish err:", err)
 			break
 		}
+		log.Println("redis publish", roomId)
 	}
 }
