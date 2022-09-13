@@ -140,8 +140,17 @@ attach-redis:
 
 
 ##
+# scenario test
+##
+.PHONY: scenario-test
+scenario-test:
+	k6 run scenario.js 
+
+
+##
 # message from doer
 ##
+.PHONY: doer
 doer:
 	@echo ""
 	@echo "do'er saiko---!!!!"

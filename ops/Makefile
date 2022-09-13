@@ -45,7 +45,9 @@ SERVICE_NAME:=meet-hack
 # container name
 CONTAINER_NAME:=meet-hack
 
+NODE_MODULES:=./node_modules
 
+RM:=rm -rf
 
 ###               ###
 #      command      #
