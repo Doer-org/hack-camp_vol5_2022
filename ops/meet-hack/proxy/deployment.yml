@@ -6,7 +6,7 @@ spec:
   selector:
     matchLabels:
       app: meet-hack-proxy
-  replicas: 2
+  # replicas: 2
   template:
     metadata:
       labels:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: meet-hack-proxy
-          image: gcr.io/ecstatic-router-353016/meet-hack-proxy@sha256:864cd07d30b38438ae34c6747497d48fe894bf27eef30528b62fdaf9192e5de2
+          image: gcr.io/meethack-dev-362310/meet-hack-proxy@sha256:f08f9485362d9161825d414eed6b4fe061c62e852b38cd87beb524f49d50d708
           imagePullPolicy: Always
           ports:
             - containerPort: 80

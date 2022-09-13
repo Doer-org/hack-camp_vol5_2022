@@ -20,6 +20,8 @@ services:
     tty: true
     depends_on:
       - db
+    volumes:
+      - ./server:/go/src/github.com/Doer-org/hack-camp_vol5_2022
 
   db:
     container_name: db-hack-camp_vol5_2022

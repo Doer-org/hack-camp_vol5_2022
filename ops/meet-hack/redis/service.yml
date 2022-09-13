@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: service-meet-hack-server
+  name: service-meet-hack-redis
   labels:
-    app: service-meet-hack-server
+    app: service-meet-hack-redis
 spec:
   type: ClusterIP
   ports:
     - name: http-port
       protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 6379
+      targetPort: 6379
   selector:
-    app: meet-hack-server
+    app: meet-hack-redis

@@ -1,0 +1,16 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: autoscaling-meet-hack
+spec:
+  # オートスケーリング対象
+  scaleTargetRef:
+    kind: Deployment
+    apiVersion: apps/v1
+    # 対象のdeployment
+    name: meet-hack
+  minReplicas: 1
+  maxReplicas: 3
+  # スケーリングをする条件
+  # すべてのPodの平均CPU使用率の目標値(％の値を設定する)
+  targetCPUUtilizationPercentage: 10

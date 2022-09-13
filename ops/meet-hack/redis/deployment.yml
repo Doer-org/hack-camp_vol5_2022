@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meet-hack-redis
+  labels:
+    name: meet-hack-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: meet-hack-redis
+  template:
+    metadata:
+      labels:
+        app: meet-hack-redis
+    spec:
+      containers:
+      - name: meet-hack-redis
+        image: gcr.io/meethack-dev-362310/meet-hack-redis@sha256:20cfdb4868018d01c86eb3266d3efed97bccc1653e71ebb82d31047d4fc786e8
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 6379
