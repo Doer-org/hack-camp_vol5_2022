@@ -82,8 +82,7 @@ fclean:
 
 # front の build
 build-front-image:
-	cd $(FRONT_DIR) && $(RM) $(NODE_MODULES) && npm install && \
-	docker build . -t $(FRONT_IMAGE_NAME) -f Dockerfile.prd
+	cd $(FRONT_DIR) && docker build . -t $(FRONT_IMAGE_NAME) -f Dockerfile.prd
 
 # front の image のテスト
 test-front-image:
