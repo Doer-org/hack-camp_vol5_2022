@@ -14,7 +14,26 @@ spec:
     spec:
       containers:
         - name: meet-hack-server
-          image: gcr.io/meethack-dev-362310/meet-hack-server@sha256:94938396ce244c8962c56e9a8448dbb658d650b02b63e485799241743668ad46
+          image: gcr.io/meethack-dev-362310/meet-hack-server@sha256:6074196cbd79a39af30ed8f71f69ce5411890743945afa9837b9b7563af87c1f
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+
+          # コンテナが動いているか
+          # 動いていない場合はコンテナが再起動される
+          livenessProbe:
+            exec:
+              command:
+              - cat
+              - /go/src/github.com/Doer-org/hack-camp_vol5_2022/main.go
+            initialDelaySeconds: 30 # 最初にチェックするまでの待機時間
+            periodSeconds: 60       # チェックする頻度
+
+          # コンテナがリクエストに応答できるかを判断
+          # 応答できない場合はリクエストが送られてこないようになる
+          readinessProbe:
+            httpGet:                # HTTPによるチェック
+              path: /
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 60
