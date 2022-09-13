@@ -45,7 +45,9 @@ SERVICE_NAME:=meet-hack
 # container name
 CONTAINER_NAME:=meet-hack
 
+NODE_MODULES:=./node_modules
 
+RM:=rm -rf
 
 ###               ###
 #      command      #
@@ -80,7 +82,8 @@ fclean:
 
 # front の build
 build-front-image:
-	cd $(FRONT_DIR) && docker build . -t $(FRONT_IMAGE_NAME) -f Dockerfile.prd
+	cd $(FRONT_DIR) && $(RM) $(NODE_MODULES) && npm install && \
+	docker build . -t $(FRONT_IMAGE_NAME) -f Dockerfile.prd
 
 # front の image のテスト
 test-front-image:
