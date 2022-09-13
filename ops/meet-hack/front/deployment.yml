@@ -16,7 +16,26 @@ spec:
     spec:
       containers:
       - name: meet-hack
-        image: gcr.io/meethack-dev-362310/meet-hack@sha256:5d0921cbf7d978b4d7a0e84dd73924976bb822866fc7ca7f1afa8445b4b95816
+        image: gcr.io/meethack-dev-362310/meet-hack@sha256:cddd555d3e045fd51fd664da85ca01a452051dcc519dafd1b96dda1cec1540f3
         imagePullPolicy: Always
         ports:
           - containerPort: 80
+
+        # コンテナが動いているか
+        # 動いていない場合はコンテナが再起動される
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /usr/share/nginx/html/index.html
+          initialDelaySeconds: 30 # 最初にチェックするまでの待機時間
+          periodSeconds: 60       # チェックする頻度
+
+        # コンテナがリクエストに応答できるかを判断
+        # 応答できない場合はリクエストが送られてこないようになる
+        readinessProbe:
+          httpGet:                # HTTPによるチェック
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 60

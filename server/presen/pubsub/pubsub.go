@@ -40,8 +40,8 @@ func pubsub(w http.ResponseWriter, r *http.Request, roomId string) {
 	go func() {
 	loop:
 		for {
-			pubsub := redis.Rs.Subscribe(ctx, "roomId")
-			log.Println("redis subscribe")
+			pubsub := redis.Rs.Subscribe(ctx, roomId)
+			log.Println("redis subscribe", roomId)
 			ch := pubsub.Channel()
 
 			// should break outer for loop if err
@@ -53,7 +53,7 @@ func pubsub(w http.ResponseWriter, r *http.Request, roomId string) {
 					log.Println("websocket write err:", err)
 					break loop
 				} else {
-					log.Println("### websocket write ok")
+					log.Println("websocket write ok!!")
 				}
 			}
 		}
@@ -67,7 +67,7 @@ func pubsub(w http.ResponseWriter, r *http.Request, roomId string) {
 		}
 		log.Println(string(msg))
 
-		if err := redis.Rs.Publish(ctx, "roomId", msg).Err(); err != nil {
+		if err := redis.Rs.Publish(ctx, roomId, msg).Err(); err != nil {
 			log.Println("redis publish err:", err)
 			break
 		}
