@@ -6,13 +6,15 @@ deploy用
 
 cluster作成
 ```
-gcloud container clusters create $hogename --num-nodes=2
+gcloud container clusters create $CLUSTER_NAME --num-nodes=2
 ```
 
-```
-kubectl config use-context $CLUSTER_NAMEで
-```
+
 clusterの設定
+```
+kubectl config use-context $CLUSTER_NAME
+```
+
 
 
 
