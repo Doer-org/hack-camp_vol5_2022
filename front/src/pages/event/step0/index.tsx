@@ -7,11 +7,14 @@ import IconUser from "@/assets/img/icon_user.png"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useFirebase } from "@/hooks/useFirebase"
 import { useDispatch } from "react-redux"
+import { useMeetHackApi } from "@/hooks/useMeetHackApi"
+import { setUser } from "@/store/slice/userSlice"
 
 export const EventStep0: FC = () => {
   const search = new URLSearchParams(useLocation().search)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const mhApi = useMeetHackApi()
   const { githubLogin, setUserToState } = useFirebase()
 
   const [roomID, setRoomID] = useState<string|null>(search.get("room"))
@@ -20,22 +23,21 @@ export const EventStep0: FC = () => {
   useEffect(() => {
     // roomID が無いとき
     if (roomID === null) {
+      navigate(`/event/new`)
       return
     }
     // ユーザのログイン状態が変わったらsetする
     setUserToState(
-      user => {
-        console.log(user)
+      async (user) => {
         if (user !== null) {
-          console.log(user)
-          // dispatch(setUser({}))
+          const userProfile = await mhApi.loginWithGithub(user.uid, user?.displayName ?? "")
+          dispatch(setUser(userProfile))
           navigate(`/event/step1?room=${roomID}`)
         } else {
           console.log("logout")
         }
       }
     )
-    navigate("/event/new")
   }, [])
 
   return(

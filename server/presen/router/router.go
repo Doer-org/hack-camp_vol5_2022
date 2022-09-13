@@ -19,6 +19,7 @@ func InitRouter(db db.DB) *gin.Engine {
 	initRoomRouter(r, db)
 	initMemberRouter(r, db)
 	initPubsubRouter(r)
+	initUserRouter(r, db)
 
 	return r
 }

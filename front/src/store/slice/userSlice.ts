@@ -2,7 +2,6 @@ import { IUserState } from "@/types/store/user"
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 const initialState: IUserState = {
-  id : 0,
   uid: "",
   name : "",
   lang: "",

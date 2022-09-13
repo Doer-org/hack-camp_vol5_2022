@@ -1,5 +1,4 @@
 export interface IUserState {
-  id : number
   uid: string
   name : string
   lang: string
