@@ -81,7 +81,6 @@ export const EventQuestions: FC = () => {
         setMembers(ok)
         // 非同期終了を検知する用のState
         setIsLoaded(true)
-        console.log(ok)
       })
       .catch(error => console.error(error))
   }, [])

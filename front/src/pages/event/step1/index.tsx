@@ -26,6 +26,7 @@ export const EventStep1: FC = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const formStep1 = useSelector((state) => state.form.step1)
+  const userInfo = useSelector((state) => state.user)
 
   const search = new URLSearchParams(useLocation().search)
   const roomID: string | null = search.get("room")
@@ -48,11 +49,23 @@ export const EventStep1: FC = () => {
       navigate("/event/new")
       return
     }
+    // TODO @aoki ログインチェックして，ログインされている場合は，APIでプロフィール情報を取ってくる
+    if (userInfo.uid !== "") {
+    //  ログインされているとき
+    }
+    // ユーザ情報をとってきて自動入力
+    // setName(formStep1.name)
+    // setLang(formStep1.lang)
+    // setGithub(formStep1.github)
+    // setTwitter(formStep1.twitter)
+    // setComment(formStep1.comment)
+    // TODO @aoki ログインチェックして，ログインされていない場合は，現状の実装
     setName(formStep1.name)
     setLang(formStep1.lang)
     setGithub(formStep1.github)
     setTwitter(formStep1.twitter)
     setComment(formStep1.comment)
+
   }, [])
 
   return (

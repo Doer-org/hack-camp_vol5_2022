@@ -16,3 +16,15 @@ export const PostLoginWithGithub = (input: IPostLoginWithGithubInput): TaskEithe
     }
   )
 }
+
+// TODO @aoki GET /user/:uid ユーザの情報を取ってくる
+
+// output
+// type User struct {
+//   Uid     string `json:"uid" gorm:"unique"`
+//   Name    string `json:"name"`
+//   Comment string `json:"comment"`
+//   Lang    string `json:"lang"`
+//   Github  string `json:"github"`
+//   Twitter string `json:"twitter"`
+// }
