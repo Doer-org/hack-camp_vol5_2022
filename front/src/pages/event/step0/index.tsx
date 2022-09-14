@@ -9,6 +9,7 @@ import { useFirebase } from "@/hooks/useFirebase"
 import { useDispatch } from "react-redux"
 import { useMeetHackApi } from "@/hooks/useMeetHackApi"
 import { setUser } from "@/store/slice/userSlice"
+import { useSelector } from "@/store/store"
 
 export const EventStep0: FC = () => {
   const search = new URLSearchParams(useLocation().search)
@@ -18,12 +19,30 @@ export const EventStep0: FC = () => {
   const { githubLogin, setUserToState } = useFirebase()
 
   const [roomID, setRoomID] = useState<string|null>(search.get("room"))
-  // const [user, setUser] = useState<User>()
+  const user = useSelector(state => state.user)
+
+  // Room が終わっているとき，Room 情報に遷移
+  const detectFinishRoom = (roomID: string): void => {
+    mhApi.getRoomInfo({ roomID })
+      .then((ok) => {
+        if (ok.status === "finished") {
+          navigate(`/event/user/list?room=${roomID}`)
+        }
+      })
+      .catch((error) => console.error(error))
+  }
 
   useEffect(() => {
     // roomID が無いとき
     if (roomID === null) {
       navigate(`/event/new`)
+      return
+    }
+    // 終了したroomか判別
+    detectFinishRoom(roomID)
+    // ユーザがログイン済みのとき
+    if (user.uid !== "") {
+      navigate(`/event/step1?room=${roomID}`)
       return
     }
     // ユーザのログイン状態が変わったらsetする
