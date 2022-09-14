@@ -7,20 +7,32 @@ import { BaseRectButton } from "@/components/parts/BaseRectButton"
 import IconCopy from "@/assets/img/icon_copy.png"
 import { useMeetHackApi } from "@/hooks/useMeetHackApi"
 import { IPostCreateNewRoomOutput } from "@/types/api/room"
+import { FormValidation } from "@/components/parts/FormValidation"
+import { useValidation } from "@/hooks/useValidation"
 
 export const EventNew: FC = () => {
-  const mtApi = useMeetHackApi()
-
   const [roomName, setRoomName] = useState<string>("")
   const [participant, setParticipant] = useState<number>(2)
   const [roomInfo, setRoomInfo] = useState<IPostCreateNewRoomOutput>()
   const [isCopied, setIsCopied] = useState<boolean>(false)
 
+  // validation 条件
+  const validateSchema = {
+    roomName: roomName !== ""
+  }
+
+  const mtApi = useMeetHackApi()
+  const validation = useValidation(validateSchema)
+
   const createRoom = async (): Promise<void> => {
-    mtApi
-      .createRoom({ name: roomName, max_count: participant })
-      .then((ret) => setRoomInfo(ret))
-      .catch((error) => console.log(error))
+    validation.setIsValidateShow(true)
+    // validation check が OK のとき
+    if (validation.formStatusOK()) {
+      mtApi
+        .createRoom({ name: roomName, max_count: participant })
+        .then((ret) => setRoomInfo(ret))
+        .catch((error) => console.log(error))
+    }
   }
 
   const copyToClipboard = async (): Promise<void> => {
@@ -43,6 +55,11 @@ export const EventNew: FC = () => {
         <div className="mb-20 space-y-10 lg:mb-12">
           <div className="text-4xl lg:text-base">
             <BaseInput value={roomName} setState={setRoomName} name="ルーム名" placeholder="エンジニア同好会" />
+            <FormValidation
+              message={"ルーム名は必須項目です"}
+              isValid={validateSchema.roomName}
+              isShow={validation.isValidateShow}
+            />
           </div>
           <RoomSliderBar value={participant} setState={setParticipant} />
           <span className="text-2xl text-gray-400 lg:text-xs">

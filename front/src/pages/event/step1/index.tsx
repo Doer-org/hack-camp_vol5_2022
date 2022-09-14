@@ -8,30 +8,40 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { setStep1 } from "@/store/slice/formSlice"
 import { useSelector } from "@/store/store"
+import { useValidation } from "@/hooks/useValidation"
+import { FormValidation } from "@/components/parts/FormValidation"
 
 export const EventStep1: FC = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  const search = new URLSearchParams(useLocation().search)
-  const roomID: string | null = search.get("room")
-
   const [name, setName] = useState<string>("")
   const [lang, setLang] = useState<string>("")
   const [github, setGithub] = useState<string>("")
   const [twitter, setTwitter] = useState<string>("")
   const [comment, setComment] = useState<string>("")
 
+  const validationSchema = {
+    name: name !== ""
+  }
+
+  const validation = useValidation(validationSchema)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const formStep1 = useSelector((state) => state.form.step1)
+
+  const search = new URLSearchParams(useLocation().search)
+  const roomID: string | null = search.get("room")
+
   const setFormValue = (): void => {
     dispatch(setStep1({ name, lang, github, twitter, comment }))
     if (roomID !== null) {
-      navigate(`/event/step2?room=${roomID}`)
+      validation.setIsValidateShow(true)
+      if (validation.formStatusOK()) {
+        navigate(`/event/step2?room=${roomID}`)
+      }
     } else {
       navigate("/event/new")
     }
   }
 
-  const formStep1 = useSelector((state) => state.form.step1)
 
   useEffect(() => {
     if (roomID === null) {
@@ -53,7 +63,10 @@ export const EventStep1: FC = () => {
           自己紹介の登録
         </h2>
         <div className={"mb-24 space-y-8 text-4xl lg:mb-12 lg:space-y-6 lg:text-base"}>
-          <BaseInput name={"ユーザー名 (必須)"} placeholder={"山田 太郎"} setState={setName} value={name}/>
+          <div>
+            <BaseInput name={"ユーザー名 (必須)"} placeholder={"山田 太郎"} setState={setName} value={name}/>
+            <FormValidation message={"ユーザー名は必須項目です"} isValid={validationSchema.name} isShow={validation.isValidateShow} />
+          </div>
           <BaseInput name={"好きな言語・フレームワーク"} placeholder={"golang"} setState={setLang} value={lang}/>
           <div className={"space-y-1"}>
             <BaseInput name={"GitHub"} placeholder={"your account"} setState={setGithub} value={github}/>

@@ -1,6 +1,5 @@
-import firebase from "firebase/compat"
-import initializeApp = firebase.initializeApp
 import { getAuth } from "firebase/auth"
+import { initializeApp } from "firebase/app"
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FB_API_KEY,
