@@ -65,7 +65,7 @@ export const EventQuestions: FC = () => {
   // 最後の人が回答したとき
   const finishEvent = (): void => {
     if (roomID !== null) {
-      navigate(`/event/?room=${roomID}`)
+      navigate(`/event?room=${roomID}`)
     }
   }
 

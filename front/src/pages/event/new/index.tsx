@@ -49,7 +49,7 @@ export const EventNew: FC = () => {
         <h2 className="mb-20 text-center text-4xl lg:mb-3 lg:text-xl">
           ルーム作成
         </h2>
-        <p className="mb-20 text-3xl text-gray-400 lg:mb-5 lg:text-base">
+        <p className="mb-20 text-center text-3xl text-gray-400 lg:mb-5 lg:text-base">
           ルームを作成して、イベントに参加するメンバーにURLを共有しましょう。
         </p>
         <div className="mb-20 space-y-10 lg:mb-12">
