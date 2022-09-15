@@ -23,6 +23,7 @@ interface IApis {
 	getRoomMembers: (input: IGetRoomMembersInput) => Promise<IGetRoomMembersOutput[]>;
 	getRoomFinish: (input: string) => Promise<void>;
   loginWithGithub: (uid: string, name: string) => Promise<IPostLoginWithGithubOutput>
+  getUserInfo: (uid: string) => Promise<IPostLoginWithGithubOutput>
 }
 
 export const useMeetHackApi = (): IApis => {
@@ -95,5 +96,5 @@ export const useMeetHackApi = (): IApis => {
   }
   
 
-  return { createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish, loginWithGithub }
+  return { createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish, loginWithGithub, getUserInfo }
 }
