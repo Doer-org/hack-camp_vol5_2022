@@ -7,35 +7,56 @@ import IconUser from "@/assets/img/icon_user.png"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useFirebase } from "@/hooks/useFirebase"
 import { useDispatch } from "react-redux"
+import { useMeetHackApi } from "@/hooks/useMeetHackApi"
+import { setUser } from "@/store/slice/userSlice"
+import { useSelector } from "@/store/store"
 
 export const EventStep0: FC = () => {
   const search = new URLSearchParams(useLocation().search)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const mhApi = useMeetHackApi()
   const { githubLogin, setUserToState } = useFirebase()
 
   const [roomID, setRoomID] = useState<string|null>(search.get("room"))
-  // const [user, setUser] = useState<User>()
+  const user = useSelector(state => state.user)
+
+  // Room が終わっているとき，Room 情報に遷移
+  const detectFinishRoom = (roomID: string): void => {
+    mhApi.getRoomInfo({ roomID })
+      .then((ok) => {
+        if (ok.status === "finished") {
+          navigate(`/event/user/list?room=${roomID}`)
+        }
+      })
+      .catch((error) => console.error(error))
+  }
 
   useEffect(() => {
     // roomID が無いとき
     if (roomID === null) {
+      navigate(`/event/new`)
+      return
+    }
+    // 終了したroomか判別
+    detectFinishRoom(roomID)
+    // ユーザがログイン済みのとき
+    if (user.uid !== "") {
+      navigate(`/event/step1?room=${roomID}`)
       return
     }
     // ユーザのログイン状態が変わったらsetする
     setUserToState(
-      user => {
-        console.log(user)
+      async (user) => {
         if (user !== null) {
-          console.log(user)
-          // dispatch(setUser({}))
+          const userProfile = await mhApi.loginWithGithub(user.uid, user?.displayName ?? "")
+          dispatch(setUser(userProfile))
           navigate(`/event/step1?room=${roomID}`)
         } else {
           console.log("logout")
         }
       }
     )
-    navigate("/event/new")
   }, [])
 
   return(

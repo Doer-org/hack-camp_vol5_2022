@@ -1,5 +1,6 @@
 import * as RoomApi from '../api/room'
 import * as MemberApi from '../api/member'
+import * as UserApi from "@/api/user"
 import {
   IPostCreateNewRoomInput,
   IGetRoomInfoInput,
@@ -13,6 +14,7 @@ import {
   IGetRoomMembersOutput
 } from '../types/api/member'
 import * as E from 'fp-ts/Either'
+import { IPostLoginWithGithubOutput } from "@/types/api/user"
 
 interface IApis {
 	createRoom: (input: IPostCreateNewRoomInput) => Promise<IPostCreateNewRoomOutput>;
@@ -20,6 +22,7 @@ interface IApis {
 	getRoomInfo: (input: IGetRoomInfoInput) => Promise<IGetRoomInfoOutput>;
 	getRoomMembers: (input: IGetRoomMembersInput) => Promise<IGetRoomMembersOutput[]>;
 	getRoomFinish: (input: string) => Promise<void>;
+  loginWithGithub: (uid: string, name: string) => Promise<IPostLoginWithGithubOutput>
 }
 
 export const useMeetHackApi = (): IApis => {
@@ -69,5 +72,16 @@ export const useMeetHackApi = (): IApis => {
       }
     })
   }
-  return { createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish }
+
+  const loginWithGithub = async (uid: string, name: string): Promise<IPostLoginWithGithubOutput> => {
+    return await UserApi.PostLoginWithGithub({ uid, name })().then(ret => {
+      if (E.isLeft(ret)) {
+        throw Error('useMeetHackApi (loginWithGithub)')
+      } else {
+        return ret.right
+      }
+    })
+  }
+
+  return { createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish, loginWithGithub }
 }

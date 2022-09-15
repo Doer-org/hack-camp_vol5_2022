@@ -2,8 +2,8 @@ import * as AuthService from '@/firebase/auth'
 import { User } from "firebase/auth"
 
 interface IApis {
-	githubLogin: () => Promise<void>
-	githubLogout: () => Promise<void>
+  githubLogin: () => Promise<void>
+  githubLogout: () => Promise<void>
   setUserToState: (func: (user: User|null) => void) => void
 }
 

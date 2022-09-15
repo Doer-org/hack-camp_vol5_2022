@@ -19,6 +19,6 @@ export interface IGetRoomInfoOutput {
 	id: string;
 	name: string;
 	max_count: number;
-	status: string;
+	status: "created"|"finished"
 	create_at: Date;
 }

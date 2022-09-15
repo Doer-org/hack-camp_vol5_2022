@@ -41,7 +41,6 @@ func (repo roomRepository) GetRoomByID(id string) entity.Room {
 
 func (repo roomRepository) ChangeRoomStatus(id string) entity.Room {
 	room := entity.Room{Id: id}
-	room.Status = "finished"
-	repo.db.Conn.Save(&room)
+	repo.db.Conn.Model(&room).Update("Status", "finished")
 	return room
 }

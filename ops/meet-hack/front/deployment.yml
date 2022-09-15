@@ -5,7 +5,7 @@ metadata:
   labels:
     name: meet-hack
 spec:
-  replicas: 3
+  # replicas: 3
   selector:
     matchLabels:
       app: meet-hack
@@ -16,7 +16,26 @@ spec:
     spec:
       containers:
       - name: meet-hack
-        image: gcr.io/ecstatic-router-353016/meet-hack@sha256:079dd911a1f823896dfc4db2d5ca4acb980ce428449c784ea62531e641b12e7d
+        image: gcr.io/meethack-dev-362310/meet-hack@sha256:cddd555d3e045fd51fd664da85ca01a452051dcc519dafd1b96dda1cec1540f3
         imagePullPolicy: Always
         ports:
           - containerPort: 80
+
+        # コンテナが動いているか
+        # 動いていない場合はコンテナが再起動される
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /usr/share/nginx/html/index.html
+          initialDelaySeconds: 30 # 最初にチェックするまでの待機時間
+          periodSeconds: 60       # チェックする頻度
+
+        # コンテナがリクエストに応答できるかを判断
+        # 応答できない場合はリクエストが送られてこないようになる
+        readinessProbe:
+          httpGet:                # HTTPによるチェック
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 60

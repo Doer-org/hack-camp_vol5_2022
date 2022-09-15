@@ -24,6 +24,15 @@ CREATE TABLE "members"(
     ON DELETE CASCADE
 );
 
+CREATE TABLE "users"(
+  "uid"      VARCHAR(255) NOT NULL PRIMARY KEY,
+  "name"     VARCHAR(255) NOT NULL,
+  "comment"  VARCHAR(255),
+  "lang"     VARCHAR(255),
+  "github"   VARCHAR(255),
+  "twitter"  VARCHAR(255)
+);
+
 -- --テーブルにデータを挿入
 INSERT INTO "rooms" ("id", "name", "max_count", "status") 
 VALUES ('aaaaa','doer', 12, 'created');

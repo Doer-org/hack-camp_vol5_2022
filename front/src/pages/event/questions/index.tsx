@@ -65,7 +65,7 @@ export const EventQuestions: FC = () => {
   // 最後の人が回答したとき
   const finishEvent = (): void => {
     if (roomID !== null) {
-      navigate(`/event/?room=${roomID}`)
+      navigate(`/event?room=${roomID}`)
     }
   }
 
@@ -81,7 +81,6 @@ export const EventQuestions: FC = () => {
         setMembers(ok)
         // 非同期終了を検知する用のState
         setIsLoaded(true)
-        console.log(ok)
       })
       .catch(error => console.error(error))
   }, [])
