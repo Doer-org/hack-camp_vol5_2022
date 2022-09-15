@@ -82,6 +82,18 @@ export const useMeetHackApi = (): IApis => {
       }
     })
   }
+  
+  
+  const getUserInfo = async (uid: string): Promise<IPostLoginWithGithubOutput> => {
+    return await UserApi.GetUserInfo(uid)().then(ret => {
+      if (E.isLeft(ret)) {
+        throw Error('useMeetHackApi (getUserInfo)')
+      } else {
+        return ret.right
+      }
+    })
+  }
+  
 
   return { createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish, loginWithGithub }
 }
