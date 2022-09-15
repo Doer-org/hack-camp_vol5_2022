@@ -18,7 +18,7 @@ export const EventStep0: FC = () => {
   const mhApi = useMeetHackApi()
   const { githubLogin, setUserToState } = useFirebase()
 
-  const [roomID, setRoomID] = useState<string|null>(search.get("room"))
+  const [roomID, setRoomID] = useState<string | null>(search.get("room"))
   const user = useSelector(state => state.user)
 
   // Room が終わっているとき，Room 情報に遷移
@@ -49,7 +49,10 @@ export const EventStep0: FC = () => {
     setUserToState(
       async (user) => {
         if (user !== null) {
-          const userProfile = await mhApi.loginWithGithub(user.uid, user?.displayName ?? "")
+          // console.log(user.uid + " " + (user?.displayName ?? ""))  
+          const [_, reloadUserInfo] = Object.entries(user)[2]
+          const userProfile = await mhApi.loginWithGithub(user.uid, reloadUserInfo.screenName ?? "")
+          // console.log(userProfile)
           dispatch(setUser(userProfile))
           navigate(`/event/step1?room=${roomID}`)
         } else {
@@ -59,10 +62,10 @@ export const EventStep0: FC = () => {
     )
   }, [])
 
-  return(
+  return (
     <EventBackground>
       <BaseStepWindow>
-        <img className="mx-auto mb-16 h-48 lg:mb-5 lg:h-24" src={IconUser} alt="ユーザ登録のアイコン"/>
+        <img className="mx-auto mb-16 h-48 lg:mb-5 lg:h-24" src={IconUser} alt="ユーザ登録のアイコン" />
         <h2 className="mb-20 text-center text-4xl lg:mb-10 lg:text-lg">
           自己紹介の追加
         </h2>
@@ -72,9 +75,9 @@ export const EventStep0: FC = () => {
           </span>
           <p>
             イベント終了後に入力した情報が Roomメンバーに共有されます！
-            <br/>
+            <br />
             できる限り埋めましょう
-            <br/>
+            <br />
             ログインして始めると出会いを記録することができます
           </p>
         </div>
@@ -84,7 +87,7 @@ export const EventStep0: FC = () => {
             <div className="space-y-8 lg:space-y-4">
               <CGithubButton onLogin={
                 async () => await githubLogin()
-              }/>
+              } />
               {/* TODO Twitter ログイン */}
               {/* <CTwitterButton /> */}
               <div onClick={() => navigate(`/event/step1?room=${roomID}`)}>
