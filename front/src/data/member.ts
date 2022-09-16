@@ -21,13 +21,13 @@ export const memberData: IMember[] = [
   },
   {
     name: 'RyushiAok',
-    role: 'Frontend',
+    role: 'Frontend/ Logic',
     github: 'RyushiAok',
     twitter: 'TAKA_AOK'
   },
   {
     name: 'hikari-8',
-    role: 'Backend',
+    role: 'Frontend/ Design',
     github: 'hikari-8',
     twitter: 'hikari_pint'
   }

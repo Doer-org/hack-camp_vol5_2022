@@ -9,13 +9,13 @@ interface IProps {
 
 export const MemberCard: FC<IProps> = ({ member }) => {
   return (
-    <div className="rounded border-t-8 border-thick-purple bg-white p-6 text-3xl font-semibold lg:text-lg">
+    <div className="rounded  border-thick-purple  p-6 text-3xl  lg:text-lg">
       {/* <div className="flex items-center"> */}
       {/* メンバーのアイコン */}
       <div className="flex justify-center pt-2">
         <a href={`https://github.com/${member.github}`}>
           <img
-            className="h-24 w-24 rounded-full"
+            className="mb-3 h-24 w-24 rounded-full shadow-lg"
             src={`https://github.com/${member.name}.png`}
             alt={`twitter @${member.github}`}
           />
@@ -23,11 +23,13 @@ export const MemberCard: FC<IProps> = ({ member }) => {
       </div>
 
       {/* 名前 */}
-      <div className="flex justify-center">{member.name}</div>
+      <div className="mb-1 flex justify-center text-xl font-medium text-gray-900">
+        {member.name}
+      </div>
       {/* </div> */}
 
       {/* 役割 */}
-      <span className="mb-4 flex justify-center text-2xl opacity-60 lg:text-sm">
+      <span className="flex justify-center text-sm text-gray-500">
         {member.role}
       </span>
 
@@ -35,7 +37,7 @@ export const MemberCard: FC<IProps> = ({ member }) => {
         {/* GitHub */}
         <a href={`https://github.com/${member.github}`}>
           <img
-            className="w-10 lg:w-6"
+            className="inline-flex w-7 items-center py-2 "
             src={github}
             alt={`github @${member.github}`}
           />
@@ -44,7 +46,7 @@ export const MemberCard: FC<IProps> = ({ member }) => {
         {/* Twitter */}
         <a href={`https://twitter.com/${member.twitter}`}>
           <img
-            className="w-10 lg:w-6"
+            className="inline-flex w-7 items-center py-2 "
             src={twitter}
             alt={`twitter @${member.twitter}`}
           />
