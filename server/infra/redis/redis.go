@@ -12,7 +12,7 @@ var Rs = redis.NewClient(&redis.Options{
 })
 
 func getRedisUrl() string {
-	addr := "redis-hack-camp_vol5_2022:6379"
+	addr := "rediss://redis-hack-camp_vol5_2022:6379"
 	if os.Getenv("DEPLOY_FLAG") == "True" {
 		addr = os.Getenv("REDIS_URL")
 	}
