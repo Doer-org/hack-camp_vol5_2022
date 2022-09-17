@@ -13,10 +13,9 @@ export const CEventStartMsg: FC<IProps> = ({ maxCount, current , onEventStart })
       {
         current < maxCount
           ?
-          <div className={"mx-auto w-full lg:w-72"}>
+          <div onClick={onEventStart} className={"mx-auto w-full lg:w-72"}>
             <BaseRectButton
               isWhite={true}
-              onClick={onEventStart}
               text={"他のメンバーを待たずに開始"}
             />
           </div>

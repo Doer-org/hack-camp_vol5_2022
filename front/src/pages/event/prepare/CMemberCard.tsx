@@ -2,7 +2,7 @@ import { FC } from "react"
 import IconGithub from "@/assets/img/github-logo.png"
 import IconTwitter from "@/assets/img/twitter-logo.png"
 import IconStatus from "@/assets/img/icon_status.png"
-import { IMember } from "@/types/data/member"
+import { IMember } from "@/types/domain/member"
 
 interface IProps {
   member: IMember
