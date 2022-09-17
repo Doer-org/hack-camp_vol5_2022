@@ -10,11 +10,21 @@ export const SecRespondent: FC<IProps> = ({ member }) => {
 
   return (
     <div className={"mx-auto w-4/5 space-y-6 rounded border border-doer-purple bg-white py-12 text-3xl tracking-wider shadow shadow-doer-purple lg:w-96 lg:space-y-3 lg:py-6 lg:px-10 lg:text-base"}>
-      <img
-        className={"mx-auto h-36 w-36 rounded-full border-4 border-gray-200 lg:h-20 lg:w-20"}
-        src={`https://github.com/kazuki-komori.png`}
-        alt="プロフィール画像"
-      />
+      {
+        member.github !== ""
+          ?
+          <img
+            className={"mx-auto h-36 w-36 rounded-full border-4 border-gray-200 lg:h-20 lg:w-20"}
+            src={`https://github.com/${member.github}.png`}
+            alt="プロフィール画像"
+          />
+          :
+          <img
+            className={"mx-auto h-36 w-36 rounded-full border-4 border-gray-200 lg:h-20 lg:w-20"}
+            src={"https://avatars.githubusercontent.com/u/90210216?s=200&v=4"}
+            alt="プロフィール画像"
+          />
+      }
       <p className={"text-center text-doer-purple"}>
         <span className={"mx-2 text-5xl lg:text-2xl"}>
           {member.name}
