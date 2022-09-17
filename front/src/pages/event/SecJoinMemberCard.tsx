@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { CMemberCard } from "@/pages/event/CMemberCard"
-import { IMember } from "@/types/data/member"
+import { IMember } from "@/types/domain/member"
 import dayjs from "dayjs"
 import 'dayjs/locale/ja'
 

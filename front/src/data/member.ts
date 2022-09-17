@@ -1,4 +1,4 @@
-import { IMember } from '@/types/data/member'
+import { IMember } from "@/types/data/member"
 
 export const memberData: IMember[] = [
   {

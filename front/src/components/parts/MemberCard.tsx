@@ -1,7 +1,7 @@
 import { FC } from 'react'
-import { IMember } from '@/types/data/member'
 import github from '@/assets/img/github-logo.png'
 import twitter from '@/assets/img/twitter-logo.png'
+import { IMember } from "@/types/data/member"
 
 interface IProps {
   member: IMember
@@ -9,7 +9,7 @@ interface IProps {
 
 export const MemberCard: FC<IProps> = ({ member }) => {
   return (
-    <div className="rounded  border-thick-purple  p-6 text-3xl  lg:text-lg">
+    <div className="rounded border-thick-purple  bg-white  p-6 text-3xl  lg:text-lg">
       {/* <div className="flex items-center"> */}
       {/* メンバーのアイコン */}
       <div className="flex justify-center pt-2">

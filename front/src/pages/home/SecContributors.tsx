@@ -5,7 +5,7 @@ import { memberData } from '@/data/member'
 
 export const SecContributors: FC = () => {
   return (
-    <section className="flex  py-36 lg:py-24">
+    <section className="flex  bg-thin-purple py-36 lg:py-24">
       <AppContainer>
         <h3 className="text-center text-6xl font-bold uppercase tracking-wide text-doer-purple lg:text-3xl">
           creators & contributors

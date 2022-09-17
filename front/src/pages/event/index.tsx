@@ -5,7 +5,7 @@ import { SecJoinMemberCard } from "@/pages/event/SecJoinMemberCard"
 import { BaseRectButton } from "@/components/parts/BaseRectButton"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useMeetHackApi } from "@/hooks/useMeetHackApi"
-import { IMember } from "@/types/data/member"
+import { IMember } from "@/types/domain/member"
 import { IGetRoomInfoOutput } from "@/types/api/room"
 
 export const EventPage: FC = () => {

@@ -6,7 +6,7 @@ import { CWaiting } from "@/pages/event/prepare/CWaiting"
 import { useWebSocket } from "@/hooks/useWebSocket"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useMeetHackApi } from "@/hooks/useMeetHackApi"
-import { IMember } from "@/types/data/member"
+import { IMember } from "@/types/domain/member"
 import { CEventStartMsg } from "@/pages/event/prepare/CEventStartMsg"
 
 export const EventPrepare: FC = () => {

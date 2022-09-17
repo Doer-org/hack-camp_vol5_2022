@@ -4,7 +4,7 @@ import { EventBackground } from "@/components/parts/EventBackground"
 import { SecRespondent } from "@/pages/event/questions/SecRespondent"
 import { SecQuestion } from "@/pages/event/questions/SecQuestion"
 import { BaseRectButton } from "@/components/parts/BaseRectButton"
-import { IMember } from "@/types/data/member"
+import { IMember } from "@/types/domain/member"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useMeetHackApi } from "@/hooks/useMeetHackApi"
 
