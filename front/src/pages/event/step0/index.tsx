@@ -51,6 +51,7 @@ export const EventStep0: FC = () => {
         if (user !== null) {
           // console.log(user.uid + " " + (user?.displayName ?? ""))  
           const [_, reloadUserInfo] = Object.entries(user)[2]
+          console.log(reloadUserInfo)
           const userProfile = await mhApi.loginWithGithub(user.uid, reloadUserInfo.screenName ?? "")
           // console.log(userProfile)
           dispatch(setUser(userProfile))

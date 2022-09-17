@@ -11,3 +11,21 @@ export interface IPostLoginWithGithubOutput {
   github : string
   twitter : string
 }
+
+export interface IPutUserUpdateInput {
+  uid: string
+  name : string
+  lang: string
+  comment : string
+  github : string
+  twitter : string
+}
+
+export interface IPutUserUpdateOutput {
+  uid: string
+  name : string
+  lang: string
+  comment : string
+  github : string
+  twitter : string
+}

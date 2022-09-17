@@ -6,24 +6,25 @@ import {
   IGetRoomInfoInput,
   IPostCreateNewRoomOutput,
   IGetRoomInfoOutput
-} from '../types/api/room'
+} from '@/types/api/room'
 import {
   IPostAddNewMemberInput,
   IGetRoomMembersInput,
   IPostAddNewMemberOutput,
   IGetRoomMembersOutput
-} from '../types/api/member'
+} from '@/types/api/member'
 import * as E from 'fp-ts/Either'
-import { IPostLoginWithGithubOutput } from "@/types/api/user"
+import { IPostLoginWithGithubOutput, IPutUserUpdateInput, IPutUserUpdateOutput } from "@/types/api/user"
 
 interface IApis {
-	createRoom: (input: IPostCreateNewRoomInput) => Promise<IPostCreateNewRoomOutput>;
-	addNewMember: (input: IPostAddNewMemberInput) => Promise<IPostAddNewMemberOutput>;
-	getRoomInfo: (input: IGetRoomInfoInput) => Promise<IGetRoomInfoOutput>;
-	getRoomMembers: (input: IGetRoomMembersInput) => Promise<IGetRoomMembersOutput[]>;
-	getRoomFinish: (input: string) => Promise<void>;
+  createRoom: (input: IPostCreateNewRoomInput) => Promise<IPostCreateNewRoomOutput>
+  addNewMember: (input: IPostAddNewMemberInput) => Promise<IPostAddNewMemberOutput>
+  getRoomInfo: (input: IGetRoomInfoInput) => Promise<IGetRoomInfoOutput>
+  getRoomMembers: (input: IGetRoomMembersInput) => Promise<IGetRoomMembersOutput[]>
+  getRoomFinish: (input: string) => Promise<void>
   loginWithGithub: (uid: string, name: string) => Promise<IPostLoginWithGithubOutput>
   getUserInfo: (uid: string) => Promise<IPostLoginWithGithubOutput>
+  updateUserInfo: (user: IPutUserUpdateInput) => Promise<IPutUserUpdateOutput>
 }
 
 export const useMeetHackApi = (): IApis => {
@@ -83,8 +84,7 @@ export const useMeetHackApi = (): IApis => {
       }
     })
   }
-  
-  
+
   const getUserInfo = async (uid: string): Promise<IPostLoginWithGithubOutput> => {
     return await UserApi.GetUserInfo(uid)().then(ret => {
       if (E.isLeft(ret)) {
@@ -94,7 +94,26 @@ export const useMeetHackApi = (): IApis => {
       }
     })
   }
+
+  const updateUserInfo = async (user: IPutUserUpdateInput): Promise<IPutUserUpdateOutput> => {
+    return await UserApi.PutUpdateUserInfo(user)().then(ret => {
+      if (E.isLeft(ret)) {
+        throw Error('useMeetHackApi (update user Info)')
+      } else {
+        return ret.right
+      }
+    })
+  }
   
 
-  return { createRoom, addNewMember, getRoomInfo, getRoomMembers, getRoomFinish, loginWithGithub, getUserInfo }
+  return {
+    createRoom,
+    addNewMember,
+    getRoomInfo,
+    getRoomMembers,
+    getRoomFinish,
+    loginWithGithub,
+    getUserInfo,
+    updateUserInfo
+  }
 }

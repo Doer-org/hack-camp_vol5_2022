@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/entity"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/usecase"
 	"github.com/gin-gonic/gin"
 )
@@ -59,6 +60,38 @@ func (uH UserHandler) GetUserProfile(ctx *gin.Context) {
 			http.StatusUnauthorized,
 			gin.H{
 				"error": fmt.Errorf("failed to get profile: %s", err).Error(),
+			},
+		)
+		return
+	}
+	ctx.JSON(
+		http.StatusOK,
+		user,
+	)
+}
+
+// PUT /:uid ユーザ情報を更新
+func (uH UserHandler) PutUpdateUser(ctx *gin.Context) {
+	user := new(entity.User)
+	err := ctx.BindJSON(&user)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusBadRequest,
+			gin.H{
+				"error": fmt.Errorf("bad parameter: %s", err).Error(),
+			},
+		)
+		return
+	}
+
+	err = uH.userUseCase.UpdateUserProfile(user)
+
+	if err != nil {
+		ctx.JSON(
+			http.StatusInternalServerError,
+			gin.H{
+				"error": fmt.Errorf("failed to login: %s", err).Error(),
 			},
 		)
 		return

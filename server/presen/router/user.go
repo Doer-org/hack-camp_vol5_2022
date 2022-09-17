@@ -16,4 +16,5 @@ func initUserRouter(e *gin.Engine, db db.DB) {
 	ur := e.Group("/user")
 	ur.POST("/login/github", userHandler.PostGithubLogin)
 	ur.GET("/:uid", userHandler.GetUserProfile)
+	ur.PUT("/:uid", userHandler.PutUpdateUser)
 }

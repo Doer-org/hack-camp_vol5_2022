@@ -23,8 +23,14 @@ func (uR userRepository) FindByUid(uid string) *entity.User {
 	return user
 }
 
-// ユーザを更新
+// ユーザを追加
 func (uR userRepository) Save(user *entity.User) error {
 	err := uR.db.Conn.Save(user).Error
+	return err
+}
+
+// ユーザを更新
+func (uR userRepository) Update(user *entity.User) error {
+	err := uR.db.Conn.Model(user).Updates(user).Error
 	return err
 }

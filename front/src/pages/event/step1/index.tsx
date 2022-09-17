@@ -10,6 +10,7 @@ import { setStep1 } from "@/store/slice/formSlice"
 import { useSelector } from "@/store/store"
 import { useValidation } from "@/hooks/useValidation"
 import { FormValidation } from "@/components/parts/FormValidation"
+import { useMeetHackApi } from "@/hooks/useMeetHackApi"
 
 export const EventStep1: FC = () => {
   const [name, setName] = useState<string>("")
@@ -25,18 +26,22 @@ export const EventStep1: FC = () => {
   const validation = useValidation(validationSchema)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const mhApi = useMeetHackApi()
   const formStep1 = useSelector((state) => state.form.step1)
   const userInfo = useSelector((state) => state.user)
 
   const search = new URLSearchParams(useLocation().search)
   const roomID: string | null = search.get("room")
 
-  const setFormValue = (): void => {
+  const setFormValue = async(): Promise<void> => {
     dispatch(setStep1({ name, lang, github, twitter, comment }))
     if (roomID !== null) {
       validation.setIsValidateShow(true)
       if (validation.formStatusOK()) {
         navigate(`/event/step2?room=${roomID}`)
+        if (userInfo.uid !== "") {
+          await mhApi.updateUserInfo(userInfo)
+        }
       }
     } else {
       navigate("/event/new")
@@ -57,20 +62,13 @@ export const EventStep1: FC = () => {
       setGithub(userInfo.github)
       setTwitter(userInfo.twitter)
       setComment(userInfo.comment) 
-    }
-    else {
+    } else {
       setName(formStep1.name)
       setLang(formStep1.lang)
       setGithub(formStep1.github)
       setTwitter(formStep1.twitter)
       setComment(formStep1.comment) 
     }
-    // ユーザ情報をとってきて自動入力
-    // setName(formStep1.name)
-    // setLang(formStep1.lang)
-    // setGithub(formStep1.github)
-    // setTwitter(formStep1.twitter)
-    // setComment(formStep1.comment)
   }, [])
 
   return (
@@ -96,7 +94,7 @@ export const EventStep1: FC = () => {
           </div>
           <BaseInput name={"ひとこと"} placeholder={"寿司が好きです 🍣"} setState={setComment} value={comment}/>
         </div>
-        <div onClick={() => setFormValue()}>
+        <div onClick={async () => await setFormValue()}>
           <BaseRectButton text={"次へ"}/>
         </div>
       </BaseStepWindow>

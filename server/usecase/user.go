@@ -44,3 +44,9 @@ func (uU UserUseCase) GetuserProfile(uid string) (*entity.User, error) {
 	}
 	return user, nil
 }
+
+// User 情報を更新
+func (uU UserUseCase) UpdateUserProfile(user *entity.User) error {
+	err := uU.userRepo.Update(user)
+	return err
+}
