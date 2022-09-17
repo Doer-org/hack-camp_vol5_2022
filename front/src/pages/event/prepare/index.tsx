@@ -74,10 +74,10 @@ export const EventPrepare: FC = () => {
     <EventBackground>
       <BaseStepWindow>
         <div className={"mb-20 text-center lg:mb-8"}>
-          <span className={"mr-4 text-5xl tracking-wider lg:mr-2 lg:text-2xl"}>
+          <span className={"mr-4 text-6xl tracking-wider lg:mr-2 lg:text-2xl"}>
             {roomName}
           </span>
-          <span className={"text-3xl lg:text-base"}>
+          <span className={"text-6xl lg:text-base"}>
             の待機室
           </span>
         </div>

@@ -53,7 +53,7 @@ export const EventNew: FC = () => {
           src={iconRoom}
           alt="room作成のアイコン"
         />
-        <h2 className="mb-20 text-center text-4xl lg:mb-3 lg:text-xl">
+        <h2 className="mb-20 text-center text-6xl lg:mb-3 lg:text-2xl">
           ルーム作成
         </h2>
         <p className="mb-20 text-center text-3xl text-gray-400 lg:mb-5 lg:text-base">

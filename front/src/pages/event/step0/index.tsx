@@ -26,7 +26,7 @@ export const EventStep0: FC = () => {
     mhApi.getRoomInfo({ roomID })
       .then((ok) => {
         if (ok.status === "finished") {
-          navigate(`/event/user/list?room=${roomID}`)
+          navigate(`/event?room=${roomID}`)
         }
       })
       .catch((error) => console.error(error))
@@ -63,7 +63,7 @@ export const EventStep0: FC = () => {
     <EventBackground>
       <BaseStepWindow>
         <img className="mx-auto mb-16 h-48 lg:mb-5 lg:h-24" src={IconUser} alt="ユーザ登録のアイコン"/>
-        <h2 className="mb-20 text-center text-4xl lg:mb-10 lg:text-lg">
+        <h2 className="mb-20 text-center text-6xl lg:mb-10 lg:text-lg">
           自己紹介の追加
         </h2>
         <div className="mb-24 flex rounded bg-green-100 p-4 text-3xl leading-relaxed text-gray-500 lg:mb-12 lg:text-base">

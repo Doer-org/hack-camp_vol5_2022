@@ -62,7 +62,7 @@ export const EventPage: FC = () => {
             ?
             <div className={"space-y-12 lg:space-y-6"}>
               <div className={"text-center text-doer-purple"}>
-                <p className={"mb-10 text-center text-5xl font-bold lg:mb-3 lg:text-3xl"}>Let's Hack !</p>
+                <p className={"mb-10 text-center text-6xl font-bold lg:mb-3 lg:text-3xl"}>Let's Hack !</p>
                 <p className={"mb-16 text-center text-3xl leading-relaxed lg:mb-5 lg:text-base"}>
                   本日参加したメンバーです。
                   <br/>

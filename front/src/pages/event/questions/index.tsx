@@ -106,7 +106,7 @@ export const EventQuestions: FC = () => {
           <EventBackground>
             <BaseStepWindow>
               <div className={"px-24 lg:px-0"}>
-                <h2 className="mb-16 text-center text-4xl lg:mb-4 lg:text-lg">
+                <h2 className="mb-16 text-center text-6xl lg:mb-4 lg:text-lg">
                   交流タイム
                 </h2>
                 <p className={"mb-20 block text-center text-3xl leading-10 tracking-wide text-gray-400 lg:mb-10 lg:text-base"}>
