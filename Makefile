@@ -1,19 +1,32 @@
+##
+# enviroment
+##
+
 # dir
 SERVER_DIR:=./server
 FRONT_DIR:=./front
 DB_DIR:=./db
+PROXY_DIR:=./proxy
+REDIS_DIR:=./redis
+DATA_DIR:=./db/data
 
 # container
-DB_CONTAINER_NAME:=hack-camp_vol5_2022-db
+FRONT_CONTAINER_NAME:=front-hack-camp_vol5_2022
+SERVER_CONTAINER_NAME:=server-hack-camp_vol5_2022
+DB_CONTAINER_NAME:=db-hack-camp_vol5_2022
+PROXY_CONTAINER_NAME:=proxy-hack-camp_vol5_2022
+REDIS_CONTAINER_NAME:=redis-hack-camp_vol5_2022
 
 # command
 RM := rm -rf
 
 
+.PHONY: all
 all:start
 
 
 # docker-compose up
+.PHONY: start
 start:
 	@echo ""
 	@echo "------------------------"
@@ -31,6 +44,7 @@ start:
 
 # docker-compose down
 # imageやvolumeも削除
+.PHONY: down
 down:
 	@echo ""
 	@echo "------------------------"
@@ -44,48 +58,108 @@ down:
 	@echo ""
 
 
-# dbやcacheは保持したまま再起動
-restart: down start
+.PHONY: restart
+restart:
+	@echo ""
+	@echo "------------------------"
+	@echo "Restart the docker-compose environment"
+	@echo "Please wait ..."
+	@echo "------------------------"
+	@echo ""
+	docker-compose restart
+	@echo ""
+	@echo "The docker-compose environment has been successfully restart."
+	@echo ""
 
 
+.PHONY: delete-db
 delete-db:
 	@echo ""
 	@echo "------------------------"
 	@echo "delete db ..."
 	@echo ""
-	$(RM) $(DB_DIR)
+	$(RM) $(DATA_DIR)
 	@echo ""
 	@echo "delete db success"
 	@echo "------------------------"
 	@echo ""
 
 
+.PHONY: clean
 clean:
 
+
+.PHONY: fclean
 fclean:clean delete-db
 
+
 # dbやcacheも削除してから再起動
-re:fclean restart
+.PHONY: re
+re:fclean down start
 
 
+##
 # lint
+##
+.PHONY: lint
 lint:
 	gofmt -l -w ./server
 
 
+##
+# log
+##
+.PHONY: log
+log:
+	docker-compose logs -f
+
+
+##
 # docker container attach
+##
+.PHONY: attach-front
+attach-front:
+	docker exec -it $(FRONT_CONTAINER_NAME) /bin/bash
+
+.PHONY: attach-server
+attach-server:
+	docker exec -it $(SERVER_CONTAINER_NAME) /bin/bash
+
+.PHONY: attach-db
 attach-db:
 	docker exec -it $(DB_CONTAINER_NAME) /bin/bash
 
+.PHONY: attach-proxy
+attach-proxy:
+	docker exec -it $(PROXY_CONTAINER_NAME) /bin/bash
 
+.PHONY: attach-redis
+attach-redis:
+	docker exec -it $(REDIS_CONTAINER_NAME) redis-cli
+
+
+
+##
+# scenario test
+##
+.PHONY: scenario-test
+scenario-test:
+	k6 run scenario.js 
+
+
+##
 # message from doer
+##
+.PHONY: doer
 doer:
 	@echo ""
 	@echo "do'er saiko---!!!!"
 	@echo ""
 
 
+##
+# PHONY
+##
 .PHONY: all start build restart down \
 attach-db delete-db \
 clean fclean re lint doer
-

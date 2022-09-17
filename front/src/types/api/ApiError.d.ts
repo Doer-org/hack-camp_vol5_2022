@@ -1,0 +1,1 @@
+export interface IApiError { error: string } 

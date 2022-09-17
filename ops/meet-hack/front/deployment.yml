@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: meet-hack
+  labels:
+    name: meet-hack
+spec:
+  # replicas: 3
+  selector:
+    matchLabels:
+      app: meet-hack
+  template:
+    metadata:
+      labels:
+        app: meet-hack
+    spec:
+      containers:
+      - name: meet-hack
+        image: gcr.io/meethack-dev-362310/meet-hack@sha256:2f94441b495eeb260a858bba30ff1e5fba9680c19a7133d2216124869c79d411
+        imagePullPolicy: Always
+        ports:
+          - containerPort: 80
+
+        # コンテナが動いているか
+        # 動いていない場合はコンテナが再起動される
+        livenessProbe:
+          exec:
+            command:
+            - cat
+            - /usr/share/nginx/html/index.html
+          initialDelaySeconds: 30 # 最初にチェックするまでの待機時間
+          periodSeconds: 60       # チェックする頻度
+
+        # コンテナがリクエストに応答できるかを判断
+        # 応答できない場合はリクエストが送られてこないようになる
+        readinessProbe:
+          httpGet:                # HTTPによるチェック
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 60

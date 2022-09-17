@@ -1,28 +1,45 @@
 package usecase
 
 import (
-	"github.com/Doer-org/hack-camp_vol5_2022/server/domain"
-	"github.com/Doer-org/hack-camp_vol5_2022/server/repository"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/entity"
+	"github.com/Doer-org/hack-camp_vol5_2022/server/domain/repository"
 	"github.com/Doer-org/hack-camp_vol5_2022/server/utils/helper"
 )
 
-func GetAllRoom() []domain.Room {
-	rooms := repository.GetAllRoom()
+type roomUsecase struct {
+	repo repository.RoomRepository
+}
+
+type RoomUsecase interface {
+	GetAllRoom() []entity.Room
+	NewRoom(name string, max_count int) entity.Room
+	GetRoomByID(id string) entity.Room
+	ChangeRoomStatus(id string) entity.Room
+}
+
+func NewRoomUsecase(repo repository.RoomRepository) RoomUsecase {
+	return roomUsecase{
+		repo: repo,
+	}
+}
+
+func (uc roomUsecase) GetAllRoom() []entity.Room {
+	rooms := uc.repo.GetAllRoom()
 	return rooms
 }
 
-func NewRoom(name string, max_count int) domain.Room {
+func (uc roomUsecase) NewRoom(name string, max_count int) entity.Room {
 	id := helper.GetHashId()
-	room := repository.NewRoom(id, name, max_count)
+	room := uc.repo.NewRoom(id, name, max_count)
 	return room
 }
 
-func GetRoomByID(id string) domain.Room {
-	room := repository.GetRoomByID(id)
+func (uc roomUsecase) GetRoomByID(id string) entity.Room {
+	room := uc.repo.GetRoomByID(id)
 	return room
 }
 
-func ChangeRoomStatus(id string) domain.Room {
-	room := repository.ChangeRoomStatus(id)
+func (uc roomUsecase) ChangeRoomStatus(id string) entity.Room {
+	room := uc.repo.ChangeRoomStatus(id)
 	return room
 }
