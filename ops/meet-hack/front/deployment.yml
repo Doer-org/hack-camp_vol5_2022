@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: meet-hack
-        image: gcr.io/meethack-dev-362310/meet-hack@sha256:5bccb0a096d4ea727d9e257bc82d81446a32c1046351884bdfdef5dda2e2ee80
+        image: gcr.io/meethack-dev-362310/meet-hack@sha256:2f94441b495eeb260a858bba30ff1e5fba9680c19a7133d2216124869c79d411
         imagePullPolicy: Always
         ports:
           - containerPort: 80
