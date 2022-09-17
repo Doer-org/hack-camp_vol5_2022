@@ -31,6 +31,12 @@ func (uR userRepository) Save(user *entity.User) error {
 
 // ユーザを更新
 func (uR userRepository) Update(user *entity.User) error {
-	err := uR.db.Conn.Model(user).Updates(user).Error
+	err := uR.db.Conn.Model(user).Updates(entity.User{
+		Name: user.Name,
+		Comment: user.Comment,
+		Lang: user.Lang,
+		Github: user.Github,
+		Twitter: user.Twitter,
+	}).Error
 	return err
 }
