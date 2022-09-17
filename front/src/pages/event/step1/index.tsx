@@ -56,15 +56,21 @@ export const EventStep1: FC = () => {
       setLang(userInfo.lang)
       setGithub(userInfo.github)
       setTwitter(userInfo.twitter)
-      setComment(userInfo.comment)
-    } else {
+      setComment(userInfo.comment) 
+    }
+    else {
       setName(formStep1.name)
       setLang(formStep1.lang)
       setGithub(formStep1.github)
       setTwitter(formStep1.twitter)
-      setComment(formStep1.comment)
+      setComment(formStep1.comment) 
     }
-
+    // ユーザ情報をとってきて自動入力
+    // setName(formStep1.name)
+    // setLang(formStep1.lang)
+    // setGithub(formStep1.github)
+    // setTwitter(formStep1.twitter)
+    // setComment(formStep1.comment)
   }, [])
 
   return (
