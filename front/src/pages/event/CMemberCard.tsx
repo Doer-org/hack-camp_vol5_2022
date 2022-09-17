@@ -16,9 +16,9 @@ export const CMemberCard: FC<IProps> = ({ member }) => {
           {member.name}
         </span>
       </div>
-      <div className={"w-16"}>
+      <div className={"w-32"}>
         <img
-          className={"h-32 rounded-full border-4 border-gray-200 lg:h-16 lg:w-16 lg:border-2"}
+          className={"h-32 w-32 rounded-full border-4 border-gray-200 lg:h-16 lg:w-16 lg:border-2"}
           src={member.github === "" ? Bot : `https://github.com/${member.github}.png`}
           alt="プロフィール画像"
         />
