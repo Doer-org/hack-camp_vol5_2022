@@ -10,14 +10,14 @@ interface IProps {
 export const CMemberCard: FC<IProps> = ({ member }) => {
   return (
     <div className={"relative flex h-64 border border-thin-purple bg-white py-10 px-12 shadow-md shadow-gray-300 lg:h-40 lg:py-3 lg:px-5"}>
-      <div>
-        <span className={"block text-4xl lg:text-2xl"}>
+      <div className={"mr-auto flex-1"}>
+        <span className={"text-4xl lg:text-2xl"}>
           {member.name}
         </span>
       </div>
-      <div className={"ml-auto"}>
+      <div className={"w-16"}>
         <img
-          className={"h-32 w-32 rounded-full border-4 border-gray-200 lg:h-16 lg:w-16 lg:border-2"}
+          className={"h-32 rounded-full border-4 border-gray-200 lg:h-16 lg:w-16 lg:border-2"}
           src={`https://github.com/${member.github}.png`}
           alt="プロフィール画像"
         />

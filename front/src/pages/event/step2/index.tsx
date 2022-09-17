@@ -30,6 +30,16 @@ export const EventStep2: FC = () => {
   const form = useSelector(state => state.form)
   const formStep2 = useSelector(state => state.form.step2)
 
+  // 前の画面へ
+  const prev = (): void => {
+    dispatch(setStep2({ question }))
+    if (roomID === null) {
+      navigate("/event/new")
+      return
+    }
+    navigate(`/event/step1?room=${roomID}`)
+  }
+
   const next = (): void => {
     dispatch(setStep2({ question }))
 
@@ -71,8 +81,13 @@ export const EventStep2: FC = () => {
           <BaseInput name={"他の人に聞いてみたい質問"} placeholder={"地元のおすすめの観光地を教えてください！"} setState={setQuestion} value={question} />
           <FormValidation message={"他の人に聞いてみたい質問は必須項目です"} isValid={validationSchema.question} isShow={validation.isValidateShow}/>
         </div>
-        <div onClick={next}>
-          <BaseRectButton text={"準備完了！"} />
+        <div className={"space-y-6"}>
+          <div onClick={prev}>
+            <BaseRectButton isWhite={true} text={"前のページへ"} />
+          </div>
+          <div onClick={next}>
+            <BaseRectButton text={"準備完了！"} />
+          </div>
         </div>
       </BaseStepWindow>
     </EventBackground>

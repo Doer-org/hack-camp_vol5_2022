@@ -40,6 +40,14 @@ export const EventQuestions: FC = () => {
     setQuestions(questions)
   }
 
+  // bot の発言の定義
+  const createBotText = (mode: "question"): string => {
+    if (mode === "question") {
+      return `${currentMember?.name ?? ""} さん！ 「${currentQuestion?.question ?? ""}」 について教えてほしいぽ！`
+    }
+    return ""
+  }
+
   // 質問の選定
   const selectQuestion = (): void => {
     if (members.length === 0) {
@@ -102,11 +110,11 @@ export const EventQuestions: FC = () => {
                   交流タイム
                 </h2>
                 <p className={"mb-20 block text-center text-3xl leading-10 tracking-wide text-gray-400 lg:mb-10 lg:text-base"}>
-                  参加しているメンバーが作成した質問をランダムで表示します．
+                  参加しているメンバーが作成した質問をランダムで表示します。
                   選ばれた人は回答しましょう！
                 </p>
                 <div className={"space-y-12 lg:space-y-6"}>
-                  <SecQuestion question={currentQuestion?.question ?? ""} />
+                  <SecQuestion text={createBotText("question")} />
                   {
                     typeof currentMember !== "undefined"
                       ?
