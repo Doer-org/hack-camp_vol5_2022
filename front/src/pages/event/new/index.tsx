@@ -70,7 +70,7 @@ export const EventNew: FC = () => {
           </div>
           <RoomSliderBar value={participant} setState={setParticipant} />
           <span className="text-2xl text-gray-400 lg:text-xs">
-            ※ 人数はあとからでも変更できます。
+            ※ 参加人数ちょうどでなくてもイベントを進行できます。
           </span>
         </div>
         <div onClick={createRoom}>
@@ -103,9 +103,16 @@ export const EventNew: FC = () => {
               <img className="h-12 lg:h-6" src={IconCopy} alt="clipboard" />
             </button>
             {isCopied ? (
-              <span className="mt-5 block text-3xl text-doer-purple lg:mt-1 lg:text-base">
-                URLをコピーしました！
-              </span>
+              <>
+                <span className="mt-5 block text-3xl text-doer-purple lg:mt-1 lg:text-base">
+                  URLをコピーしました！
+                </span>
+                <span className="mt-5 block text-3xl text-doer-purple lg:mt-1 lg:text-base">
+                  <a className="border-b-2 border-doer-purple" href={`${window.location.origin}/event/step0?room=${roomInfo.id}`} target="_blank">
+                    こちらからルームにアクセスする
+                  </a>
+                </span>
+              </>
             ) : (
               <></>
             )}

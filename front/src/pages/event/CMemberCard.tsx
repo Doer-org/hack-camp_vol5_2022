@@ -2,6 +2,7 @@ import { FC } from "react"
 import IconGithub from "@/assets/img/github-logo.png"
 import IconTwitter from "@/assets/img/twitter-logo.png"
 import { IMember } from "@/types/domain/member"
+import Bot from "@/assets/img/bot_pc.png"
 
 interface IProps {
   member: IMember
@@ -18,7 +19,7 @@ export const CMemberCard: FC<IProps> = ({ member }) => {
       <div className={"w-16"}>
         <img
           className={"h-32 rounded-full border-4 border-gray-200 lg:h-16 lg:w-16 lg:border-2"}
-          src={`https://github.com/${member.github}.png`}
+          src={member.github === "" ? Bot : `https://github.com/${member.github}.png`}
           alt="プロフィール画像"
         />
       </div>

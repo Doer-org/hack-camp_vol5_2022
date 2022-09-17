@@ -2,6 +2,7 @@ import { FC } from "react"
 import IconGithub from "@/assets/img/github-logo.png"
 import IconTwitter from "@/assets/img/twitter-logo.png"
 import { IMember } from "@/types/domain/member"
+import Bot from "@/assets/img/bot_pc.png"
 
 interface IProps {
   member: IMember
@@ -15,13 +16,13 @@ export const SecRespondent: FC<IProps> = ({ member }) => {
           ?
           <img
             className={"mx-auto h-36 w-36 rounded-full border-4 border-gray-200 lg:h-20 lg:w-20"}
-            src={`https://github.com/${member.github}.png`}
+            src={member.github === "" ? Bot : `https://github.com/${member.github}.png`}
             alt="プロフィール画像"
           />
           :
           <img
             className={"mx-auto h-36 w-36 rounded-full border-4 border-gray-200 lg:h-20 lg:w-20"}
-            src={"https://avatars.githubusercontent.com/u/90210216?s=200&v=4"}
+            src={member.github === "" ? Bot : `https://github.com/${member.github}.png`}
             alt="プロフィール画像"
           />
       }
