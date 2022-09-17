@@ -3,7 +3,7 @@ import { IMember } from "@/types/data/member"
 export const memberData: IMember[] = [
   {
     name: 'kazuki-komori',
-    role: 'Backend/ Infra',
+    role: 'Frontend/ Backend',
     github: 'kazuki-komori',
     twitter: 'D_kazuyan'
   },
