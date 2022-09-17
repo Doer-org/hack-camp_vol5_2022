@@ -26,11 +26,11 @@ export const CCircular: FC<IProps> = ({ percent }) => {
   }, [])
 
   return (
-    <div className={"-rotate-90 items-center justify-center overflow-hidden rounded-full"}>
+    <div className={"items-center justify-center overflow-hidden rounded-full"}> 
       {
         device === "pc"
           ?
-          <svg className="mx-auto h-40 w-40">
+          <svg className="mx-auto h-40 w-40 -rotate-90">
             <circle
               className="text-gray-200"
               strokeWidth="15"
@@ -71,7 +71,7 @@ export const CCircular: FC<IProps> = ({ percent }) => {
             }
           </svg>
           :
-          <svg className="mx-auto h-96 w-96">
+          <svg className="mx-auto h-96 w-96 -rotate-90">
             <circle
               className="text-gray-200"
               strokeWidth="20"
