@@ -12,7 +12,7 @@ export const SecTop: FC = () => {
         <p className="text-center text-7xl font-bold leading-relaxed text-doer-purple lg:text-4xl">
           さぁ、新しい仲間と
           <br className="lg:hidden"/>
-          Hackしよう。
+          出会おう。
         </p>
         <img src={logo} alt="MeetHackのロゴ" className="mx-auto my-12 lg:h-64" />
         <h2 className="mx-2 mt-16 text-center text-4xl leading-relaxed tracking-wide text-gray-800 lg:mt-8 lg:text-xl">

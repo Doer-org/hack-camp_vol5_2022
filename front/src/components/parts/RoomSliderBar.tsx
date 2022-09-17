@@ -26,7 +26,7 @@ export const RoomSliderBar: FC<IProps> = ({setState, value}) => {
         max={15}
         type="range"
         list="n_human"
-        className="mb-6 h-5 w-full cursor-pointer appearance-none rounded-3xl bg-gray-300 lg:h-1.5 lg:bg-gray-200"
+        className="mb-6 h-8 w-full cursor-pointer appearance-none rounded-3xl bg-gray-300 lg:h-3 lg:bg-gray-200"
       />
     </div>
   )
