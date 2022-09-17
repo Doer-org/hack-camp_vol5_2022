@@ -49,17 +49,16 @@ export const EventStep1: FC = () => {
       navigate("/event/new")
       return
     }
-    // TODO @aoki ログインチェックして，ログインされている場合は，APIでプロフィール情報を取ってくる
+
+    // ログインしている場合は，DBの情報をセット
     if (userInfo.uid !== "") {
-    //  ログインされているとき
       setName(userInfo.name)
       setLang(userInfo.lang)
       setGithub(userInfo.github)
       setTwitter(userInfo.twitter)
       setComment(userInfo.comment) 
     }
-    else { 
-      // TODO @aoki ログインチェックして，ログインされていない場合は，現状の実装
+    else {
       setName(formStep1.name)
       setLang(formStep1.lang)
       setGithub(formStep1.github)
@@ -72,7 +71,6 @@ export const EventStep1: FC = () => {
     // setGithub(formStep1.github)
     // setTwitter(formStep1.twitter)
     // setComment(formStep1.comment)
-
   }, [])
 
   return (
