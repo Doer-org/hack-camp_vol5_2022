@@ -8,8 +8,8 @@ interface IProps {
 export const StepBox: FC<IProps> = ({ title, children }) => {
   return (
     <div>
-      <p className="text-xl font-semibold sm:text-base">{title}</p>
-      <div className="text-sm text-gray-700">{children}</div>
+      <p className="font-semibold text-3xl lg:text-xl mb-4">{title}</p>
+      <div className="text-2xl lg:text-sm text-gray-700">{children}</div>
     </div>
   )
 }

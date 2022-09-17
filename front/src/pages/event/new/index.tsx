@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useState,useEffect } from "react"
 import { BaseStepWindow } from "@/components/parts/BaseStepWindow"
 import iconRoom from "@/assets/img/icon_room.png"
 import { BaseInput } from "@/components/parts/BaseInput"
@@ -11,11 +11,13 @@ import { FormValidation } from "@/components/parts/FormValidation"
 import { useValidation } from "@/hooks/useValidation"
 import QRCode from 'qrcode.react'
 
+
 export const EventNew: FC = () => {
   const [roomName, setRoomName] = useState<string>("")
   const [participant, setParticipant] = useState<number>(2)
   const [roomInfo, setRoomInfo] = useState<IPostCreateNewRoomOutput>()
   const [isCopied, setIsCopied] = useState<boolean>(false)
+  const [load, setLoad] = useState<boolean>(false)
 
   // validation 条件
   const validateSchema = {
@@ -26,6 +28,7 @@ export const EventNew: FC = () => {
   const validation = useValidation(validateSchema)
 
   const createRoom = async (): Promise<void> => {
+    setLoad(true ? validateSchema.roomName : false)
     validation.setIsValidateShow(true)
     // validation check が OK のとき
     if (validation.formStatusOK()) {
@@ -77,7 +80,7 @@ export const EventNew: FC = () => {
           <BaseRectButton text="ルームURL発行" />
         </div>
         {typeof roomInfo === 'undefined' ? (
-          <></>
+          <><Load load={load && validateSchema.roomName} /></>
         ) : (
           <div className="relative mt-20 lg:mt-10">
             <div>
@@ -120,5 +123,20 @@ export const EventNew: FC = () => {
         )}
       </BaseStepWindow>
     </section>
+  )
+}
+
+const Load:React.FC<{load:boolean}> = ({load})=>{
+  useEffect(()=>{},[load])
+  return (
+    load ? (
+    <div className="relative mt-32 lg:mt-10">
+      <div className="flex justify-center">
+        <div className="animate-spin h-24 w-24 border-4 border-doer-purple rounded-full border-t-transparent"></div>
+      </div>
+    </div>
+    ):(
+      <></>
+    )
   )
 }

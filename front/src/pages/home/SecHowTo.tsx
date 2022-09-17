@@ -22,7 +22,7 @@ export const SecHowTo: FC = () => {
       {/* ＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊ */}
 
       <div className="mx-auto px-2 py-16 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8 lg:py-20">
-        <div className="mx-auto grid max-w-2xl">
+        <div className="mx-auto grid max-w-6xl lg:max-w-2xl">
           {/* Step1 */}
           <div className="flex">
             <div className="mr-6 flex flex-col items-center">
@@ -42,7 +42,7 @@ export const SecHowTo: FC = () => {
                 </StepImage>
               </div>
               <StepBox title="ルームを作る">
-                <p className="text-base text-gray-700 md:text-sm">
+                <p className="text-gray-700 text-2xl lg:text-sm">
                   <Link
                     className="inline-block text-doer-purple underline"
                     to={'/CreateRoom'}
@@ -75,7 +75,7 @@ export const SecHowTo: FC = () => {
                 </StepImage>
               </div>
               <StepBox title="プロフィールを登録">
-                <p className="text-base text-gray-700 md:text-sm">
+                <p className="text-gray-700 text-2xl lg:text-sm">
                   プロフィールを登録してください。GitHubからログインできます。
                   ログインすると、前回入力した履歴が編集できて便利です。
                 </p>
@@ -101,13 +101,13 @@ export const SecHowTo: FC = () => {
                   />
                 </StepImage>
               </div>
-              <StepBox title="URLからルームに入る">
-                <p className="text-base text-gray-700 md:text-sm">
+              <StepBox title="ルームに入る">
+                <p className="text-gray-700 text-2xl lg:text-sm">
                   みんながルームに入るまで待ちましょう。
                   全員が入ると「準備完了」と表示されるので、スタートボタンを押しましょう。
                   <br />
                   <br />
-                  <span className="text-xs">
+                  <span className="text-gray-500 text-xl lg:text-sm">
                     ＊人数が、ルーム作成時の設定人数より少なくてもスタートできます。
                   </span>
                 </p>
@@ -134,7 +134,7 @@ export const SecHowTo: FC = () => {
                 </StepImage>
               </div>
               <StepBox title="自己紹介スタート">
-                <p className="text-base text-gray-700 md:text-sm">
+                <p className="text-gray-700 text-2xl lg:text-sm">
                   ランダムでメンバーが呼び出されます。
                   <br />
                   自己紹介を始めてください。
