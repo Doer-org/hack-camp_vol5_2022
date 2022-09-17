@@ -1,28 +1,34 @@
-import {IMember} from "@/types/data/member"
+import { IMember } from '@/types/data/member'
 
 export const memberData: IMember[] = [
   {
-    name: "mahiro72",
-    role: "Backend/ Infrastructure",
-    github: "mahiro72",
-    twitter: "sino0042900",
+    name: 'kazuki-komori',
+    role: 'Backend/ Infra',
+    github: 'kazuki-komori',
+    twitter: 'D_kazuyan'
   },
   {
-    name: "hikari-8",
-    role: "Backend/ Leader",
-    github: "hikari-8",
-    twitter: "hikari_pint",
+    name: 'mahiro72',
+    role: 'Backend/ Infra',
+    github: 'mahiro72',
+    twitter: 'sino0042900'
   },
   {
-    name: "kouta-fd",
-    role: "Frontend/ Design",
-    github: "kouta-fd",
-    twitter: "KOUTA_FD",
+    name: 'kouta-fd',
+    role: 'Frontend/ Design',
+    github: 'kouta-fd',
+    twitter: 'KOUTA_FD'
   },
   {
-    name: "Yaaagi",
-    role: "Frontend/ Design",
-    github: "Yaaagi",
-    twitter: "yagiyagioyagi",
+    name: 'RyushiAok',
+    role: 'Frontend/ Logic',
+    github: 'RyushiAok',
+    twitter: 'TAKA_AOK'
   },
+  {
+    name: 'hikari-8',
+    role: 'Frontend/ Design',
+    github: 'hikari-8',
+    twitter: 'hikari_pint'
+  }
 ]
