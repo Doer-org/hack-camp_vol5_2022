@@ -43,7 +43,7 @@ export const EventQuestions: FC = () => {
   // bot の発言の定義
   const createBotText = (mode: "question"): string => {
     if (mode === "question") {
-      return `${currentMember?.name ?? ""} さん！ 「${currentQuestion?.question ?? ""}」 について教えてほしいぽ！`
+      return `${currentMember?.name ?? ""} さん！「${currentQuestion?.question ?? ""}」 について教えてほしいぽ！<br />ついでに自己紹介なんかも！`
     }
     return ""
   }
