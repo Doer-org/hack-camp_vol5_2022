@@ -4,7 +4,6 @@ interface IProps {
   text: string
   isWhite?: boolean
   onClick?: () => void
-  setLoad?:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const BaseRectButton: FC<IProps> = ({ text, isWhite= false, onClick }) => {
